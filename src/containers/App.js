@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import {Layout, Menu, Breadcrumb, Icon} from 'antd'
+import {Layout, Menu, Breadcrumb, Icon, BackTop} from 'antd'
 
 const {Header, Content, Footer, Sider} = Layout;
 const SubMenu = Menu.SubMenu;
@@ -70,9 +70,10 @@ class App extends Component {
                         </div>
                     </Content>
                     <Footer style={{textAlign: 'center'}}>
-                        Ant Design ©2016 Created by Ant UED
+                        Campus Card System &copy;2018 Created by Belief_RC
                     </Footer>
                 </Layout>
+                <BackTop/>
             </Layout>
         );
     }
