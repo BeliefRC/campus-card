@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {Layout, Menu, Breadcrumb, Icon, BackTop} from 'antd'
+import moment from 'moment';
+import 'moment/locale/zh-cn';
 
+moment.locale('zh-cn');
 const {Header, Content, Footer, Sider} = Layout;
 const SubMenu = Menu.SubMenu;
 
