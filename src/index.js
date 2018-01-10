@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import {hashHistory} from 'react-router'
+// import {Provider} from 'react-redux'
+import RouterMap from './router/RouterMap'
+import './static/css/common.less';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<RouterMap history={hashHistory}/>, document.getElementById('root'));
 registerServiceWorker();
