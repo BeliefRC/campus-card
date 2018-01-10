@@ -12,7 +12,6 @@ export default class Home extends React.Component {
         this.state = {};
     }
 
-
     render() {
         return (
             <Row style={{marginTop:'20px'}}>

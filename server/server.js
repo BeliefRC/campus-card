@@ -8,6 +8,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const app = express();
 const Router = require('./router/Router');
+console.log(process.env.NODE_ENV);
 let port = process.env.PORT || 3001,
     env = process.env.NODE_ENV || 'development',
     allowDomain = "http://localhost:3000";
