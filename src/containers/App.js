@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import {Layout, Menu, Breadcrumb, Icon, BackTop} from 'antd'
+import {Layout, Menu, Breadcrumb, Icon, Avatar, BackTop} from 'antd'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
+import menuData from '../viewDatas/menu'
+import logo from '../static/imgs/logo.svg'
+import './App.less'
+// import userInfo from "../reducers/userInfo";
 
 moment.locale('zh-cn');
 const {Header, Content, Footer, Sider} = Layout;
@@ -14,7 +18,14 @@ class App extends Component {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         // 初始状态
-        this.state = {collapsed: false};
+        this.state = {
+            collapsed: false,
+            userInfo: {
+                username: '请登录',
+                isLogin: true,
+                isAdmin: false
+            }
+        };
     }
 
     onCollapse = (collapsed) => {
@@ -23,6 +34,49 @@ class App extends Component {
     };
 
     render() {
+        let {userInfo} = this.state;
+        let LeftNav = menuData.map(item => {
+            if (item.children && item.children.length) {
+                if (item.key === 'admin') {
+                    if (userInfo.isAdmin) {
+                        return (
+                            <SubMenu
+                                key={item.key}
+                                title={<span><Icon type={item.icon}/><span>{item.title}</span></span>}
+                            >
+                                {item.children.map(subItem => {
+                                    return (
+                                        <Menu.Item key={subItem.key}>{subItem.title}</Menu.Item>
+                                    );
+                                })}
+                            </SubMenu>
+                        )
+                    } else {
+                        return true
+                    }
+                } else {
+                    return (
+                        <SubMenu
+                            key={item.key}
+                            title={<span><Icon type={item.icon}/><span>{item.title}</span></span>}
+                        >
+                            {item.children.map(subItem => {
+                                return (
+                                    <Menu.Item key={subItem.key}>{subItem.title}</Menu.Item>
+                                );
+                            })}
+                        </SubMenu>
+                    )
+                }
+            } else {
+                return (<Menu.Item key={item.key}>
+                    <Icon type={item.icon}/>
+                    <span>{item.title}</span>
+                </Menu.Item>)
+            }
+
+        });
+
         return (
             <Layout style={{minHeight: '100vh'}}>
                 <Sider
@@ -30,39 +84,18 @@ class App extends Component {
                     collapsed={this.state.collapsed}
                     onCollapse={this.onCollapse}
                 >
-                    <div className="logo"/>
-                    <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-                        <Menu.Item key="1">
-                            <Icon type="pie-chart"/>
-                            <span>Option 1</span>
-                        </Menu.Item>
-                        <Menu.Item key="2">
-                            <Icon type="desktop"/>
-                            <span>Option 2</span>
-                        </Menu.Item>
-                        <SubMenu
-                            key="sub1"
-                            title={<span><Icon type="user"/><span>User</span></span>}
-                        >
-                            <Menu.Item key="3">Tom</Menu.Item>
-                            <Menu.Item key="4">Bill</Menu.Item>
-                            <Menu.Item key="5">Alex</Menu.Item>
-                        </SubMenu>
-                        <SubMenu
-                            key="sub2"
-                            title={<span><Icon type="team"/><span>Team</span></span>}
-                        >
-                            <Menu.Item key="6">Team 1</Menu.Item>
-                            <Menu.Item key="8">Team 2</Menu.Item>
-                        </SubMenu>
-                        <Menu.Item key="9">
-                            <Icon type="file"/>
-                            <span>File</span>
-                        </Menu.Item>
+                    <div className="logo">
+                        <img src={logo} alt="logo"/>
+                    </div>
+                    <Menu theme="dark" defaultSelectedKeys={['notice']} defaultOpenKeys={['admin', 'userCenter']}
+                          mode="inline">
+                        {LeftNav}
                     </Menu>
                 </Sider>
                 <Layout>
-                    <Header style={{background: '#fff', padding: 0}}/>
+                    <Header style={{background: '#fff', padding: 0}}>
+                        <Avatar icon="user"/>
+                    </Header>
                     <Content style={{margin: '0 16px'}}>
                         <Breadcrumb style={{margin: '16px 0'}}>
                             <Breadcrumb.Item>User</Breadcrumb.Item>
