@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin'
+import {hashHistory} from 'react-router'
 import {Layout, Menu, Breadcrumb, Icon, Avatar, BackTop} from 'antd'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
@@ -23,7 +24,7 @@ class App extends Component {
             userInfo: {
                 username: '请登录',
                 isLogin: true,
-                isAdmin: false
+                isAdmin: true
             }
         };
     }
@@ -31,6 +32,13 @@ class App extends Component {
     onCollapse = (collapsed) => {
         console.log(collapsed);
         this.setState({collapsed});
+    };
+
+    onSelectHandler = (arg) => {
+        // { item, key, selectedKeys }
+        if (hashHistory.getCurrentLocation().pathname !== arg.key) {
+            hashHistory.push(arg.key)
+        }
     };
 
     render() {
@@ -87,8 +95,8 @@ class App extends Component {
                     <div className="logo">
                         <img src={logo} alt="logo"/>
                     </div>
-                    <Menu theme="dark" defaultSelectedKeys={['notice']} defaultOpenKeys={['admin', 'userCenter']}
-                          mode="inline">
+                    <Menu theme="dark" defaultSelectedKeys={['/']} defaultOpenKeys={['admin', 'userCenter']}
+                          mode="inline" onSelect={this.onSelectHandler}>
                         {LeftNav}
                     </Menu>
                 </Sider>

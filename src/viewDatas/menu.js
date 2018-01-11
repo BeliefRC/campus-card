@@ -8,25 +8,25 @@ const menuData = [
         children: [
             {
                 title: '持卡人列表',
-                key: 'cardholderList',
+                key: 'admin/cardholderList',
             }, {
                 title: '通知公告列表',
-                key: 'noticeList',
+                key: 'admin/noticeList',
             }, {
                 title: '充值缴费',
-                key: 'recharge',
+                key: 'admin/recharge',
             }, {
                 title: '挂失登记',
-                key: 'reportLoss',
+                key: 'admin/reportLoss',
             }, {
                 title: '新增卡',
-                key: 'addCard',
+                key: 'admin/addCard',
             }
         ]
     },
     {
         title: '通知公告',
-        key: 'notice',
+        key: '/',
         icon: 'notification',
         admin: false,
     },
@@ -38,20 +38,20 @@ const menuData = [
         children: [
             {
                 title: '流水查询',
-                key: 'billList',
+                key: 'userCenter/billList',
             }, {
                 title: ' 自助充值',
-                key: 'MyRecharge',
+                key: 'userCenter/MyRecharge',
             }, {
                 title: '我要挂失',
-                key: 'MyReportLoss',
+                key: 'userCenter/MyReportLoss',
             }
         ]
     },
 
     {
         title: '使用说明',
-        key: 'instructions',
+        key: 'instruction',
         icon: 'exception',
         admin: false,
     }
