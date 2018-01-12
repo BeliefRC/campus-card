@@ -1,8 +1,10 @@
 import * as actionTypes from '../constants/userInfo'
 
 export default function userInfo(state = {
-    user: '请登录',
-    isLogin: false
+    user: '',
+    isLogin: false,
+    isAdmin: false,
+    code: ''
 }, action) {
     switch (action.type) {
         case actionTypes.USER_INFO_UPDATE:

@@ -3,6 +3,9 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {Layout, BackTop} from 'antd'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import * as userInfoActionsFromOtherFile from '../actions/userInfo'
 import LeftAside from "../components/LeftAside/LeftAside";
 import HomeHeader from '../components/HomeHeader/HomeHeader'
 import HomeFooter from "../components/HomeFooter/HomeFooter";
@@ -14,6 +17,7 @@ const layoutStyle = {minHeight: '100vh'},
     ContentStyle = {margin: '0 16px'},
     ContentDivStyle = {padding: 24, background: '#fff', minHeight: 360};
 
+// @connect(mapStateToProps, mapDispatchToProps)
 class App extends Component {
     // 构造
     constructor(props, context) {
@@ -26,11 +30,11 @@ class App extends Component {
     render() {
         return (
             <Layout style={layoutStyle}>
-                <LeftAside/>
+                <LeftAside userInfo={this.props.userInfo}/>
                 <Layout>
-                    <HomeHeader/>
+                    <HomeHeader userInfo={this.props.userInfo}/>
                     <Content style={ContentStyle}>
-                        <HomeBreadcrumb path='个人中心/流水充值'/>
+                        <HomeBreadcrumb/>
                         <div style={ContentDivStyle}>
                             {this.props.children}
                         </div>
@@ -43,4 +47,20 @@ class App extends Component {
     }
 }
 
-export default App;
+
+function mapStateToProps(state) {
+    return {
+        userInfo: state.userInfo
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        userInfoActions: bindActionCreators(userInfoActionsFromOtherFile, dispatch)
+    }
+}
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(App)
+
