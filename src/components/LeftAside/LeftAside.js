@@ -22,6 +22,7 @@ export default class LeftAside extends React.Component {
     }
 
     componentWillMount() {
+        //从缓存汇中取selectedKey并设置
         let selectedKey = LocalStore.getItem('selectedKey');
         let {menuKey, menuKeyActions} = this.props;
         if (selectedKey) {
@@ -35,6 +36,7 @@ export default class LeftAside extends React.Component {
         this.setState({collapsed});
     };
 
+    //点击左侧菜单
     onSelectHandler = (arg) => {
         // { item, key, selectedKeys }
         let {menuKey, menuKeyActions} = this.props;

@@ -1,5 +1,5 @@
+const Card = require('../controllers/Card');
+
 module.exports = app => {
-    app.get('/', (req, res) => {
-        res.end(`Hello World`)
-    });
+    app.post('/card/login', Card.login)
 };

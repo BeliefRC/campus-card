@@ -17,6 +17,7 @@ export default class HomeHeader extends React.Component {
         this.state = {};
     }
 
+    //点击用户相关按钮
     static handleClick(e) {
         let {userInfo, modalVisible, modalVisibleActions} = this.props;
         switch (e.key) {

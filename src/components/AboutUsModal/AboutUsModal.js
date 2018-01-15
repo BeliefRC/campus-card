@@ -12,6 +12,7 @@ export default class LoginModal extends React.Component {
         };
     }
 
+    //点击确认
     handleOk = () => {
         let {modalVisible, modalVisibleActions} = this.props;
         modalVisible.aboutUsVisible = false;
@@ -19,6 +20,7 @@ export default class LoginModal extends React.Component {
         modalVisibleActions.update(modalVisible);
     };
 
+    //点击取消
     handleCancel = () => {
         let {modalVisible, modalVisibleActions} = this.props;
         modalVisible.aboutUsVisible = false;

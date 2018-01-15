@@ -13,6 +13,7 @@ export default class HomeBreadcrumb extends React.Component {
         this.state = {};
     }
 
+    //根据路由的key找到菜单
     findTitleByKey(keyArr, menuArr) {
         {
             let {menuKey} = this.props;
