@@ -1,6 +1,8 @@
 import * as actionTypes from '../constants/menuKey'
 
-export default function userInfo(state = '/', action) {
+export default function userInfo(state = {
+    selectedKey: '/'
+}, action) {
     switch (action.type) {
         case actionTypes.MENU_KEY_UPDATE:
             return Object.assign({}, state, action.data);

@@ -10,7 +10,6 @@ import './style.less'
 const SubMenu = Menu.SubMenu;
 const {Sider} = Layout;
 
-
 export default class LeftAside extends React.Component {
     // 构造
     constructor(props, context) {
@@ -18,17 +17,16 @@ export default class LeftAside extends React.Component {
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         // 初始状态
         this.state = {
-            selectedKey: '/',
             collapsed: false,
         };
     }
 
     componentWillMount() {
         let selectedKey = LocalStore.getItem('selectedKey');
+        let {menuKey, menuKeyActions} = this.props;
         if (selectedKey) {
-            this.setState({
-                selectedKey
-            })
+            menuKey.selectedKey = selectedKey;
+            menuKeyActions.update(menuKey);
         }
     }
 
@@ -39,18 +37,21 @@ export default class LeftAside extends React.Component {
 
     onSelectHandler = (arg) => {
         // { item, key, selectedKeys }
+        let {menuKey, menuKeyActions} = this.props;
         if (hashHistory.getCurrentLocation().pathname !== arg.key) {
-            this.setState({
-                selectedKey: arg.key
-            });
+            //跟新redux中的状态
+            menuKey.selectedKey = arg.key;
+            menuKeyActions.update(menuKey);
+            //跳转
             hashHistory.push(arg.key);
+            //存储
             LocalStore.setItem('selectedKey', arg.key);
         }
     };
 
 
     render() {
-        let {selectedKey} = this.state,
+        let {menuKey} = this.props,
             {userInfo} = this.props,
             nav = menuData.map(item => {
                 if (item.children && item.children.length) {
@@ -109,7 +110,7 @@ export default class LeftAside extends React.Component {
                     <img src={logo} alt="logo"/>
                 </div>
                 <Menu theme="dark" defaultOpenKeys={['admin', 'userCenter']}
-                      selectedKeys={[selectedKey]}
+                      selectedKeys={[menuKey.selectedKey]}
                       mode="inline" onSelect={this.onSelectHandler}>
                     {nav}
                 </Menu>

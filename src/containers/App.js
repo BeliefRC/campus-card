@@ -6,6 +6,7 @@ import 'moment/locale/zh-cn';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import * as userInfoActionsFromOtherFile from '../actions/userInfo'
+import * as menuKeyActionsFromOtherFile from '../actions/menuKey'
 import LeftAside from "../components/LeftAside/LeftAside";
 import HomeHeader from '../components/HomeHeader/HomeHeader'
 import HomeFooter from "../components/HomeFooter/HomeFooter";
@@ -30,11 +31,12 @@ class App extends Component {
     render() {
         return (
             <Layout style={layoutStyle}>
-                <LeftAside userInfo={this.props.userInfo}/>
+                <LeftAside userInfo={this.props.userInfo} menuKey={this.props.menuKey}
+                           menuKeyActions={this.props.menuKeyActions}/>
                 <Layout>
                     <HomeHeader userInfo={this.props.userInfo}/>
                     <Content style={ContentStyle}>
-                        <HomeBreadcrumb/>
+                        <HomeBreadcrumb menuKey={this.props.menuKey}/>
                         <div style={ContentDivStyle}>
                             {this.props.children}
                         </div>
@@ -50,17 +52,19 @@ class App extends Component {
 
 function mapStateToProps(state) {
     return {
-        userInfo: state.userInfo
+        userInfo: state.userInfo,
+        menuKey: state.menuKey
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        userInfoActions: bindActionCreators(userInfoActionsFromOtherFile, dispatch)
+        userInfoActions: bindActionCreators(userInfoActionsFromOtherFile, dispatch),
+        menuKeyActions: bindActionCreators(menuKeyActionsFromOtherFile, dispatch)
     }
 }
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
 )(App)
-
