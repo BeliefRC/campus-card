@@ -7,6 +7,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import * as userInfoActionsFromOtherFile from '../actions/userInfo'
 import * as menuKeyActionsFromOtherFile from '../actions/menuKey'
+import * as modalVisibleActionsFromOtherFile from '../actions/modalVisible'
 import LeftAside from "../components/LeftAside/LeftAside";
 import HomeHeader from '../components/HomeHeader/HomeHeader'
 import HomeFooter from "../components/HomeFooter/HomeFooter";
@@ -34,7 +35,9 @@ class App extends Component {
                 <LeftAside userInfo={this.props.userInfo} menuKey={this.props.menuKey}
                            menuKeyActions={this.props.menuKeyActions}/>
                 <Layout>
-                    <HomeHeader userInfo={this.props.userInfo}/>
+                    <HomeHeader userInfo={this.props.userInfo} modalVisible={this.props.modalVisible}
+                                userInfoActions={this.props.userInfoActions}
+                                modalVisibleActions={this.props.modalVisibleActions}/>
                     <Content style={ContentStyle}>
                         <HomeBreadcrumb menuKey={this.props.menuKey}/>
                         <div style={ContentDivStyle}>
@@ -53,14 +56,16 @@ class App extends Component {
 function mapStateToProps(state) {
     return {
         userInfo: state.userInfo,
-        menuKey: state.menuKey
+        menuKey: state.menuKey,
+        modalVisible: state.modalVisible
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         userInfoActions: bindActionCreators(userInfoActionsFromOtherFile, dispatch),
-        menuKeyActions: bindActionCreators(menuKeyActionsFromOtherFile, dispatch)
+        menuKeyActions: bindActionCreators(menuKeyActionsFromOtherFile, dispatch),
+        modalVisibleActions: bindActionCreators(modalVisibleActionsFromOtherFile, dispatch)
     }
 }
 

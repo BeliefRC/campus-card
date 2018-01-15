@@ -26,7 +26,6 @@ export default class HomeBreadcrumb extends React.Component {
         (function loop(arr) {
             //循环路由key数组
             for (let j = 0; j < keyArr.length; j++) {
-
                 //避免非一级菜单时重复录入
                 //menuTitleArr.length为菜单层级树，如当length为1时，keyArr的第一项就不必再次作比较
                 if (menuTitleArr.length === (j + 1)) {

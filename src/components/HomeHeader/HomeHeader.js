@@ -1,6 +1,8 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {Layout, Avatar, Menu, Dropdown} from 'antd'
+import LoginModal from '../LoginModal/LoginModal'
+import AboutUsModal from '../AboutUsModal/AboutUsModal'
 import title from '../../static/imgs/campusCardTitle.png'
 import './style.less'
 
@@ -12,27 +14,41 @@ export default class HomeHeader extends React.Component {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         // 初始状态
-        this.state = {
-            userInfo: {
-                username: 'BeliefRC',
-                isLogin: false,
-                isAdmin: true
-            },
-        };
+        this.state = {};
+    }
+
+    static handleClick(e) {
+        let {userInfo, modalVisible, modalVisibleActions} = this.props;
+        switch (e.key) {
+            case 'login':
+                if (!userInfo.isLogin) {
+                    modalVisible.loginVisible = true;
+                    modalVisibleActions.update(modalVisible);
+                }
+                break;
+            case 'aboutUs':
+                modalVisible.aboutUsVisible = true;
+                modalVisibleActions.update(modalVisible);
+                break;
+            case 'logout':
+                break;
+            default:
+                break;
+        }
     }
 
     render() {
-        let {userInfo} = this.state;
+        let {userInfo, modalVisible, modalVisibleActions} = this.props;
         const menu = (
-            <Menu>
-                <Menu.Item key="0">
+            <Menu onClick={HomeHeader.handleClick.bind(this)}>
+                <Menu.Item key="login">
                     {userInfo.isLogin ? userInfo.username : '请登录'}
                 </Menu.Item>
-                <Menu.Item key="1">
+                <Menu.Item key="aboutUs">
                     关于我们
                 </Menu.Item>
                 <Menu.Divider/>
-                {userInfo.isLogin ? <Menu.Item key="3">退出登录</Menu.Item> : ''}
+                {userInfo.isLogin ? <Menu.Item key="logout">退出登录</Menu.Item> : ''}
             </Menu>
         );
         return (
@@ -41,6 +57,8 @@ export default class HomeHeader extends React.Component {
                 <Dropdown overlay={menu}>
                     <Avatar className='avatar' size="large" icon="user"/>
                 </Dropdown>
+                <LoginModal modalVisible={modalVisible} modalVisibleActions={modalVisibleActions}/>
+                <AboutUsModal modalVisible={modalVisible} modalVisibleActions={modalVisibleActions}/>
             </Header>
         )
     }
