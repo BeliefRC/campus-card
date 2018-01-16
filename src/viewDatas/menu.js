@@ -20,7 +20,7 @@ const menuData = [
                 key: 'admin/reportLoss',
             }, {
                 title: '新增卡',
-                key: 'admin/addCard',
+                key: 'admin/newCard',
             }
         ]
     },

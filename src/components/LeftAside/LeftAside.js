@@ -22,11 +22,16 @@ export default class LeftAside extends React.Component {
     }
 
     componentWillMount() {
+        console.log(hashHistory.getCurrentLocation().pathname);
         //从缓存汇中取selectedKey并设置
         let selectedKey = LocalStore.getItem('selectedKey');
         let {menuKey, menuKeyActions} = this.props;
         if (selectedKey) {
             menuKey.selectedKey = selectedKey;
+            menuKeyActions.update(menuKey);
+        } else {
+            LocalStore.setItem('selectedKey', '/');
+            menuKey.selectedKey = '/';
             menuKeyActions.update(menuKey);
         }
     }
@@ -53,8 +58,7 @@ export default class LeftAside extends React.Component {
 
 
     render() {
-        let {menuKey} = this.props,
-            {userInfo} = this.props,
+        let {menuKey, userInfo} = this.props,
             nav = menuData.map(item => {
                 if (item.children && item.children.length) {
                     switch (item.key) {

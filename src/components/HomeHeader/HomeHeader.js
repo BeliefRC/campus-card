@@ -56,7 +56,7 @@ export default class HomeHeader extends React.Component {
             <Header className='header'>
                 <img className='header_title' src={title} alt="校园一卡通平台"/>
                 <Dropdown overlay={menu}>
-                    <Avatar className='avatar' size="large" icon="user"/>
+                    <Avatar className='avatar float-right' size="large" icon="user"/>
                 </Dropdown>
                 <LoginModal modalVisible={modalVisible} modalVisibleActions={modalVisibleActions}/>
                 <AboutUsModal modalVisible={modalVisible} modalVisibleActions={modalVisibleActions}/>

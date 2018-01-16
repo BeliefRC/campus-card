@@ -1,15 +1,16 @@
 import React from 'react'
 import {Router, Route, IndexRoute} from 'react-router'
-import CardholderListPage from '../containers/cardholderListPage'
-import BillListPage from '../containers/billListPage'
-import ExcelPage from '../containers/excelPage'
-import InstructionPage from '../containers/instructionPage'
-import LostAndFoundPage from '../containers/lostAndFoundPage'
-import Notice from '../containers/noticePage'
-import NoticeListPage from '../containers/noticeListPage'
-import ProcessPage from '../containers/processPage'
 import App from '../containers/App'
 import NotFound from '../containers/404'
+import CardholderListPage from '../containers/cardholderListPage'
+import NewCardPage from '../containers/newCardPage'
+import BillListPage from '../containers/billListPage'
+import Notice from '../containers/noticePage'
+import NoticeListPage from '../containers/noticeListPage'
+import InstructionPage from '../containers/instructionPage'
+import ProcessPage from '../containers/processPage'
+import LostAndFoundPage from '../containers/lostAndFoundPage'
+import ExcelPage from '../containers/excelPage'
 
 
 export default class RouterMap extends React.Component {
@@ -20,6 +21,7 @@ export default class RouterMap extends React.Component {
                 <Route path='admin'>
                     <Route path='cardholderList' component={CardholderListPage}/>
                     <Route path='noticeList' component={NoticeListPage}/>
+                    <Route path='newCard' component={NewCardPage}/>
                 </Route>
                 <Route path='userCenter'>
                     <Route path='billList' component={BillListPage}/>
