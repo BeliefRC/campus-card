@@ -19,8 +19,8 @@ const layoutStyle = {minHeight: '100vh'},
     ContentStyle = {margin: '0 16px'},
     ContentDivStyle = {padding: 24, background: '#fff', minHeight: 360};
 
-// @connect(mapStateToProps, mapDispatchToProps)
-class App extends Component {
+@connect(mapStateToProps, mapDispatchToProps)
+export default class App extends Component {
     // 构造
     constructor(props, context) {
         super(props, context);
@@ -35,8 +35,8 @@ class App extends Component {
                 <LeftAside userInfo={this.props.userInfo} menuKey={this.props.menuKey}
                            menuKeyActions={this.props.menuKeyActions}/>
                 <Layout>
-                    <HomeHeader userInfo={this.props.userInfo} modalVisible={this.props.modalVisible}
-                                userInfoActions={this.props.userInfoActions}
+                    <HomeHeader userInfo={this.props.userInfo} userInfoActions={this.props.userInfoActions}
+                                modalVisible={this.props.modalVisible}
                                 modalVisibleActions={this.props.modalVisibleActions}/>
                     <Content style={ContentStyle}>
                         <HomeBreadcrumb menuKey={this.props.menuKey}/>
@@ -69,7 +69,8 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
+/*
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(App)
+)(App)*/

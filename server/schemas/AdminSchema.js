@@ -2,47 +2,19 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 const SALT_WORK_FACTOR = 10;
 const Schema = mongoose.Schema;
-const ObjectId = Schema.Types.ObjectId;
-const CardSchema = new Schema({
-    cardholder: {
+const AdminSchema = new Schema({
+    code: {
         type: String,
+        unique: true,
         required: true
     },
     password: {
         type: String,
         required: true
     },
-    code: {
-        type: String,
-        unique: true,
-        required: true
-    },
-    sex: {
-        type: String,
-        enum: ['男', '女'],
-        default: '男'
-
-    },
-    type: {
-        type: String,
-        enum: ['临时卡', '学生卡', '教师卡']
-    },
-    photo: String,
-    balance: {
-        type: Number,
-        default: 80.00
-    },
-    isFrozen: {
-        type: Boolean,
-        default: false
-    },
-    isLost: {
-        type: Boolean,
-        default: false
-    },
-    bill: {
-        type: ObjectId,
-        ref: 'bill'
+    isAdmin:{
+      type:Boolean,
+      default:true
     },
     meta: {
         createAt: {
@@ -57,7 +29,7 @@ const CardSchema = new Schema({
 });
 
 //新增用户
-CardSchema.pre('save', function (next) {
+AdminSchema.pre('save', function (next) {
     let user = this;
     if (this.isNew) {
         this.meta.createAt = this.meta.updateAt = Date.now()
@@ -82,7 +54,7 @@ CardSchema.pre('save', function (next) {
 });
 
 //匹配密码
-CardSchema.methods = {
+AdminSchema.methods = {
     comparePassword(_password, cb) {
         bcrypt.compare(_password, this.password, (err, isMatch) => {
             if (err) {
@@ -94,5 +66,4 @@ CardSchema.methods = {
         })
     }
 };
-
-module.exports = CardSchema;
+module.exports = AdminSchema;

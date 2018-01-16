@@ -22,7 +22,6 @@ export default class LeftAside extends React.Component {
     }
 
     componentWillMount() {
-        console.log(hashHistory.getCurrentLocation().pathname);
         //从缓存汇中取selectedKey并设置
         let selectedKey = LocalStore.getItem('selectedKey');
         let {menuKey, menuKeyActions} = this.props;

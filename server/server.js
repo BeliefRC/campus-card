@@ -8,6 +8,9 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const app = express();
 const Router = require('./router/Router');
+
+const Admin = require('./models/Admin');
+
 console.log(process.env.NODE_ENV);
 let port = process.env.PORT || 3001,
     env = process.env.NODE_ENV || 'development',
@@ -62,6 +65,25 @@ if ('development' === env) {
     mongoose.set('debug', true)
 }
 
+//自动创建超级管理员
+(async function () {
+    try {
+        let hasAdmin = await Admin.findOne({code: 'admin'});
+        if (hasAdmin) {
+            console.log(`存在超级管理员${hasAdmin}`);
+        } else {
+            let admin = new Admin({
+                code: 'admin',
+                password: 'admin',
+                isAdmin: true
+            });
+            let newAdmin = await admin.save();
+            console.log(`创建超级管理员成功${newAdmin}`);
+        }
+    } catch (e) {
+        console.log(e.stack);
+    }
+})();
 Router(app);
 app.listen(port);
 

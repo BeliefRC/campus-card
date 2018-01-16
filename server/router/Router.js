@@ -1,5 +1,7 @@
 const Card = require('../controllers/Card');
+const Admin = require('../controllers/Admin');
 
 module.exports = app => {
-    app.post('/card/login', Card.login)
+    app.post('/admin/login', Admin.login);
+    app.post('/card/login', Card.login);
 };

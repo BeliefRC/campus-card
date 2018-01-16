@@ -39,7 +39,7 @@ export default class HomeHeader extends React.Component {
     }
 
     render() {
-        let {userInfo, modalVisible, modalVisibleActions} = this.props;
+        let {userInfo, modalVisible, userInfoActions, modalVisibleActions} = this.props;
         const menu = (
             <Menu onClick={HomeHeader.handleClick.bind(this)}>
                 <Menu.Item key="login">
@@ -58,7 +58,8 @@ export default class HomeHeader extends React.Component {
                 <Dropdown overlay={menu}>
                     <Avatar className='avatar float-right' size="large" icon="user"/>
                 </Dropdown>
-                <LoginModal modalVisible={modalVisible} modalVisibleActions={modalVisibleActions}/>
+                <LoginModal modalVisible={modalVisible} modalVisibleActions={modalVisibleActions}
+                            userInfo={userInfo} userInfoActions={userInfoActions}/>
                 <AboutUsModal modalVisible={modalVisible} modalVisibleActions={modalVisibleActions}/>
             </Header>
         )

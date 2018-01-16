@@ -1,5 +1,5 @@
 import React from 'react'
-import {Form, Icon, Input, Modal, Button} from 'antd';
+import {Form, Icon, Input, Modal, Button, message} from 'antd';
 import {post} from "../../fetch/post";
 
 import './style.less'
@@ -28,22 +28,34 @@ class LoginModal extends React.Component {
     //登录
     handleSubmit = (e) => {
         e.preventDefault();
-        let {modalVisible, modalVisibleActions} = this.props;
+        let {modalVisible, modalVisibleActions, userInfo, userInfoActions} = this.props;
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
                 this.setState({loading: true});
-                post('/card/login', values,
+                let code = this.props.form.getFieldValue('code'),
+                    url = code === 'admin' ? '/admin/login' : '/card/login';
+                //发送请求
+                post(url, values,
                     (data) => {
-                        this.setState({loading: false});
-                        console.log(data);
-                        modalVisible.loginVisible = false;
-                        modalVisibleActions.update(modalVisible);
+                        if (data.success) {
+                            //更新弹窗状态
+                            modalVisible.loginVisible = false;
+                            modalVisibleActions.update(modalVisible);
+                            message.success(data.msg);
+                            //更新按钮状态
+                            this.setState({loading: false});
+                        } else {
+                            message.error(data.msg);
+                            this.setState({loading: false});
+                        }
                     },
                     () => {
-                        this.setState({loading: false});
+                        //更新弹窗状态
                         modalVisible.loginVisible = false;
                         modalVisibleActions.update(modalVisible);
+                        //更新按钮状态
+                        this.setState({loading: false});
                     });
             }
         });
@@ -60,7 +72,7 @@ class LoginModal extends React.Component {
         const {modalVisible} = this.props;
         const {getFieldDecorator, getFieldsError, getFieldError, isFieldTouched} = this.props.form;
         // Only show error after a field is touched.
-        const usernameError = isFieldTouched('username') && getFieldError('username');
+        const codeError = isFieldTouched('code') && getFieldError('code');
         const passwordError = isFieldTouched('password') && getFieldError('password');
         const {loading} = this.state;
         return (
@@ -74,10 +86,10 @@ class LoginModal extends React.Component {
                 >
                     <Form onSubmit={this.handleSubmit}>
                         <FormItem
-                            validateStatus={usernameError ? 'error' : ''}
-                            help={usernameError || ''}
+                            validateStatus={codeError ? 'error' : ''}
+                            help={codeError || ''}
                         >
-                            {getFieldDecorator('username', {
+                            {getFieldDecorator('code', {
                                 rules: [{required: true, message: '请输入一卡通账号!'}],
                             })(
                                 <Input prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
