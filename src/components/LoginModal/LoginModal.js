@@ -1,7 +1,7 @@
 import React from 'react'
 import {Form, Icon, Input, Modal, Button, message} from 'antd';
 import {post} from "../../fetch/post";
-
+import sessionStorage from '../../until/sessionStorage'
 import './style.less'
 
 const FormItem = Form.Item;
@@ -31,7 +31,6 @@ class LoginModal extends React.Component {
         let {modalVisible, modalVisibleActions, userInfo, userInfoActions} = this.props;
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
                 this.setState({loading: true});
                 let code = this.props.form.getFieldValue('code'),
                     url = code === 'admin' ? '/admin/login' : '/card/login';
@@ -42,6 +41,14 @@ class LoginModal extends React.Component {
                             //更新弹窗状态
                             modalVisible.loginVisible = false;
                             modalVisibleActions.update(modalVisible);
+                            //更新用户信息
+                            userInfo.code = data.backData.code;
+                            userInfo.isAdmin = data.backData.isAdmin;
+                            userInfo.user = data.backData.cardholder || 'admin';
+                            userInfo.isLogin = true;
+                            userInfoActions.update(userInfo);
+                            //将用户信息存储到sessionStorage
+                            sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
                             message.success(data.msg);
                             //更新按钮状态
                             this.setState({loading: false});

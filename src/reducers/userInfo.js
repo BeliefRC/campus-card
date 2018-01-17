@@ -3,7 +3,7 @@ import * as actionTypes from '../constants/userInfo'
 export default function userInfo(state = {
     user: '',
     isLogin: false,
-    isAdmin: true,
+    isAdmin: false,
     code: ''
 }, action) {
     switch (action.type) {

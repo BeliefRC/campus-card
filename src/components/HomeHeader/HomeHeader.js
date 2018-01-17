@@ -1,6 +1,7 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {Layout, Avatar, Menu, Dropdown} from 'antd'
+import sessionStorage from '../../until/sessionStorage'
 import LoginModal from '../LoginModal/LoginModal'
 import AboutUsModal from '../AboutUsModal/AboutUsModal'
 import title from '../../static/imgs/campusCardTitle.png'
@@ -19,7 +20,7 @@ export default class HomeHeader extends React.Component {
 
     //点击用户相关按钮
     static handleClick(e) {
-        let {userInfo, modalVisible, modalVisibleActions} = this.props;
+        let {userInfo, userInfoActions, modalVisible, modalVisibleActions} = this.props;
         switch (e.key) {
             case 'login':
                 if (!userInfo.isLogin) {
@@ -32,6 +33,15 @@ export default class HomeHeader extends React.Component {
                 modalVisibleActions.update(modalVisible);
                 break;
             case 'logout':
+                let initUserInfo = {
+                    user: '',
+                    isLogin: false,
+                    isAdmin: false,
+                    code: ''
+                };
+                Object.assign(userInfo, initUserInfo);
+                userInfoActions.update(userInfo);
+                sessionStorage.setItem('userInfo', JSON.stringify(initUserInfo));
                 break;
             default:
                 break;
@@ -43,7 +53,7 @@ export default class HomeHeader extends React.Component {
         const menu = (
             <Menu onClick={HomeHeader.handleClick.bind(this)}>
                 <Menu.Item key="login">
-                    {userInfo.isLogin ? userInfo.username : '请登录'}
+                    {userInfo.isLogin ? userInfo.user : '请登录'}
                 </Menu.Item>
                 <Menu.Item key="aboutUs">
                     关于我们
@@ -56,7 +66,8 @@ export default class HomeHeader extends React.Component {
             <Header className='header'>
                 <img className='header_title' src={title} alt="校园一卡通平台"/>
                 <Dropdown overlay={menu}>
-                    <Avatar className='avatar float-right' size="large" icon="user"/>
+                    <Avatar className='avatar float-right' size="large" icon="user"
+                            style={userInfo.isLogin ? {backgroundColor: '#1890FF'} : {}}/>
                 </Dropdown>
                 <LoginModal modalVisible={modalVisible} modalVisibleActions={modalVisibleActions}
                             userInfo={userInfo} userInfoActions={userInfoActions}/>

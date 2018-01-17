@@ -8,6 +8,7 @@ import {bindActionCreators} from 'redux'
 import * as userInfoActionsFromOtherFile from '../actions/userInfo'
 import * as menuKeyActionsFromOtherFile from '../actions/menuKey'
 import * as modalVisibleActionsFromOtherFile from '../actions/modalVisible'
+import sessionStorage from '../until/sessionStorage'
 import LeftAside from "../components/LeftAside/LeftAside";
 import HomeHeader from '../components/HomeHeader/HomeHeader'
 import HomeFooter from "../components/HomeFooter/HomeFooter";
@@ -27,6 +28,17 @@ export default class App extends Component {
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         // 初始状态
         this.state = {};
+    }
+
+    componentDidMount() {
+        let sessionUserInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+        console.log(sessionUserInfo);
+        //更新userInfo
+        if (sessionUserInfo) {
+            let {userInfo, userInfoActions} = this.props;
+            Object.assign(userInfo, sessionUserInfo);
+            userInfoActions.update(userInfo);
+        }
     }
 
     render() {
@@ -68,9 +80,3 @@ function mapDispatchToProps(dispatch) {
         modalVisibleActions: bindActionCreators(modalVisibleActionsFromOtherFile, dispatch)
     }
 }
-
-/*
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(App)*/
