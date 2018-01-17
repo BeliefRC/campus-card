@@ -1,6 +1,6 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-
+import CardListTable from '../../components/CardListTable/CardListTable'
 export default class CardholderListPage extends React.Component {
     // 构造
     constructor(props, context) {
@@ -13,7 +13,7 @@ export default class CardholderListPage extends React.Component {
 
     render() {
         return (
-           <h1>持卡人列表</h1>
+           <CardListTable/>
         )
     }
 }

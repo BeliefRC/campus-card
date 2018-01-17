@@ -37,8 +37,8 @@ exports.login = async (req, res) => {
         }
     }
     catch (e) {
-        console.log(e);
-        res.json(setJson(false, e.stack, null));
+        console.log(e.stack);
+        res.json(setJson(false, e.message, null));
     }
 };
 
@@ -56,6 +56,21 @@ exports.register = async (req, res) => {
         res.json(setJson(true, '新增卡成功', null));
     }
     catch (e) {
-        res.json(setJson(false, e.stack, null));
+        console.log(e.stack);
+        res.json(setJson(false, e.message, null));
+    }
+};
+
+//获取卡号
+exports.getCode = async (req, res) => {
+    try {
+        let card = await Card.find();
+        let len = (card.length + 1).toString();
+        let code = len.padStart(6, '0');
+        res.json(setJson(true, '获取卡号成功', code));
+    }
+    catch (e) {
+        console.log(e.stack);
+        res.json(setJson(false, e.message, null));
     }
 };

@@ -2,6 +2,7 @@ import React from 'react'
 import {Form, Input, Tooltip, Icon, Button, Radio, Spin, message} from 'antd';
 import {hashHistory} from "react-router";
 import typeRadioData from '../../viewDatas/typeRadio'
+import {get} from "../../fetch/get";
 import {post} from "../../fetch/post";
 import selectedKeyUntil from "../../until/selectedKeyUntil";
 
@@ -15,7 +16,8 @@ class CardDetailInfoForm extends React.Component {
         // 初始状态
         this.state = {
             confirmDirty: false,
-            loading: false
+            loading: false,
+            codeDisabled:false
         };
     }
 
@@ -27,9 +29,19 @@ class CardDetailInfoForm extends React.Component {
         let pathname = hashHistory.getCurrentLocation().pathname;
         switch (pathname) {
             case '/admin/newCard':
-                this.props.form.setFieldsValue({
-                    password: '666666',
-                    confirm: '666666'
+                this.setState({loading: true});
+                get('/card/getCode', {}, (data) => {
+                    this.setState({loading: false});
+                    if (data.success){
+                        this.setState({codeDisabled:true});
+                        this.props.form.setFieldsValue({
+                            password: '666666',
+                            confirm: '666666',
+                            code:data.backData
+                        });
+                    }
+                }, () => {
+                    this.setState({loading: false});
                 });
                 break;
             default:
@@ -90,7 +102,7 @@ class CardDetailInfoForm extends React.Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        let {loading} = this.state;
+        let {loading,codeDisabled} = this.state;
         const formItemLayout = {
             labelCol: {
                 xs: {span: 24},
@@ -133,7 +145,7 @@ class CardDetailInfoForm extends React.Component {
                                 required: true, message: '一卡通账号不能为空!',
                             }],
                         })(
-                            <Input/>
+                            <Input disabled={codeDisabled}/>
                         )}
                     </FormItem>
                     <FormItem

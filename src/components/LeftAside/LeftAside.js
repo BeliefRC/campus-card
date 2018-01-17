@@ -23,7 +23,7 @@ export default class LeftAside extends React.Component {
     }
 
     componentWillMount() {
-        //从缓存汇中取selectedKey并设置
+        //从缓存中取selectedKey并设置
         let selectedKey = localStore.getItem('selectedKey');
         let {menuKey, menuKeyActions} = this.props;
         if (selectedKey) {
