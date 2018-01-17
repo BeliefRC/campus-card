@@ -7,7 +7,7 @@ const logger = require('morgan');
 
 const bodyParser = require('body-parser');
 const app = express();
-const Router = require('./router/Router');
+const Router = require('./config/Router');
 
 const Admin = require('./models/Admin');
 

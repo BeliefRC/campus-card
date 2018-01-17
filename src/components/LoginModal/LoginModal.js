@@ -2,7 +2,10 @@ import React from 'react'
 import {Form, Icon, Input, Modal, Button, message} from 'antd';
 import {post} from "../../fetch/post";
 import sessionStorage from '../../until/sessionStorage'
+import selectedKeyUntil from '../../until/selectedKeyUntil'
+
 import './style.less'
+import {hashHistory} from "react-router";
 
 const FormItem = Form.Item;
 
@@ -28,7 +31,7 @@ class LoginModal extends React.Component {
     //登录
     handleSubmit = (e) => {
         e.preventDefault();
-        let {modalVisible, modalVisibleActions, userInfo, userInfoActions} = this.props;
+        let {modalVisible, modalVisibleActions} = this.props;
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 this.setState({loading: true});
@@ -38,20 +41,7 @@ class LoginModal extends React.Component {
                 post(url, values,
                     (data) => {
                         if (data.success) {
-                            //更新弹窗状态
-                            modalVisible.loginVisible = false;
-                            modalVisibleActions.update(modalVisible);
-                            //更新用户信息
-                            userInfo.code = data.backData.code;
-                            userInfo.isAdmin = data.backData.isAdmin;
-                            userInfo.user = data.backData.cardholder || 'admin';
-                            userInfo.isLogin = true;
-                            userInfoActions.update(userInfo);
-                            //将用户信息存储到sessionStorage
-                            sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
-                            message.success(data.msg);
-                            //更新按钮状态
-                            this.setState({loading: false});
+                            this.loginHandle(data);
                         } else {
                             message.error(data.msg);
                             this.setState({loading: false});
@@ -67,6 +57,30 @@ class LoginModal extends React.Component {
             }
         });
     };
+
+    loginHandle(data) {
+        let {modalVisible, modalVisibleActions, userInfo, userInfoActions, menuKey, menuKeyActions} = this.props;
+        //更新弹窗状态
+        modalVisible.loginVisible = false;
+        modalVisibleActions.update(modalVisible);
+        //更新用户信息
+        userInfo.code = data.backData.code;
+        userInfo.isAdmin = data.backData.isAdmin;
+        userInfo.user = data.backData.cardholder || 'admin';
+        userInfo.isLogin = true;
+        userInfoActions.update(userInfo);
+        //将用户信息存储到sessionStorage
+        sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+        message.success(data.msg);
+        //更新按钮状态
+        this.setState({loading: false});
+        //跳转至首页
+        let url = hashHistory.getCurrentLocation().pathname;
+        if ((userInfo.isAdmin && url.indexOf('userCenter') > -1) ||
+            (!userInfo.isAdmin && url.indexOf('admin') > -1)) {
+            selectedKeyUntil.update(menuKey, menuKeyActions, '/')
+        }
+    }
 
     //关闭弹窗
     handleCancel = () => {

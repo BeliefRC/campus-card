@@ -13,6 +13,7 @@ const comparePasswordPromise = (card, password) => {
     })
 };
 
+//管理员登录
 exports.login = async (req, res) => {
     console.log(req.session);
     let _user = req.body;
@@ -40,5 +41,16 @@ exports.login = async (req, res) => {
     catch (e) {
         console.log(e);
         res.json(setJson(false, e.stack, null));
+    }
+};
+
+
+// 验证管理员权限，中间件
+exports.adminRequired = (req, res, next) => {
+    let user = req.session.user;
+    if (user.isAdmin) {
+        next();
+    } else {
+        return res.json(setJson(false, '权限不足', null));
     }
 };

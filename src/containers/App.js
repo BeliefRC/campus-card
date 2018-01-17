@@ -27,12 +27,15 @@ export default class App extends Component {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         // 初始状态
-        this.state = {};
+        this.state = {
+            a:1
+        };
     }
 
     componentDidMount() {
+         // await this.setState({a:2});
+        console.log(this.state.a);
         let sessionUserInfo = JSON.parse(sessionStorage.getItem('userInfo'));
-        console.log(sessionUserInfo);
         //更新userInfo
         if (sessionUserInfo) {
             let {userInfo, userInfoActions} = this.props;
@@ -42,18 +45,20 @@ export default class App extends Component {
     }
 
     render() {
+        let {children,userInfo, modalVisible, userInfoActions, modalVisibleActions, menuKey, menuKeyActions} = this.props;
         return (
             <Layout style={layoutStyle}>
-                <LeftAside userInfo={this.props.userInfo} menuKey={this.props.menuKey}
-                           menuKeyActions={this.props.menuKeyActions}/>
+                <LeftAside userInfo={userInfo} menuKey={menuKey}
+                           menuKeyActions={menuKeyActions}/>
                 <Layout>
-                    <HomeHeader userInfo={this.props.userInfo} userInfoActions={this.props.userInfoActions}
-                                modalVisible={this.props.modalVisible}
-                                modalVisibleActions={this.props.modalVisibleActions}/>
+                    <HomeHeader userInfo={userInfo} userInfoActions={userInfoActions}
+                                modalVisible={modalVisible}
+                                modalVisibleActions={modalVisibleActions} menuKey={menuKey}
+                                menuKeyActions={menuKeyActions}/>
                     <Content style={ContentStyle}>
-                        <HomeBreadcrumb menuKey={this.props.menuKey}/>
+                        <HomeBreadcrumb menuKey={menuKey}/>
                         <div style={ContentDivStyle}>
-                            {this.props.children}
+                            {children}
                         </div>
                     </Content>
                     <HomeFooter content='Campus Card System &copy;2018 Created by Belief_RC'/>

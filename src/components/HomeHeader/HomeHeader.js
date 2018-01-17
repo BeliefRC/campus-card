@@ -1,6 +1,6 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import {Layout, Avatar, Menu, Dropdown} from 'antd'
+import {Layout, Avatar, Menu, Dropdown,message} from 'antd'
 import sessionStorage from '../../until/sessionStorage'
 import LoginModal from '../LoginModal/LoginModal'
 import AboutUsModal from '../AboutUsModal/AboutUsModal'
@@ -42,6 +42,7 @@ export default class HomeHeader extends React.Component {
                 Object.assign(userInfo, initUserInfo);
                 userInfoActions.update(userInfo);
                 sessionStorage.setItem('userInfo', JSON.stringify(initUserInfo));
+                message.info('退出登录成功');
                 break;
             default:
                 break;
@@ -49,7 +50,7 @@ export default class HomeHeader extends React.Component {
     }
 
     render() {
-        let {userInfo, modalVisible, userInfoActions, modalVisibleActions} = this.props;
+        let {userInfo, modalVisible, userInfoActions, modalVisibleActions, menuKey, menuKeyActions} = this.props;
         const menu = (
             <Menu onClick={HomeHeader.handleClick.bind(this)}>
                 <Menu.Item key="login">
@@ -70,7 +71,9 @@ export default class HomeHeader extends React.Component {
                             style={userInfo.isLogin ? {backgroundColor: '#1890FF'} : {}}/>
                 </Dropdown>
                 <LoginModal modalVisible={modalVisible} modalVisibleActions={modalVisibleActions}
-                            userInfo={userInfo} userInfoActions={userInfoActions}/>
+                            userInfo={userInfo} userInfoActions={userInfoActions}
+                            menuKey={menuKey}
+                            menuKeyActions={menuKeyActions}/>
                 <AboutUsModal modalVisible={modalVisible} modalVisibleActions={modalVisibleActions}/>
             </Header>
         )

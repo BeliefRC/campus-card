@@ -2,7 +2,8 @@ import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {hashHistory} from 'react-router'
 import {Layout, Menu, Icon} from 'antd'
-import LocalStore from '../../until/localStore'
+import localStore from '../../until/localStore'
+import selectedKeyUntil from '../../until/selectedKeyUntil'
 import menuData from '../../viewDatas/menu'
 import logo from '../../static/imgs/logo.svg'
 import './style.less'
@@ -23,20 +24,16 @@ export default class LeftAside extends React.Component {
 
     componentWillMount() {
         //从缓存汇中取selectedKey并设置
-        let selectedKey = LocalStore.getItem('selectedKey');
+        let selectedKey = localStore.getItem('selectedKey');
         let {menuKey, menuKeyActions} = this.props;
         if (selectedKey) {
-            menuKey.selectedKey = selectedKey;
-            menuKeyActions.update(menuKey);
+            selectedKeyUntil.update(menuKey, menuKeyActions, selectedKey, false);
         } else {
-            LocalStore.setItem('selectedKey', '/');
-            menuKey.selectedKey = '/';
-            menuKeyActions.update(menuKey);
+            selectedKeyUntil.update(menuKey, menuKeyActions, '/');
         }
     }
 
     onCollapse = (collapsed) => {
-        console.log(collapsed);
         this.setState({collapsed});
     };
 
@@ -45,13 +42,7 @@ export default class LeftAside extends React.Component {
         // { item, key, selectedKeys }
         let {menuKey, menuKeyActions} = this.props;
         if (hashHistory.getCurrentLocation().pathname !== arg.key) {
-            //跟新redux中的状态
-            menuKey.selectedKey = arg.key;
-            menuKeyActions.update(menuKey);
-            //跳转
-            hashHistory.push(arg.key);
-            //存储
-            LocalStore.setItem('selectedKey', arg.key);
+            selectedKeyUntil.update(menuKey, menuKeyActions, arg.key);
         }
     };
 
