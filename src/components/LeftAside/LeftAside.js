@@ -32,7 +32,7 @@ export default class LeftAside extends React.Component {
             selectedKeyUntil.update(menuKey, menuKeyActions, '/');
         }
     }
-
+    //左侧菜单折叠
     onCollapse = (collapsed) => {
         this.setState({collapsed});
     };

@@ -27,14 +27,10 @@ export default class App extends Component {
         super(props, context);
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         // 初始状态
-        this.state = {
-            a:1
-        };
+        this.state = {};
     }
 
     componentDidMount() {
-         // await this.setState({a:2});
-        console.log(this.state.a);
         let sessionUserInfo = JSON.parse(sessionStorage.getItem('userInfo'));
         //更新userInfo
         if (sessionUserInfo) {
@@ -45,7 +41,7 @@ export default class App extends Component {
     }
 
     render() {
-        let {children,userInfo, modalVisible, userInfoActions, modalVisibleActions, menuKey, menuKeyActions} = this.props;
+        let {children, userInfo, modalVisible, userInfoActions, modalVisibleActions, menuKey, menuKeyActions} = this.props;
         return (
             <Layout style={layoutStyle}>
                 <LeftAside userInfo={userInfo} menuKey={menuKey}

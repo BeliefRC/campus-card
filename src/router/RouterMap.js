@@ -1,7 +1,7 @@
 import React from 'react'
 import {Router, Route, IndexRoute} from 'react-router'
 import App from '../containers/App'
-import NotFound from '../containers/404'
+import NotFound from '../containers/NotFound'
 import CardholderListPage from '../containers/cardholderListPage'
 import NewCardPage from '../containers/newCardPage'
 import BillListPage from '../containers/billListPage'

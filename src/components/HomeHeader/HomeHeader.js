@@ -1,11 +1,13 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import {Layout, Avatar, Menu, Dropdown,message} from 'antd'
+import {Layout, Avatar, Menu, Dropdown, message} from 'antd'
 import sessionStorage from '../../until/sessionStorage'
 import LoginModal from '../LoginModal/LoginModal'
 import AboutUsModal from '../AboutUsModal/AboutUsModal'
 import title from '../../static/imgs/campusCardTitle.png'
 import './style.less'
+import {hashHistory} from "react-router";
+import selectedKeyUntil from "../../until/selectedKeyUntil";
 
 const {Header} = Layout;
 
@@ -42,7 +44,13 @@ export default class HomeHeader extends React.Component {
                 Object.assign(userInfo, initUserInfo);
                 userInfoActions.update(userInfo);
                 sessionStorage.setItem('userInfo', JSON.stringify(initUserInfo));
-                message.info('退出登录成功');
+                message.success('退出登录成功');
+                let url = hashHistory.getCurrentLocation().pathname;
+                //退出登录时返回首页
+                if (url !== '/') {
+                    let {menuKey, menuKeyActions} = this.props;
+                    selectedKeyUntil.update(menuKey, menuKeyActions, '/')
+                }
                 break;
             default:
                 break;
