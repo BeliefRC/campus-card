@@ -183,10 +183,23 @@ class CardDetailInfoForm extends React.Component {
                 </FormItem>
                 <FormItem
                     {...formItemLayout}
+                    label="性别"
+                >
+                    {getFieldDecorator('sex', {
+                        rules: [{required: true, message: '请选择性别!'}],
+                        initialValue: '男'
+                    })(<RadioGroup>
+                        <Radio value='男'>男</Radio>
+                        <Radio value='女'>女</Radio>
+                    </RadioGroup>)}
+                </FormItem>
+                <FormItem
+                    {...formItemLayout}
                     label="卡类别"
                 >
                     {getFieldDecorator('type', {
                         rules: [{required: true, message: '请选择卡类别!'}],
+                        initialValue: '学生卡'
                     })(
                         <RadioGroup>
                             {

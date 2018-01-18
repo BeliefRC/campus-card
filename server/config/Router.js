@@ -9,4 +9,5 @@ module.exports = app => {
     app.post('/card/login', Card.login);
     app.post('/card/register', Admin.adminRequired, Card.register);
     app.get('/card/getCode', Admin.adminRequired, Card.getCode);
+    app.get('/card/list', Admin.adminRequired, Card.cardList);
 };

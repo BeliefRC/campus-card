@@ -74,3 +74,15 @@ exports.getCode = async (req, res) => {
         res.json(setJson(false, e.message, null));
     }
 };
+
+//获取持卡人列表
+exports.cardList = async (req, res) => {
+    try {
+        let cards = await Card.find({})
+            .sort({'meta.updateAt': -1});
+        res.json(setJson(true, '查询电列表情成功', cards))
+    } catch (e) {
+        console.log(e);
+        res.json(setJson(false, e.stack, null))
+    }
+};

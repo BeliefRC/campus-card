@@ -1,9 +1,9 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import moment from 'moment'
-import {Table, Menu, Dropdown, Icon, Popconfirm, message} from 'antd';
+import {Table, Menu, Dropdown, Icon, Popconfirm, message, Avatar} from 'antd';
 import {get} from "../../fetch/get";
-import {hashHistory,Link} from 'react-router'
+import {hashHistory, Link} from 'react-router'
 
 export default class CardListTable extends React.Component {
     // 构造
@@ -31,7 +31,7 @@ export default class CardListTable extends React.Component {
                     <Icon type="edit"/> 编辑
                 </Menu.Item>
                 <Menu.Item key='delete'>
-                    <Popconfirm title="确定删除这条电影吗?"
+                    <Popconfirm title={`确定删除${record.cardholder}吗?`}
                                 onConfirm={this.confirm.bind(this, text, record, index)}
                                 onCancel={this.cancel} okText="Yes" cancelText="No">
                         <Icon type="delete"/> 删除
@@ -56,19 +56,8 @@ export default class CardListTable extends React.Component {
             loading: true
         });
         let _this = this;
-        get('/admin/movie/list', {}, (data) => {
+        get('/card/list', {}, (data) => {
             if (data.success) {
-
-                //更改分类数据格式
-                data.backData.map(movie => {
-                    let category = [];
-                    movie.category.map(item =>
-                        category.push(item.name)
-                    );
-                    movie.category = category.toString();
-                    return true
-                });
-
                 _this.setState({
                     data: data.backData
                 })
@@ -97,7 +86,7 @@ export default class CardListTable extends React.Component {
         }
     }
 
-    //确定删除电影
+    //确定删除
     confirm(text, record, index, e) {
         console.log(arguments);
         get(`/admin/movie/delete`, {_id: record._id}, (data) => {
@@ -116,80 +105,91 @@ export default class CardListTable extends React.Component {
     }
 
     render() {
-        const columns = [{
-            title: '电影名称',
-            dataIndex: 'title',
-            sorter: (a, b) => {
-                a.title.localeCompare(b.title, 'zh')
-            },
-            fixed: 'left',
-            width: 250,
-            render: (text, record, index) => <Link to={`/movie/${record._id}`}>{text}</Link>,
+        const columns = [
+            {
+                title: '持卡人姓名',
+                dataIndex: 'cardholder',
+                fixed: 'left',
+                width: 130,
+                render: (text, record, index) => <Link to={`/movie/${record._id}`}>{text}</Link>,
+            }, {
+                title: '卡号',
+                dataIndex: 'code',
+                sorter: (a, b) => a.code - b.code,
+                fixed: 'left',
+                width: 100,
+            }, {
+                title: '头像',
+                dataIndex: 'photo',
+                width: 100,
+                render: (text, record, index) => text ? <Avatar src={text}/> : <Avatar icon="user"
+                                                                                       style={{backgroundColor: '#1890FF'}}/>,
+            }, {
+                title: '性别',
+                dataIndex: 'sex',
+                filters: [
+                    {text: '男', value: '男'},
+                    {text: '女', value: '女'},
+                ],
+                onFilter: (value, record) => record.sex.includes(value),
+                width: 100,
+            }, {
+                title: '卡类别',
+                dataIndex: 'type',
+                filters: [
+                    {text: '临时卡', value: '临时卡'},
+                    {text: '学生卡', value: '学生卡'},
+                    {text: '教师卡', value: '教师卡'}
+                ],
+                onFilter: (value, record) => record.type.includes(value),
+                width: 100,
+            }, {
+                title: '余额',
+                dataIndex: 'balance',
+                width: 150,
+                render: (text, record, index) => text.toFixed(2)
 
-        }, {
-            title: '导演',
-            dataIndex: 'director',
-            filters: [
-                {text: 'Male', value: 'male'},
-                {text: 'Female', value: 'female'},
-            ],
-            width: 150,
-        }, {
-            title: '国家',
-            dataIndex: 'country',
-            width: 100,
-        }, {
-            title: '语言',
-            dataIndex: 'language',
-            width: 100,
+            }, {
+                title: '是否挂失',
+                dataIndex: 'isFrozen',
+                width: 100,
+                render: (text, record, index) => text ? '是' : '否'
 
-        }, {
-            title: '上映日期',
-            dataIndex: 'year',
-            width: 120,
-            render: (text, record, index) => moment(text).format('YYYY-MM-DD'),
-            sorter: (a, b) => a.year - b.year
+            }, {
+                title: '是否丢失',
+                dataIndex: 'isLost',
+                width: 100,
+                render: (text, record, index) => text ? '是' : '否'
 
-        }, {
-            title: '分类',
-            dataIndex: 'category',
-            width: 180,
+            }, {
+                title: '创建时间',
+                dataIndex: 'meta.createAt',
+                width: 150,
+                sorter: (a, b) => a['meta.createAt'] - b['meta.createAt'],
+                render: (text, record, index) => moment(text).format('YYYY-MM-DD HH:mm')
 
-        }, {
-            title: '录入时间',
-            dataIndex: 'meta.createAt',
-            width: 150,
-            render: (text, record, index) => moment(text).format('YYYY-MM-DD HH:mm')
+            }, {
+                title: '更新时间',
+                dataIndex: 'meta.updateAt',
+                width: 150,
+                sorter: (a, b) => a['meta.updateAt'] - b['meta.updateAt'],
 
-        }, {
-            title: '更新时间',
-            dataIndex: 'meta.updateAt',
-            width: 150,
-            render: (text, record, index) => moment(text).format('YYYY-MM-DD HH:mm')
-        }, {
-            title: 'pv',
-            dataIndex: 'pv',
-            width: 100,
-            sorter: (a, b) => a.pv - b.pv
-        }, {
-            title: 'flash地址',
-            dataIndex: 'flash',
-            width: 400,
-
-        }, {
-            title: '操作',
-            dataIndex: 'operate',
-            fixed: 'right',
-            width: 100,
-            render: this.renderOperate.bind(this)
-        }];
+                render: (text, record, index) => moment(text).format('YYYY-MM-DD HH:mm')
+            }, {
+                title: '操作',
+                dataIndex: 'operate',
+                fixed: 'right',
+                width: 100,
+                render: this.renderOperate.bind(this)
+            }
+        ];
         return <Table columns={columns}
                       rowKey={record => record._id}
                       dataSource={this.state.data}
             // pagination={this.state.pagination}
                       loading={this.state.loading}
                       onChange={this.handleTableChange}
-                      scroll={{x: 1800, y: 600}}
+                      scroll={{x: 1400}}
                       className='movie-table-list'
         />
     }
