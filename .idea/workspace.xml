@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="cdfd8516-75ed-48c9-8c2b-b4f897263564" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/server/config/Router.js" afterPath="$PROJECT_DIR$/server/config/Router.js" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/Card.js" afterPath="$PROJECT_DIR$/server/controllers/Card.js" />
       <change beforePath="$PROJECT_DIR$/src/components/CardDetailInfoForm/CardDetailInfoForm.js" afterPath="$PROJECT_DIR$/src/components/CardDetailInfoForm/CardDetailInfoForm.js" />
       <change beforePath="$PROJECT_DIR$/src/components/CardListTable/CardListTable.js" afterPath="$PROJECT_DIR$/src/components/CardListTable/CardListTable.js" />
+      <change beforePath="$PROJECT_DIR$/src/containers/cardholderListPage/index.js" afterPath="$PROJECT_DIR$/src/containers/cardholderListPage/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,83 +28,23 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/containers/cardholderListPage/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="2" column="72" lean-forward="false" selection-start-line="2" selection-start-column="72" selection-end-line="2" selection-end-column="72" />
-              <folding />
+            <state relative-caret-position="382">
+              <caret line="51" column="76" lean-forward="false" selection-start-line="51" selection-start-column="63" selection-end-line="51" selection-end-column="76" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CardListTable.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CardListTable.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/CardListTable/CardListTable.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="172" column="43" lean-forward="true" selection-start-line="172" selection-start-column="43" selection-end-line="172" selection-end-column="43" />
+            <state relative-caret-position="286">
+              <caret line="62" column="43" lean-forward="true" selection-start-line="62" selection-start-column="43" selection-end-line="62" selection-end-column="43" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CardDetailInfoForm.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/CardDetailInfoForm/CardDetailInfoForm.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="192" column="44" lean-forward="false" selection-start-line="192" selection-start-column="44" selection-end-line="192" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HomeHeader.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/HomeHeader/HomeHeader.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1518">
-              <caret line="78" column="90" lean-forward="false" selection-start-line="77" selection-start-column="20" selection-end-line="78" selection-end-column="90" />
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Card.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/controllers/Card.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1782">
-              <caret line="81" column="41" lean-forward="false" selection-start-line="81" selection-start-column="41" selection-end-line="81" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Router.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/config/Router.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="12" column="2" lean-forward="true" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CardSchema.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/schemas/CardSchema.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="638">
-              <caret line="29" column="9" lean-forward="false" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="typeRadio.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/viewDatas/typeRadio.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="3" column="13" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="3" selection-end-column="31" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -195,12 +134,12 @@
         <option value="$PROJECT_DIR$/src/containers/App.js" />
         <option value="$PROJECT_DIR$/src/components/LeftAside/LeftAside.js" />
         <option value="$PROJECT_DIR$/src/components/HomeHeader/HomeHeader.js" />
-        <option value="$PROJECT_DIR$/src/containers/cardholderListPage/index.js" />
         <option value="$PROJECT_DIR$/src/containers/newCardPage/index.js" />
         <option value="$PROJECT_DIR$/src/viewDatas/cardListTable.js" />
         <option value="$PROJECT_DIR$/server/controllers/Card.js" />
         <option value="$PROJECT_DIR$/server/config/Router.js" />
         <option value="$PROJECT_DIR$/src/components/CardDetailInfoForm/CardDetailInfoForm.js" />
+        <option value="$PROJECT_DIR$/src/containers/cardholderListPage/index.js" />
         <option value="$PROJECT_DIR$/src/components/CardListTable/CardListTable.js" />
       </list>
     </option>
@@ -354,6 +293,13 @@
               <item name="campus-card" type="b2602c69:ProjectViewProjectNode" />
               <item name="campus-card" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="containers" type="462c0819:PsiDirectoryNode" />
+              <item name="newCardPage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="campus-card" type="b2602c69:ProjectViewProjectNode" />
+              <item name="campus-card" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -456,7 +402,7 @@
       <workItem from="1516150359161" duration="8923000" />
       <workItem from="1516177342089" duration="2386000" />
       <workItem from="1516186481763" duration="7313000" />
-      <workItem from="1516236996191" duration="3785000" />
+      <workItem from="1516236996191" duration="4592000" />
     </task>
     <task id="LOCAL-00001" summary="搭建环境 初始化目录结构">
       <created>1515554911798</created>
@@ -577,11 +523,18 @@
       <option name="project" value="LOCAL" />
       <updated>1516189283982</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="完成持卡人列表显示">
+      <created>1516240861669</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1516240861669</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128956000" />
+    <option name="totallyTimeSpent" value="129763000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -596,7 +549,7 @@
     <frame x="-9" y="-9" width="1938" height="1098" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16523606" sideWeight="0.82251084" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19688842" sideWeight="0.82251084" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901832" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2524272" sideWeight="0.51287556" order="7" side_tool="true" content_ui="tabs" />
@@ -604,8 +557,8 @@
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21190988" sideWeight="0.17748918" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.07457081" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20064725" sideWeight="0.48712447" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.115879826" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21574973" sideWeight="0.48712447" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.399137" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -692,7 +645,8 @@
     <MESSAGE value="优化退出登录，404页面路由跳转功能" />
     <MESSAGE value="完成编码自增功能" />
     <MESSAGE value="修改新增卡组件功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改新增卡组件功能" />
+    <MESSAGE value="完成持卡人列表显示" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成持卡人列表显示" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -947,6 +901,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="372">
           <caret line="32" column="25" lean-forward="true" selection-start-line="32" selection-start-column="25" selection-end-line="32" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#39#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -961,16 +918,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1424">
           <caret line="68" column="52" lean-forward="false" selection-start-line="68" selection-start-column="52" selection-end-line="68" selection-end-column="52" />
-          <folding>
-            <element signature="e#0#25#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/newCardPage/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding>
             <element signature="e#0#25#0" expanded="false" />
           </folding>
@@ -1029,7 +976,7 @@
         <state relative-caret-position="1518">
           <caret line="78" column="90" lean-forward="false" selection-start-line="77" selection-start-column="20" selection-end-line="78" selection-end-column="90" />
           <folding>
-            <element signature="e#0#25#0" expanded="true" />
+            <element signature="e#0#25#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1039,29 +986,39 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/cardholderListPage/index.js">
+    <entry file="file://$PROJECT_DIR$/src/components/CardDetailInfoForm/CardDetailInfoForm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="2" column="72" lean-forward="false" selection-start-line="2" selection-start-column="72" selection-end-line="2" selection-end-column="72" />
+        <state relative-caret-position="2266">
+          <caret line="109" column="16" lean-forward="false" selection-start-line="109" selection-start-column="16" selection-end-line="109" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/CardListTable/CardListTable.js">
+    <entry file="file://$PROJECT_DIR$/src/containers/newCardPage/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="172" column="43" lean-forward="true" selection-start-line="172" selection-start-column="43" selection-end-line="172" selection-end-column="43" />
+        <state relative-caret-position="352">
+          <caret line="54" column="64" lean-forward="false" selection-start-line="54" selection-start-column="64" selection-end-line="54" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/cardholderListPage/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="51" column="76" lean-forward="false" selection-start-line="51" selection-start-column="63" selection-end-line="51" selection-end-column="76" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/CardDetailInfoForm/CardDetailInfoForm.js">
+    <entry file="file://$PROJECT_DIR$/src/components/CardListTable/CardListTable.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="192" column="44" lean-forward="false" selection-start-line="192" selection-start-column="44" selection-end-line="192" selection-end-column="44" />
-          <folding />
+        <state relative-caret-position="286">
+          <caret line="62" column="43" lean-forward="true" selection-start-line="62" selection-start-column="43" selection-end-line="62" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

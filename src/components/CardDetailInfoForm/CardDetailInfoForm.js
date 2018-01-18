@@ -108,7 +108,6 @@ class CardDetailInfoForm extends React.Component {
         };
 
         return (
-
             <Form onSubmit={this.handleSubmit}>
                 <FormItem
                     {...formItemLayout}

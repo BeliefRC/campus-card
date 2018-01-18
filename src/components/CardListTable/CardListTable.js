@@ -12,15 +12,8 @@ export default class CardListTable extends React.Component {
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
         // 初始状态
         this.state = {
-            data: [],
             pagination: {},
-            loading: false,
         };
-    }
-
-    componentDidMount() {
-        //请求表格数据
-        this.getDataSource()
     }
 
     //渲染行操作按钮
@@ -50,31 +43,6 @@ export default class CardListTable extends React.Component {
 
     };
 
-    //获取表格数据
-    getDataSource() {
-        this.setState({
-            loading: true
-        });
-        let _this = this;
-        get('/card/list', {}, (data) => {
-            if (data.success) {
-                _this.setState({
-                    data: data.backData
-                })
-            } else {
-                message.error(data.msg)
-            }
-            _this.setState({
-                loading: false
-            });
-        }, () => {
-            message.error('获取电影列表失败');
-            _this.setState({
-                loading: false
-            });
-        })
-    }
-
     //行操作按钮绑定事件
     handleOperate(text, record, index, e) {
         switch (e.key) {
@@ -92,7 +60,7 @@ export default class CardListTable extends React.Component {
         get(`/admin/movie/delete`, {_id: record._id}, (data) => {
             if (data.success) {
                 message.success(data.msg);
-                this.getDataSource();
+                this.props.getDataSource();
             } else {
                 message.error(data.msg)
             }
@@ -185,9 +153,8 @@ export default class CardListTable extends React.Component {
         ];
         return <Table columns={columns}
                       rowKey={record => record._id}
-                      dataSource={this.state.data}
+                      dataSource={this.props.data}
             // pagination={this.state.pagination}
-                      loading={this.state.loading}
                       onChange={this.handleTableChange}
                       scroll={{x: 1400}}
                       className='movie-table-list'
