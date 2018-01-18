@@ -29,7 +29,7 @@ exports.login = async (req, res) => {
             //密码是否正确
             if (isMatch) {
                 console.log(`${code}:登陆成功`);
-                req.session.card = card;
+                req.session.user = card;
                 res.json(setJson(true, '登陆成功', card));
             } else {
                 res.json(setJson(false, '密码错误', null));
@@ -42,6 +42,15 @@ exports.login = async (req, res) => {
     }
 };
 
+//退出登录
+exports.logout = (req, res) => {
+    try {
+        delete req.session.user;
+        res.json(setJson(true, '登陆成功', null));
+    } catch (e) {
+        res.json(setJson(false, e.message, null));
+    }
+};
 //新增卡
 exports.register = async (req, res) => {
     const _card = req.body;
@@ -49,10 +58,18 @@ exports.register = async (req, res) => {
         let card = await Card.find({code: _card.code});
         if (card.length) {
             console.log('一卡通账号重复');
-            res.json(setJson(false, '一卡通账号重复', null));
+            res.json(setJson(false, '一卡通账号重复,请刷新页面', null));
         }
         card = new Card(_card);
         await card.save();
+        /*//自增卡号
+        let num = Num.find({});
+        if (num.length) {
+            await  Num.update({_id: num[0]._id}, {$inc: {num: 1}})
+        } else {
+            let num = new Num({});
+            await num.save();
+        }*/
         res.json(setJson(true, '新增卡成功', null));
     }
     catch (e) {
@@ -65,7 +82,7 @@ exports.register = async (req, res) => {
 exports.getCode = async (req, res) => {
     try {
         let card = await Card.find();
-        let len = (card.length + 1).toString();
+        let len = (parseInt((card[card.length - 1]).code, 10) + 1).toString();
         let code = len.padStart(6, '0');
         res.json(setJson(true, '获取卡号成功', code));
     }
@@ -81,6 +98,18 @@ exports.cardList = async (req, res) => {
         let cards = await Card.find({})
             .sort({'meta.updateAt': -1});
         res.json(setJson(true, '查询电列表情成功', cards))
+    } catch (e) {
+        console.log(e);
+        res.json(setJson(false, e.stack, null))
+    }
+};
+
+//删除卡
+exports.deleteCard = async (req, res) => {
+    let _id = req.body._id;
+    try {
+        let card = await Card.findOneAndRemove({_id});
+        res.json(setJson(true, `删除持卡人${card.cardholder}成功`, null))
     } catch (e) {
         console.log(e);
         res.json(setJson(false, e.stack, null))

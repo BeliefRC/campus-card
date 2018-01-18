@@ -1,6 +1,7 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {Layout, Avatar, Menu, Dropdown, message} from 'antd'
+import {post} from '../../fetch/post'
 import sessionStorage from '../../until/sessionStorage'
 import LoginModal from '../LoginModal/LoginModal'
 import AboutUsModal from '../AboutUsModal/AboutUsModal'
@@ -35,22 +36,31 @@ export default class HomeHeader extends React.Component {
                 modalVisibleActions.update(modalVisible);
                 break;
             case 'logout':
-                let initUserInfo = {
-                    user: '',
-                    isLogin: false,
-                    isAdmin: false,
-                    code: ''
-                };
-                Object.assign(userInfo, initUserInfo);
-                userInfoActions.update(userInfo);
-                sessionStorage.setItem('userInfo', JSON.stringify(initUserInfo));
-                message.success('退出登录成功');
-                let url = hashHistory.getCurrentLocation().pathname;
-                //退出登录时返回首页
-                if (url !== '/') {
-                    let {menuKey, menuKeyActions} = this.props;
-                    selectedKeyUntil.update(menuKey, menuKeyActions, '/')
-                }
+                post('/logout', {}, (data) => {
+                    if (data.success) {
+                        let initUserInfo = {
+                            user: '',
+                            isLogin: false,
+                            isAdmin: false,
+                            code: ''
+                        };
+                        Object.assign(userInfo, initUserInfo);
+                        userInfoActions.update(userInfo);
+                        sessionStorage.setItem('userInfo', JSON.stringify(initUserInfo));
+                        message.success(data.msg);
+                        let url = hashHistory.getCurrentLocation().pathname;
+                        //退出登录时返回首页
+                        if (url !== '/') {
+                            let {menuKey, menuKeyActions} = this.props;
+                            selectedKeyUntil.update(menuKey, menuKeyActions, '/')
+                        }
+                    } else {
+                        message.error(data.msg);
+                    }
+                }, () => {
+                    message.error(`退出登录异常`)
+                });
+
                 break;
             default:
                 break;

@@ -2,7 +2,7 @@ import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import moment from 'moment'
 import {Table, Menu, Dropdown, Icon, Popconfirm, message, Avatar} from 'antd';
-import {get} from "../../fetch/get";
+import {post} from "../../fetch/post";
 import {hashHistory, Link} from 'react-router'
 
 export default class CardListTable extends React.Component {
@@ -56,8 +56,7 @@ export default class CardListTable extends React.Component {
 
     //确定删除
     confirm(text, record, index, e) {
-        console.log(arguments);
-        get(`/admin/movie/delete`, {_id: record._id}, (data) => {
+        post(`/card/delete`, {_id: record._id}, (data) => {
             if (data.success) {
                 message.success(data.msg);
                 this.props.getDataSource();

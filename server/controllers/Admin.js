@@ -51,6 +51,6 @@ exports.adminRequired = (req, res, next) => {
     if (user.isAdmin) {
         next();
     } else {
-        return res.json(setJson(false, '权限不足', null));
+         res.json(setJson(false, '权限不足', null));
     }
 };
