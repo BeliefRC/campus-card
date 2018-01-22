@@ -1,8 +1,6 @@
 import React from 'react'
 import {Form, Input, Tooltip, Icon, Button, Radio, message} from 'antd';
-// import {hashHistory} from "react-router";
 import typeRadioData from '../../viewDatas/typeRadio'
-// import {get} from "../../fetch/get";
 import {post} from "../../fetch/post";
 import selectedKeyUntil from "../../until/selectedKeyUntil";
 
@@ -21,12 +19,20 @@ class CardDetailInfoForm extends React.Component {
     }
 
     static  defaultProps = {
-        codeDisabled: false
+        codeDisabled: false,
+        isFrozenDisabled: false,
+        isLostDisabled: false,
+
     };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.data.code !== this.props.data.code) {
-            this.props.form.setFieldsValue(nextProps.data)
+            if (nextProps.data && JSON.stringify(nextProps.data) !== '{}') {
+                this.props.form.setFieldsValue(nextProps.data)
+            } else {
+                this.props.form.resetFields()
+
+            }
         }
     }
 
@@ -36,13 +42,19 @@ class CardDetailInfoForm extends React.Component {
             if (!err) {
                 this.setState({loading: true});
                 //发送请求
-                let url = `/card/register`;
+                let url;
+                let {type} = this.props;
+                if (type === '更新') {
+                    url = `/card/update`
+                } else if (type === '录入') {
+                    url = `/card/register`
+                }
                 post(url, values,
                     (data) => {
                         if (data.success) {
                             let {menuKey, menuKeyActions} = this.props;
                             selectedKeyUntil.update(menuKey, menuKeyActions, '/admin/cardholderList');
-                            message.info(data.msg)
+                            message.success(data.msg)
                         } else {
                             message.error(data.msg);
                             this.setState({loading: false});
@@ -83,7 +95,7 @@ class CardDetailInfoForm extends React.Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        let {codeDisabled} = this.props;
+        let {codeDisabled, type, showPassword} = this.props;
         const formItemLayout = {
             labelCol: {
                 xs: {span: 24},
@@ -145,7 +157,7 @@ class CardDetailInfoForm extends React.Component {
                         <Input/>
                     )}
                 </FormItem>
-                <FormItem
+                {showPassword ? [<FormItem
                     {...formItemLayout}
                     label={(
                         <span>
@@ -165,28 +177,27 @@ class CardDetailInfoForm extends React.Component {
                     })(
                         <Input type="password"/>
                     )}
-                </FormItem>
-                <FormItem
-                    {...formItemLayout}
-                    label="确认密码"
-                >
-                    {getFieldDecorator('confirm', {
-                        rules: [{
-                            required: true, message: '确认密码为必填!',
-                        }, {
-                            validator: this.checkPassword,
-                        }],
-                    })(
-                        <Input type="password" onBlur={this.handleConfirmBlur}/>
-                    )}
-                </FormItem>
+                </FormItem>,
+                    <FormItem
+                        {...formItemLayout}
+                        label="确认密码"
+                    >
+                        {getFieldDecorator('confirm', {
+                            rules: [{
+                                required: true, message: '确认密码为必填!',
+                            }, {
+                                validator: this.checkPassword,
+                            }],
+                        })(
+                            <Input type="password" onBlur={this.handleConfirmBlur}/>
+                        )}
+                    </FormItem>] : ''}
                 <FormItem
                     {...formItemLayout}
                     label="性别"
                 >
                     {getFieldDecorator('sex', {
                         rules: [{required: true, message: '请选择性别!'}],
-                        initialValue: '男'
                     })(<RadioGroup>
                         <Radio value='男'>男</Radio>
                         <Radio value='女'>女</Radio>
@@ -198,7 +209,6 @@ class CardDetailInfoForm extends React.Component {
                 >
                     {getFieldDecorator('type', {
                         rules: [{required: true, message: '请选择卡类别!'}],
-                        initialValue: '学生卡'
                     })(
                         <RadioGroup>
                             {
@@ -209,7 +219,7 @@ class CardDetailInfoForm extends React.Component {
                     )}
                 </FormItem>
                 <FormItem {...tailFormItemLayout}>
-                    <Button type="primary" htmlType="submit">录入</Button>
+                    <Button type="primary" htmlType="submit">{type}</Button>
                 </FormItem>
             </Form>
         );

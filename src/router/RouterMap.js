@@ -3,6 +3,7 @@ import {Router, Route, IndexRoute} from 'react-router'
 import App from '../containers/App'
 import NotFound from '../containers/NotFound'
 import CardholderListPage from '../containers/cardholderListPage'
+import cardholderDetailPage from '../containers/cardholderDetailPage'
 import NewCardPage from '../containers/newCardPage'
 import BillListPage from '../containers/billListPage'
 import Notice from '../containers/noticePage'
@@ -21,6 +22,7 @@ export default class RouterMap extends React.Component {
                 <Route path='admin'>
                     <Route path='cardholderList' component={CardholderListPage}/>
                     <Route path='noticeList' component={NoticeListPage}/>
+                    <Route path='cardholderDetail' component={cardholderDetailPage}/>
                     <Route path='newCard' component={NewCardPage}/>
                 </Route>
                 <Route path='userCenter'>

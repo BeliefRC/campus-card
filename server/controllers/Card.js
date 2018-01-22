@@ -51,6 +51,7 @@ exports.logout = (req, res) => {
         res.json(setJson(false, e.message, null));
     }
 };
+
 //新增卡
 exports.register = async (req, res) => {
     const _card = req.body;
@@ -62,15 +63,20 @@ exports.register = async (req, res) => {
         }
         card = new Card(_card);
         await card.save();
-        /*//自增卡号
-        let num = Num.find({});
-        if (num.length) {
-            await  Num.update({_id: num[0]._id}, {$inc: {num: 1}})
-        } else {
-            let num = new Num({});
-            await num.save();
-        }*/
         res.json(setJson(true, '新增卡成功', null));
+    }
+    catch (e) {
+        console.log(e.stack);
+        res.json(setJson(false, e.message, null));
+    }
+};
+
+//更新卡
+exports.update = async (req, res) => {
+    const _card = req.body;
+    try {
+        let card = await Card.findOneAndUpdate({code: _card.code},_card);
+        res.json(setJson(true, '更新成功', card));
     }
     catch (e) {
         console.log(e.stack);
@@ -110,6 +116,22 @@ exports.deleteCard = async (req, res) => {
     try {
         let card = await Card.findOneAndRemove({_id});
         res.json(setJson(true, `删除持卡人${card.cardholder}成功`, null))
+    } catch (e) {
+        console.log(e);
+        res.json(setJson(false, e.stack, null))
+    }
+};
+
+//卡片信息详情
+exports.detail = async (req, res) => {
+    let code = req.query.code;
+    try {
+        let card = await Card.findOne({code}, 'code cardholder sex type');
+        if (card) {
+            res.json(setJson(true, '查看详情成功', card))
+        } else {
+            res.json(setJson(false, 'not found，请确认一卡通账号是否正确', null))
+        }
     } catch (e) {
         console.log(e);
         res.json(setJson(false, e.stack, null))

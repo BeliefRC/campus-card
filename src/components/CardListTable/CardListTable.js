@@ -3,7 +3,8 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 import moment from 'moment'
 import {Table, Menu, Dropdown, Icon, Popconfirm, message, Avatar} from 'antd';
 import {post} from "../../fetch/post";
-import {hashHistory, Link} from 'react-router'
+import selectedKeyUntil from "../../until/selectedKeyUntil";
+// import {hashHistory} from 'react-router'
 
 export default class CardListTable extends React.Component {
     // 构造
@@ -47,7 +48,8 @@ export default class CardListTable extends React.Component {
     handleOperate(text, record, index, e) {
         switch (e.key) {
             case'update':
-                hashHistory.push(`admin/movie/detail/${record._id}`);
+
+                this.routeTo(record);
                 break;
             default:
                 break;
@@ -71,6 +73,12 @@ export default class CardListTable extends React.Component {
 
     }
 
+    //跳转到详情页面
+    routeTo(record) {
+        let {menuKey, menuKeyActions} = this.props;
+        selectedKeyUntil.update(menuKey, menuKeyActions, `admin/cardholderDetail`, true, {code: record.code})
+    }
+
     render() {
         const columns = [
             {
@@ -78,7 +86,7 @@ export default class CardListTable extends React.Component {
                 dataIndex: 'cardholder',
                 fixed: 'left',
                 width: 130,
-                render: (text, record, index) => <Link to={`/movie/${record._id}`}>{text}</Link>,
+                render: (text, record, index) => <a onClick={this.routeTo.bind(this, record)}>{text}</a>,
             }, {
                 title: '卡号',
                 dataIndex: 'code',
@@ -89,8 +97,8 @@ export default class CardListTable extends React.Component {
                 title: '头像',
                 dataIndex: 'photo',
                 width: 100,
-                render: (text, record, index) => text ? <Avatar src={text}/> : <Avatar icon="user"
-                                                                                       style={{backgroundColor: '#1890FF'}}/>,
+                render: (text, record, index) => text ? <Avatar src={text}/> :
+                    <Avatar icon="user" style={{backgroundColor: '#1890FF'}}/>,
             }, {
                 title: '性别',
                 dataIndex: 'sex',
@@ -123,12 +131,6 @@ export default class CardListTable extends React.Component {
                 render: (text, record, index) => text ? '是' : '否'
 
             }, {
-                title: '是否丢失',
-                dataIndex: 'isLost',
-                width: 100,
-                render: (text, record, index) => text ? '是' : '否'
-
-            }, {
                 title: '创建时间',
                 dataIndex: 'meta.createAt',
                 width: 150,
@@ -140,7 +142,6 @@ export default class CardListTable extends React.Component {
                 dataIndex: 'meta.updateAt',
                 width: 150,
                 sorter: (a, b) => a['meta.updateAt'] - b['meta.updateAt'],
-
                 render: (text, record, index) => moment(text).format('YYYY-MM-DD HH:mm')
             }, {
                 title: '操作',
@@ -155,7 +156,7 @@ export default class CardListTable extends React.Component {
                       dataSource={this.props.data}
             // pagination={this.state.pagination}
                       onChange={this.handleTableChange}
-                      scroll={{x: 1400}}
+                      scroll={{x: 1300}}
                       className='movie-table-list'
         />
     }

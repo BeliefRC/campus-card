@@ -3,6 +3,11 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 import CardListTable from '../../components/CardListTable/CardListTable'
 import {get} from "../../fetch/get";
 import {Spin, message} from "antd";
+import {bindActionCreators} from "redux";
+import * as menuKeyActionsFromOtherFile from "../../actions/menuKey";
+import {connect} from "react-redux";
+
+@connect(mapStateToProps, mapDispatchToProps)
 
 export default class CardholderListPage extends React.Component {
     // 构造
@@ -49,9 +54,22 @@ export default class CardholderListPage extends React.Component {
         let {loading, data} = this.state;
         return (
             <Spin spinning={loading}>
-                <CardListTable data={data} getDataSource={this.getDataSource.bind(this)}/>
+                <CardListTable menuKey={this.props.menuKey} menuKeyActions={this.props.menuKeyActions} data={data}
+                               getDataSource={this.getDataSource.bind(this)}/>
             </Spin>
         )
+    }
+}
+
+function mapStateToProps(state) {
+    return {
+        menuKey: state.menuKey,
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        menuKeyActions: bindActionCreators(menuKeyActionsFromOtherFile, dispatch),
     }
 }
 

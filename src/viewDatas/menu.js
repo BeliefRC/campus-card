@@ -13,6 +13,9 @@ const menuData = [
                 title: '通知公告列表',
                 key: 'admin/noticeList',
             }, {
+                title: '持卡人详情信息',
+                key: 'admin/cardholderDetail',
+            }, {
                 title: '充值缴费',
                 key: 'admin/recharge',
             }, {
