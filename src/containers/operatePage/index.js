@@ -1,15 +1,12 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import {Spin, message} from 'antd'
-import * as menuKeyActionsFromOtherFile from '../../actions/menuKey'
-import CardDetailInfoForm from '../../components/CardDetailInfoForm/CardDetailInfoForm'
+import {Tabs, Icon, Spin, message} from 'antd'
 import SearchByCodeInput from '../../components/SearchByCodeInput/SearchByCodeInput'
+import BaseCardInfo from '../../components/CardBaseInfo/BaseCardInfo'
 import {get} from "../../fetch/get";
 
-@connect(mapStateToProps, mapDispatchToProps)
-export default class cardholderDetailPage extends React.Component {
+const TabPane = Tabs.TabPane;
+export default class OperatePage extends React.Component {
     // 构造
     constructor(props, context) {
         super(props, context);
@@ -19,14 +16,7 @@ export default class cardholderDetailPage extends React.Component {
         this.state = {
             loading: false,
             data: {}
-        }
-    }
-
-    componentDidMount() {
-        let code = this.props.location.state ? this.props.location.state.code : null;
-        if (code) {
-            this.init(code)
-        }
+        };
     }
 
     init(code) {
@@ -49,28 +39,24 @@ export default class cardholderDetailPage extends React.Component {
         });
     }
 
-
     render() {
         let {loading, data} = this.state;
         return (
             <Spin spinning={loading}>
                 <SearchByCodeInput init={this.init.bind(this)}/>
-                <CardDetailInfoForm type='更新' menuKey={this.props.menuKey} menuKeyActions={this.props.menuKeyActions}
-                                    codeDisabled={true} data={data}/>
+                <Tabs defaultActiveKey="1">
+                    <TabPane tab={<span><Icon type="frown-o"/>挂失卡</span>} key="1">
+                        <BaseCardInfo data={data}/>
+                    </TabPane>
+                    <TabPane tab={<span><Icon type="reload"/>重置密码</span>} key="2">
+                        <BaseCardInfo data={data}/>
+                    </TabPane>
+                    <TabPane tab={<span><Icon type="bank"/>充值缴费</span>} key="3">
+                        <BaseCardInfo data={data}/>
+                    </TabPane>
+                </Tabs>
             </Spin>
         )
-    }
-}
-
-function mapStateToProps(state) {
-    return {
-        menuKey: state.menuKey,
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        menuKeyActions: bindActionCreators(menuKeyActionsFromOtherFile, dispatch),
     }
 }
 

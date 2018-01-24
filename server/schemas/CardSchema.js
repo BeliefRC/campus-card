@@ -85,14 +85,6 @@ CardSchema.pre('save', function (next) {
     })
 });
 
-//更新卡
-CardSchema.pre('findOneAndUpdate', function (next) {
-    console.log(this._update);
-    this._update.meta = {updateAt: Date.now()};
-    // this.meta.updateAt = Date.now()
-    next()
-});
-
 //匹配密码
 CardSchema.methods = {
     comparePassword(_password, cb) {

@@ -75,7 +75,8 @@ exports.register = async (req, res) => {
 exports.update = async (req, res) => {
     const _card = req.body;
     try {
-        let card = await Card.findOneAndUpdate({code: _card.code},_card);
+        let card = await Card.findOneAndUpdate({code: _card.code}, _card);
+        card = await card.save();
         res.json(setJson(true, '更新成功', card));
     }
     catch (e) {
@@ -126,7 +127,7 @@ exports.deleteCard = async (req, res) => {
 exports.detail = async (req, res) => {
     let code = req.query.code;
     try {
-        let card = await Card.findOne({code}, 'code cardholder sex type');
+        let card = await Card.findOne({code}, 'code cardholder sex type isFrozen');
         if (card) {
             res.json(setJson(true, '查看详情成功', card))
         } else {

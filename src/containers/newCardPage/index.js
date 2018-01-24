@@ -52,7 +52,7 @@ export default class NewCardPage extends React.Component {
         return (
             <Spin spinning={loading}>
                 <CardDetailInfoForm type='录入' menuKey={this.props.menuKey} menuKeyActions={this.props.menuKeyActions}
-                                    codeDisabled={true} showPassword={false} data={data}/>
+                                    codeDisabled={true} showPassword={true} data={data}/>
             </Spin>
         )
     }

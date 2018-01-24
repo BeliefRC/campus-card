@@ -28,10 +28,15 @@ class CardDetailInfoForm extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.data.code !== this.props.data.code) {
             if (nextProps.data && JSON.stringify(nextProps.data) !== '{}') {
-                this.props.form.setFieldsValue(nextProps.data)
+                let value = this.props.form.getFieldsValue();
+                for (let key in value) {
+                    if (value.hasOwnProperty(key)) {
+                        value[key] = nextProps.data[key]
+                    }
+                }
+                this.props.form.setFieldsValue(value)
             } else {
                 this.props.form.resetFields()
-
             }
         }
     }
@@ -157,7 +162,7 @@ class CardDetailInfoForm extends React.Component {
                         <Input/>
                     )}
                 </FormItem>
-                {showPassword ? [<FormItem
+                {showPassword ? [<FormItem key='password'
                     {...formItemLayout}
                     label={(
                         <span>
@@ -178,7 +183,7 @@ class CardDetailInfoForm extends React.Component {
                         <Input type="password"/>
                     )}
                 </FormItem>,
-                    <FormItem
+                    <FormItem key='confirm'
                         {...formItemLayout}
                         label="确认密码"
                     >

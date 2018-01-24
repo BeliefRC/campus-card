@@ -16,11 +16,8 @@ const menuData = [
                 title: '持卡人详情信息',
                 key: 'admin/cardholderDetail',
             }, {
-                title: '充值缴费',
-                key: 'admin/recharge',
-            }, {
-                title: '挂失登记',
-                key: 'admin/reportLoss',
+                title: '操作卡',
+                key: 'admin/operate',
             }, {
                 title: '新增卡',
                 key: 'admin/newCard',
