@@ -127,7 +127,7 @@ exports.deleteCard = async (req, res) => {
 exports.detail = async (req, res) => {
     let code = req.query.code;
     try {
-        let card = await Card.findOne({code}, 'code cardholder sex type isFrozen');
+        let card = await Card.findOne({code}, 'code cardholder sex type isFrozen balance');
         if (card) {
             res.json(setJson(true, '查看详情成功', card))
         } else {

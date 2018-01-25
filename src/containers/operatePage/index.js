@@ -3,6 +3,9 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {Tabs, Icon, Spin, message} from 'antd'
 import SearchByCodeInput from '../../components/SearchByCodeInput/SearchByCodeInput'
 import BaseCardInfo from '../../components/CardBaseInfo/BaseCardInfo'
+import FrozenState from '../../components/FrozenState/FrozenState'
+import ResetPassword from '../../components/ResetPassword/ResetPassword'
+import BalanceState from '../../components/BalanceState/BalanceState'
 import {get} from "../../fetch/get";
 
 const TabPane = Tabs.TabPane;
@@ -47,12 +50,15 @@ export default class OperatePage extends React.Component {
                 <Tabs defaultActiveKey="1">
                     <TabPane tab={<span><Icon type="frown-o"/>挂失卡</span>} key="1">
                         <BaseCardInfo data={data}/>
+                        <FrozenState data={data}/>
                     </TabPane>
                     <TabPane tab={<span><Icon type="reload"/>重置密码</span>} key="2">
                         <BaseCardInfo data={data}/>
+                        <ResetPassword data={data}/>
                     </TabPane>
                     <TabPane tab={<span><Icon type="bank"/>充值缴费</span>} key="3">
                         <BaseCardInfo data={data}/>
+                        <BalanceState data={data}/>
                     </TabPane>
                 </Tabs>
             </Spin>
