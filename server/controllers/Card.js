@@ -75,7 +75,7 @@ exports.register = async (req, res) => {
 exports.update = async (req, res) => {
     const _card = req.body;
     try {
-        let card = await Card.findOneAndUpdate({code: _card.code}, _card);
+        let card = await Card.findOneAndUpdate({code: _card.code}, _card,{new:true});
         card = await card.save();
         res.json(setJson(true, '更新成功', card));
     }
@@ -106,8 +106,8 @@ exports.cardList = async (req, res) => {
             .sort({'meta.updateAt': -1});
         res.json(setJson(true, '查询电列表情成功', cards))
     } catch (e) {
-        console.log(e);
-        res.json(setJson(false, e.stack, null))
+        console.log(e.stack);
+        res.json(setJson(false, e.message, null))
     }
 };
 
@@ -118,8 +118,8 @@ exports.deleteCard = async (req, res) => {
         let card = await Card.findOneAndRemove({_id});
         res.json(setJson(true, `删除持卡人${card.cardholder}成功`, null))
     } catch (e) {
-        console.log(e);
-        res.json(setJson(false, e.stack, null))
+        console.log(e.stack);
+        res.json(setJson(false, e.message, null))
     }
 };
 
@@ -134,7 +134,52 @@ exports.detail = async (req, res) => {
             res.json(setJson(false, 'not found，请确认一卡通账号是否正确', null))
         }
     } catch (e) {
-        console.log(e);
-        res.json(setJson(false, e.stack, null))
+        console.log(e.stack);
+        res.json(setJson(false, e.message, null))
+    }
+
+};
+
+//挂失操作
+exports.frozen = async (req, res) => {
+    let code = req.body.code;
+    try {
+
+        let card = await Card.findOne({code});
+        card.isFrozen = !card.isFrozen;
+        card = await card.save();
+        let str = card.isFrozen ? '挂失' : '解挂';
+        res.json(setJson(true, `${str}成功`, card))
+    } catch (e) {
+        console.log(e.stack);
+        res.json(setJson(false, e.message, null))
+    }
+};
+
+//重置密码操作
+exports.resetPassword = async (req, res) => {
+    let code = req.body.code;
+    try {
+        let card = await Card.findOne({code});
+        card.password = '666666';
+        console.log(card.doc);
+        card = await card.save();
+        res.json(setJson(true, `重置成功`, card))
+    } catch (e) {
+        console.log(e.stack);
+        res.json(setJson(false, e.message, null))
+    }
+};
+
+//充值操作
+exports.recharge = async (req, res) => {
+    let code = req.body.code;
+    let rechargeAmount = parseFloat(req.body.rechargeAmount);
+    try {
+        let card = await Card.findOneAndUpdate({code}, {$inc: {balance: rechargeAmount}},{new:true});
+        res.json(setJson(true, `充值成功`, card))
+    } catch (e) {
+        console.log(e.stack);
+        res.json(setJson(false, e.message, null))
     }
 };

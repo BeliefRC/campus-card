@@ -31,7 +31,7 @@ export default class cardholderDetailPage extends React.Component {
 
     init(code) {
         this.setState({loading: true});
-        get('/admin/detail', {code}, (data) => {
+        get('/card/detail', {code}, (data) => {
             this.setState({loading: false});
             if (data.success) {
                 delete data.backData._id;

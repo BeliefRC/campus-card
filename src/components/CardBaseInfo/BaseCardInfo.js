@@ -26,7 +26,7 @@ export default class CardBaseInfo extends React.Component {
                       description={data.cardholder ? <Tag color="cyan">{data.cardholder}</Tag> : ''}
                       icon={<Icon type="user"/>}/>
                 <Step status="finish" title={`性别`}
-                      description={data.sex ? <Tag color="orange">{data.sex}</Tag> : ''}
+                      description={data.sex ? <Tag color="geekblue">{data.sex}</Tag> : ''}
                       icon={<Icon type="exception" />}/>
 
             </Steps>

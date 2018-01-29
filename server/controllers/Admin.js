@@ -39,8 +39,8 @@ exports.login = async (req, res) => {
         }
     }
     catch (e) {
-        console.log(e);
-        res.json(setJson(false, e.stack, null));
+        console.log(e.stack);
+        res.json(setJson(false, e.message, null))
     }
 };
 

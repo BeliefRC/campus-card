@@ -1,5 +1,7 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
+import {Switch} from 'antd'
+import './style.less'
 
 export default class ResetPassword extends React.Component {
     // 构造
@@ -11,11 +13,19 @@ export default class ResetPassword extends React.Component {
         this.state = {};
     }
 
+    handleChange() {
+        this.props.frozenOperate();
+    }
 
     render() {
-        let {data} = this.props;
+        let {data, loading} = this.props;
         return (
-            <div>{data.isFrozen ? '已挂失' : '未挂失'}</div>
+            <div className='frozen-state'>
+                {data.code ?
+                    <Switch checkedChildren="已挂失" unCheckedChildren="未挂失" checked={data.isFrozen}
+                            loading={loading} onChange={this.handleChange.bind(this)}/> : ''}
+
+            </div>
         )
     }
 }
