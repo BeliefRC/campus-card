@@ -16,7 +16,7 @@ export default class LoginModal extends React.Component {
     handleOk = () => {
         let {modalVisible, modalVisibleActions} = this.props;
         modalVisible.aboutUsVisible = false;
-        this.setState({loading: false, visible: false});
+        this.setState({loading: false});
         modalVisibleActions.update(modalVisible);
     };
 

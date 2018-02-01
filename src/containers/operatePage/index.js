@@ -2,10 +2,13 @@ import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {Tabs, Icon, Spin, Button, message} from 'antd'
 import {connect} from 'react-redux'
+import {bindActionCreators} from "redux";
+import * as modalVisibleActionsFromOtherFile from '../../actions/modalVisible'
 import SearchByCodeInput from '../../components/SearchByCodeInput/SearchByCodeInput'
 import BaseCardInfo from '../../components/CardBaseInfo/BaseCardInfo'
 import FrozenState from '../../components/FrozenState/FrozenState'
 import BalanceState from '../../components/BalanceState/BalanceState'
+import ChangePasswordModal from '../../components/ChangePasswordModal/ChangePasswordModal'
 import {get} from "../../fetch/get";
 import {post} from "../../fetch/post";
 
@@ -79,10 +82,10 @@ export default class OperatePage extends React.Component {
         });
     }
 
-    recharge(rechargeAmount,password) {
+    recharge(rechargeAmount, password) {
         this.setState({loading: true});
         let code = this.state.data.code;
-        post('/card/recharge', {code, rechargeAmount,password},
+        post('/card/recharge', {code, rechargeAmount, password},
             (data) => {
                 this.setState({loading: false});
                 if (data.success) {
@@ -121,18 +124,25 @@ export default class OperatePage extends React.Component {
         });
     }
 
+    changePassword() {
+        let {modalVisible, modalVisibleActions} = this.props;
+        modalVisible.changePasswordVisible = true;
+        modalVisibleActions.update(modalVisible);
+    }
+
+
     handleCLick() {
         let {userInfo} = this.props;
         if (userInfo.isAdmin) {
             this.resetPassword()
-        }else {
-            
+        } else {
+            this.changePassword();
         }
     }
 
     render() {
         let {loading, data} = this.state;
-        let {userInfo} = this.props;
+        let {userInfo, modalVisible, modalVisibleActions} = this.props;
         return (
             <Spin spinning={loading}>
                 {userInfo.isAdmin ? <SearchByCodeInput init={this.init.bind(this)}/> : ''}
@@ -153,6 +163,7 @@ export default class OperatePage extends React.Component {
                         <BalanceState data={data} recharge={this.recharge.bind(this)}/>
                     </TabPane>
                 </Tabs>
+                <ChangePasswordModal modalVisible={modalVisible} modalVisibleActions={modalVisibleActions}/>
             </Spin>
         )
     }
@@ -161,10 +172,13 @@ export default class OperatePage extends React.Component {
 function mapStateToProps(state) {
     return {
         userInfo: state.userInfo,
+        modalVisible: state.modalVisible
     }
 }
 
 function mapDispatchToProps(dispatch) {
-    return {}
+    return {
+        modalVisibleActions: bindActionCreators(modalVisibleActionsFromOtherFile, dispatch)
+    }
 }
 

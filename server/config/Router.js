@@ -15,6 +15,7 @@ module.exports = app => {
 
     //用户
     app.post('/card/login', Card.login);
+    app.post('/card/changePassword', Card.changePassword);
 
     //公共
     app.get('/card/detail', Admin.loginRequired, Card.detail);

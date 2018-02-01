@@ -2,7 +2,8 @@ import * as actionTypes from '../constants/modalVisible'
 
 export default function modalVisible(state = {
     loginVisible: false,
-    aboutUsVisible: false
+    aboutUsVisible: false,
+    changePasswordVisible: false
 }, action) {
     switch (action.type) {
         case actionTypes.MODAL_VISIBLE_UPDATE:

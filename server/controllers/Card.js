@@ -170,6 +170,32 @@ exports.resetPassword = async (req, res) => {
         res.json(setJson(false, e.message, null))
     }
 };
+//重置密码操作
+exports.changePassword = async (req, res) => {
+    let code = req.session.user.code;
+    let oldPassword = req.body.oldPassword;
+    let password = req.body.password;
+    try {
+        let card = await Card.findOne({code});
+        if (!card) {
+            console.log('用户名不存在');
+            res.json(setJson(false, '登录状态异常，请重新登录系统', null));
+        } else {
+            let isMatch = await comparePasswordPromise(card, oldPassword);
+            //密码是否正确
+            if (isMatch) {
+                card.password = password;
+                card = await card.save();
+                res.json(setJson(true, `修改成功`, null))
+            } else {
+                res.json(setJson(false, '修改失败，原密码错误', null));
+            }
+        }
+    } catch (e) {
+        console.log(e.stack);
+        res.json(setJson(false, e.message, null))
+    }
+};
 
 //充值操作
 exports.recharge = async (req, res) => {
