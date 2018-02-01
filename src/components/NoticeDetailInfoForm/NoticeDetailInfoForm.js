@@ -1,13 +1,12 @@
 import React from 'react'
-import {Form, Input, Tooltip, Icon, Button, Radio, Spin, message} from 'antd';
-import typeRadioData from '../../viewDatas/typeRadio'
+import {Form, Input, Button, Spin, message,Switch} from 'antd';
 import {post} from "../../fetch/post";
 import selectedKeyUntil from "../../until/selectedKeyUntil";
 
 const FormItem = Form.Item;
-const RadioGroup = Radio.Group;
+const {TextArea} = Input;
 
-class CardDetailInfoForm extends React.Component {
+class NoticeDetailInfoForm extends React.Component {
     // 构造
     constructor(props) {
         super(props);
@@ -104,7 +103,6 @@ class CardDetailInfoForm extends React.Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        let {codeDisabled, type, showPassword} = this.props;
         let {loading} = this.state;
         const formItemLayout = {
             labelCol: {
@@ -137,90 +135,37 @@ class CardDetailInfoForm extends React.Component {
                         {...formItemLayout}
                         label={(
                             <span>
-              一卡通账号&nbsp;
-                                <Tooltip title="一卡通账号为系统自动计算">
-                <Icon type="question-circle-o"/>
-              </Tooltip>
+              文章标题&nbsp;
             </span>
                         )}
                     >
-                        {getFieldDecorator('code', {
+                        {getFieldDecorator('title', {
                             rules: [{
-                                required: true, message: '一卡通账号不能为空!',
+                                required: true, message: '文章标题不能为空!',
                             }],
-                        })(
-                            <Input disabled={codeDisabled}/>
-                        )}
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label={(
-                            <span>
-              持卡人姓名&nbsp;
-                                <Tooltip title="请输入持卡人的真实姓名">
-                <Icon type="question-circle-o"/>
-              </Tooltip>
-            </span>
-                        )}
-                    >
-                        {getFieldDecorator('cardholder', {
-                            rules: [{required: true, message: '持卡人姓名不能为空!', whitespace: true}],
                         })(
                             <Input/>
                         )}
                     </FormItem>
-                    {showPassword ? [<FormItem key='password'{...formItemLayout} label={(
-                        <span>密码&nbsp;<Tooltip title="系统默认密码为666666">
-                            <Icon type="question-circle-o"/>
-                        </Tooltip></span>)}>
-                        {getFieldDecorator('password', {
-                            rules: [{
-                                required: true, message: '密码不能为空!',
-                            }, {
-                                validator: this.checkConfirm,
-                            }],
+                    <FormItem {...formItemLayout} label={(<span>公告正文&nbsp;</span>)}>
+                        {getFieldDecorator('content', {
+                            rules: [{required: true, message: '公告正文不能为空!', whitespace: true}],
                         })(
-                            <Input type="password"/>
+                            <TextArea placeholder="请输入公告的具体信息" autosize={{minRows: 4, maxRows: 20}}/>
                         )}
-                    </FormItem>,
-                        <FormItem key='confirm'{...formItemLayout} label="确认密码">
-                            {getFieldDecorator('confirm', {
-                                rules: [{
-                                    required: true, message: '确认密码为必填!',
-                                }, {
-                                    validator: this.checkPassword,
-                                }],
-                            })(
-                                <Input type="password" onBlur={this.handleConfirmBlur}/>
-                            )}
-                        </FormItem>] : ''}
-                    <FormItem
-                        {...formItemLayout}
-                        label="性别">
-                        {getFieldDecorator('sex', {
-                            rules: [{required: true, message: '请选择性别!'}],
-                        })(<RadioGroup>
-                            <Radio value='男'>男</Radio>
-                            <Radio value='女'>女</Radio>
-                        </RadioGroup>)}
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
-                        label="卡类别"
-                    >
-                        {getFieldDecorator('type', {
-                            rules: [{required: true, message: '请选择卡类别!'}],
+                        label={(<span>是否显示&nbsp;</span>)}>
+                        {getFieldDecorator('content', {
+                            rules: [],
                         })(
-                            <RadioGroup>
-                                {
-                                    typeRadioData.map(item =>
-                                        <Radio value={item.key} key={item.key}>{item.value}</Radio>)
-                                }
-                            </RadioGroup>
+                            <TextArea placeholder="请输入公告的具体信息" autosize={{minRows: 4, maxRows: 20}}/>
                         )}
                     </FormItem>
+
                     <FormItem {...tailFormItemLayout}>
-                        <Button type="primary" loading={loading} htmlType="submit">{type}</Button>
+                        <Button type="primary" loading={loading} htmlType="submit">发布</Button>
                     </FormItem>
                 </Form>
             </Spin>
@@ -228,4 +173,4 @@ class CardDetailInfoForm extends React.Component {
     }
 }
 
-export default CardDetailInfoForm = Form.create({})(CardDetailInfoForm);
+export default NoticeDetailInfoForm = Form.create({})(NoticeDetailInfoForm);

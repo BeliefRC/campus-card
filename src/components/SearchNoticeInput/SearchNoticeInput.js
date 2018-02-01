@@ -1,10 +1,11 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import {Form, Input, Icon} from 'antd';
+import {Form, Input} from 'antd';
 
 const FormItem = Form.Item;
+const Search = Input.Search;
 
-class SearchByCodeInput extends React.Component {
+class SearchNoticeInput extends React.Component {
     // 构造
     constructor(props, context) {
         super(props, context);
@@ -16,10 +17,11 @@ class SearchByCodeInput extends React.Component {
 
     //同步信息
     handleSubmit = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-               this.props.init(values.searchCode)
+                console.log(values);
+                // this.props.init(values.searchCode)
             }
         });
     };
@@ -45,28 +47,15 @@ class SearchByCodeInput extends React.Component {
         };
         return (
             <Form>
-                <FormItem label="输入一卡通账号查询"
+                <FormItem label="输入文章标题或主体内容查询"
                           {...formItemLayout}>
                     {getFieldDecorator('searchCode', {
                         rules: [{
-                            required: true, message: '请输入一卡通账号!',
-                        },{
-                            validator(rule, values, callback) {
-                                if (values && values.length > 0) {
-                                    let reg = /^[0-9]*$/g;
-                                    if (!reg.test(values)) {
-                                        callback(`id只能是数字`);
-                                    } else {
-                                        callback();
-                                    }
-                                } else {
-                                    callback();
-                                }
-                            }
+                            required: true, message: '该项不能为空!',
                         }],
                     })(
-                        <Input prefix={<Icon type="link" style={{color: 'rgba(0,0,0,.25)'}}/>}
-                               placeholder="输入一卡通账号后按下回车键即查询" onKeyDown={this.search.bind(this)}/>
+                        <Search placeholder="input search text" enterButton="搜索"
+                                onSearch={this.handleSubmit}/>
                     )}
                 </FormItem>
             </Form>
@@ -74,5 +63,5 @@ class SearchByCodeInput extends React.Component {
     }
 }
 
-export default SearchByCodeInput = Form.create({})(SearchByCodeInput);
+export default SearchNoticeInput = Form.create({})(SearchNoticeInput);
 

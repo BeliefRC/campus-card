@@ -24,6 +24,9 @@ const menuData = [
             }, {
                 title: '新增卡',
                 key: 'admin/newCard',
+            }, {
+                title: '新增公告',
+                key: 'admin/newNotice',
             }
         ]
     },

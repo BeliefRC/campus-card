@@ -6,6 +6,7 @@ import CardholderListPage from '../containers/cardholderListPage'
 import cardholderDetailPage from '../containers/cardholderDetailPage'
 import OperatePage from '../containers/operatePage'
 import NewCardPage from '../containers/newCardPage'
+import newNoticePage from '../containers/newNoticePage'
 import BillListPage from '../containers/billListPage'
 import Notice from '../containers/noticePage'
 import NoticeListPage from '../containers/noticeListPage'
@@ -26,6 +27,7 @@ export default class RouterMap extends React.Component {
                     <Route path='cardholderDetail' component={cardholderDetailPage}/>
                     <Route path='operate' component={OperatePage}/>
                     <Route path='newCard' component={NewCardPage}/>
+                    <Route path='newNotice' component={newNoticePage}/>
                     <Route path='billList' component={BillListPage}/>
                 </Route>
                 <Route path='userCenter'>

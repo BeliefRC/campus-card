@@ -10,6 +10,11 @@ const NoticeSchema = new Schema({
         required: true,
         maxlength: 1000
     },
+    isShow: {
+        type: String,
+        enum: ['是', '否'],
+        required: true
+    },
     createPerson: String,
     meta: {
         createAt: {
