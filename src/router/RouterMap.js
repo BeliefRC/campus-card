@@ -26,9 +26,12 @@ export default class RouterMap extends React.Component {
                     <Route path='cardholderDetail' component={cardholderDetailPage}/>
                     <Route path='operate' component={OperatePage}/>
                     <Route path='newCard' component={NewCardPage}/>
+                    <Route path='billList' component={BillListPage}/>
                 </Route>
                 <Route path='userCenter'>
                     <Route path='billList' component={BillListPage}/>
+                    <Route path='operate' component={OperatePage}/>
+                    <Route path='cardholderDetail' component={cardholderDetailPage}/>
                 </Route>
                 <Route path='instruction' component={InstructionPage}/>
                 <Route path='process' component={ProcessPage}/>

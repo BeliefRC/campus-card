@@ -1,4 +1,5 @@
 const Card = require('../models/Card');
+const Admin = require('../models/Admin');
 const setJson = require('../until/SetJson');
 
 const comparePasswordPromise = (card, password) => {
@@ -28,7 +29,7 @@ exports.login = async (req, res) => {
             let isMatch = await comparePasswordPromise(card, password);
             //密码是否正确
             if (isMatch) {
-                console.log(`${code}:登陆成功`);
+                console.log(`${code}(${Card.cardholder}):登陆成功`);
                 req.session.user = card;
                 res.json(setJson(true, '登陆成功', card));
             } else {
@@ -61,6 +62,7 @@ exports.register = async (req, res) => {
             console.log('一卡通账号重复');
             res.json(setJson(false, '一卡通账号重复,请刷新页面', null));
         }
+        _card.bills = [{time: Date.now(), place: '校园一卡通平台', amount: 80.00, type: '充值'}];
         card = new Card(_card);
         await card.save();
         res.json(setJson(true, '新增卡成功', null));
@@ -75,7 +77,7 @@ exports.register = async (req, res) => {
 exports.update = async (req, res) => {
     const _card = req.body;
     try {
-        let card = await Card.findOneAndUpdate({code: _card.code}, _card,{new:true});
+        let card = await Card.findOneAndUpdate({code: _card.code}, _card, {new: true});
         card = await card.save();
         res.json(setJson(true, '更新成功', card));
     }
@@ -137,7 +139,6 @@ exports.detail = async (req, res) => {
         console.log(e.stack);
         res.json(setJson(false, e.message, null))
     }
-
 };
 
 //挂失操作
@@ -162,7 +163,6 @@ exports.resetPassword = async (req, res) => {
     try {
         let card = await Card.findOne({code});
         card.password = '666666';
-        console.log(card.doc);
         card = await card.save();
         res.json(setJson(true, `重置成功`, card))
     } catch (e) {
@@ -173,11 +173,56 @@ exports.resetPassword = async (req, res) => {
 
 //充值操作
 exports.recharge = async (req, res) => {
-    let code = req.body.code;
-    let rechargeAmount = parseFloat(req.body.rechargeAmount);
+    let code = req.body.code,
+        password = req.body.password,
+        rechargeAmount = parseFloat(req.body.rechargeAmount),
+        isAdmin = req.session.user.isAdmin;
     try {
-        let card = await Card.findOneAndUpdate({code}, {$inc: {balance: rechargeAmount}},{new:true});
-        res.json(setJson(true, `充值成功`, card))
+        let card, admin, isMatch;
+        //从session中判断是否为管理员,是则找出管理员
+        if (isAdmin) {
+            let adminCode = req.session.user.code;
+            admin = await Admin.findOne({code: adminCode});
+        }
+        //找到需要充值的卡
+        card = await Card.findOne({code});
+
+        if (!card) {
+            res.json(setJson(false, `登录信息错误，请重新登录`, card))
+        } else {
+            //验证管理员密码或者是用户密码
+            if (isAdmin) {
+                isMatch = await comparePasswordPromise(admin, password);
+            } else {
+                isMatch = await comparePasswordPromise(card, password);
+            }
+            //密码是否正确
+            if (isMatch) {
+                card = await Card.findOneAndUpdate({code}, {
+                    $inc: {balance: rechargeAmount},
+                    $addToSet: {bills: {time: Date.now(), place: '校园一卡通平台', amount: rechargeAmount, type: '充值'}}
+                }, {new: true});
+                res.json(setJson(true, `充值成功`, card))
+            } else {
+                res.json(setJson(false, '密码错误', null));
+            }
+        }
+
+    } catch (e) {
+        console.log(e.stack);
+        res.json(setJson(false, e.message, null))
+    }
+};
+//流水列表
+exports.billList = async (req, res) => {
+    let code = req.body.code;
+    try {
+        let card = await Card.findOne({code}, 'cardholder bills');
+        if (card) {
+            res.json(setJson(true, '', card))
+        } else {
+            res.json(setJson(false, 'not found，请确认一卡通账号是否正确', null))
+        }
     } catch (e) {
         console.log(e.stack);
         res.json(setJson(false, e.message, null))

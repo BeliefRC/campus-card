@@ -17,8 +17,9 @@ module.exports = app => {
     app.post('/card/login', Card.login);
 
     //公共
-    app.get('/card/detail', Card.detail);
-    app.post('/card/update', Card.update);
-    app.post('/card/frozen', Card.frozen);
-    app.post('/card/recharge', Card.recharge);
+    app.get('/card/detail', Admin.loginRequired, Card.detail);
+    app.post('/card/update', Admin.loginRequired, Card.update);
+    app.post('/card/frozen', Admin.loginRequired, Card.frozen);
+    app.post('/card/recharge', Admin.loginRequired, Card.recharge);
+    app.post('/card/billList', Admin.loginRequired, Card.billList);
 };

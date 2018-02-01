@@ -51,6 +51,15 @@ exports.adminRequired = (req, res, next) => {
     if (user.isAdmin) {
         next();
     } else {
-         res.json(setJson(false, '权限不足', null));
+        res.json(setJson(false, '权限不足', null));
+    }
+};
+// 验证是否登录，中间件
+exports.loginRequired = (req, res, next) => {
+    let user = req.session.user;
+    if (user) {
+        next();
+    } else {
+        res.json(setJson(false, '请登录', null));
     }
 };

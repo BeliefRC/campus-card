@@ -1,5 +1,5 @@
 import React from 'react'
-import {Form, Input, Tooltip, Icon, Button, Radio, message} from 'antd';
+import {Form, Input, Tooltip, Icon, Button, Radio, Spin, message} from 'antd';
 import typeRadioData from '../../viewDatas/typeRadio'
 import {post} from "../../fetch/post";
 import selectedKeyUntil from "../../until/selectedKeyUntil";
@@ -14,7 +14,8 @@ class CardDetailInfoForm extends React.Component {
         // 初始状态
         this.state = {
             confirmDirty: false,
-            codeDisabled: false
+            codeDisabled: false,
+            loading: false
         };
     }
 
@@ -56,9 +57,12 @@ class CardDetailInfoForm extends React.Component {
                 }
                 post(url, values,
                     (data) => {
+                        this.setState({loading: false});
                         if (data.success) {
-                            let {menuKey, menuKeyActions} = this.props;
-                            selectedKeyUntil.update(menuKey, menuKeyActions, '/admin/cardholderList');
+                            let {menuKey, menuKeyActions, userInfo} = this.props;
+                            if (userInfo.isAdmin) {
+                                selectedKeyUntil.update(menuKey, menuKeyActions, '/admin/cardholderList');
+                            }
                             message.success(data.msg)
                         } else {
                             message.error(data.msg);
@@ -101,6 +105,7 @@ class CardDetailInfoForm extends React.Component {
     render() {
         const {getFieldDecorator} = this.props.form;
         let {codeDisabled, type, showPassword} = this.props;
+        let {loading} = this.state;
         const formItemLayout = {
             labelCol: {
                 xs: {span: 24},
@@ -125,108 +130,111 @@ class CardDetailInfoForm extends React.Component {
         };
 
         return (
-            <Form onSubmit={this.handleSubmit}>
-                <FormItem
-                    {...formItemLayout}
-                    label={(
-                        <span>
-              一卡通账号&nbsp;
-                            <Tooltip title="一卡通账号为系统自动计算">
-                <Icon type="question-circle-o"/>
-              </Tooltip>
-            </span>
-                    )}
-                >
-                    {getFieldDecorator('code', {
-                        rules: [{
-                            required: true, message: '一卡通账号不能为空!',
-                        }],
-                    })(
-                        <Input disabled={codeDisabled}/>
-                    )}
-                </FormItem>
-                <FormItem
-                    {...formItemLayout}
-                    label={(
-                        <span>
-              持卡人姓名&nbsp;
-                            <Tooltip title="请输入持卡人的真实姓名">
-                <Icon type="question-circle-o"/>
-              </Tooltip>
-            </span>
-                    )}
-                >
-                    {getFieldDecorator('cardholder', {
-                        rules: [{required: true, message: '持卡人姓名不能为空!', whitespace: true}],
-                    })(
-                        <Input/>
-                    )}
-                </FormItem>
-                {showPassword ? [<FormItem key='password'
-                    {...formItemLayout}
-                    label={(
-                        <span>
-              密码&nbsp;
-                            <Tooltip title="系统默认密码为666666">
-                <Icon type="question-circle-o"/>
-              </Tooltip>
-            </span>
-                    )}
-                >
-                    {getFieldDecorator('password', {
-                        rules: [{
-                            required: true, message: '密码不能为空!',
-                        }, {
-                            validator: this.checkConfirm,
-                        }],
-                    })(
-                        <Input type="password"/>
-                    )}
-                </FormItem>,
-                    <FormItem key='confirm'
+            <Spin spinning={loading}>
+
+                <Form onSubmit={this.handleSubmit}>
+                    <FormItem
                         {...formItemLayout}
-                        label="确认密码"
+                        label={(
+                            <span>
+              一卡通账号&nbsp;
+                                <Tooltip title="一卡通账号为系统自动计算">
+                <Icon type="question-circle-o"/>
+              </Tooltip>
+            </span>
+                        )}
                     >
-                        {getFieldDecorator('confirm', {
+                        {getFieldDecorator('code', {
                             rules: [{
-                                required: true, message: '确认密码为必填!',
-                            }, {
-                                validator: this.checkPassword,
+                                required: true, message: '一卡通账号不能为空!',
                             }],
                         })(
-                            <Input type="password" onBlur={this.handleConfirmBlur}/>
+                            <Input disabled={codeDisabled}/>
                         )}
-                    </FormItem>] : ''}
-                <FormItem
-                    {...formItemLayout}
-                    label="性别"
-                >
-                    {getFieldDecorator('sex', {
-                        rules: [{required: true, message: '请选择性别!'}],
-                    })(<RadioGroup>
-                        <Radio value='男'>男</Radio>
-                        <Radio value='女'>女</Radio>
-                    </RadioGroup>)}
-                </FormItem>
-                <FormItem
-                    {...formItemLayout}
-                    label="卡类别"
-                >
-                    {getFieldDecorator('type', {
-                        rules: [{required: true, message: '请选择卡类别!'}],
-                    })(
-                        <RadioGroup>
-                            {
-                                typeRadioData.map(item =>
-                                    <Radio value={item.key} key={item.key}>{item.value}</Radio>)
-                            }
-                        </RadioGroup>
-                    )}
-                </FormItem>
-                <FormItem {...tailFormItemLayout}>
-                    <Button type="primary" htmlType="submit">{type}</Button>
-                </FormItem>
-            </Form>
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label={(
+                            <span>
+              持卡人姓名&nbsp;
+                                <Tooltip title="请输入持卡人的真实姓名">
+                <Icon type="question-circle-o"/>
+              </Tooltip>
+            </span>
+                        )}
+                    >
+                        {getFieldDecorator('cardholder', {
+                            rules: [{required: true, message: '持卡人姓名不能为空!', whitespace: true}],
+                        })(
+                            <Input/>
+                        )}
+                    </FormItem>
+                    {showPassword ? [<FormItem key='password'
+                                               {...formItemLayout}
+                                               label={(
+                                                   <span>
+              密码&nbsp;
+                                                       <Tooltip title="系统默认密码为666666">
+                <Icon type="question-circle-o"/>
+              </Tooltip>
+            </span>
+                                               )}
+                    >
+                        {getFieldDecorator('password', {
+                            rules: [{
+                                required: true, message: '密码不能为空!',
+                            }, {
+                                validator: this.checkConfirm,
+                            }],
+                        })(
+                            <Input type="password"/>
+                        )}
+                    </FormItem>,
+                        <FormItem key='confirm'
+                                  {...formItemLayout}
+                                  label="确认密码"
+                        >
+                            {getFieldDecorator('confirm', {
+                                rules: [{
+                                    required: true, message: '确认密码为必填!',
+                                }, {
+                                    validator: this.checkPassword,
+                                }],
+                            })(
+                                <Input type="password" onBlur={this.handleConfirmBlur}/>
+                            )}
+                        </FormItem>] : ''}
+                    <FormItem
+                        {...formItemLayout}
+                        label="性别"
+                    >
+                        {getFieldDecorator('sex', {
+                            rules: [{required: true, message: '请选择性别!'}],
+                        })(<RadioGroup>
+                            <Radio value='男'>男</Radio>
+                            <Radio value='女'>女</Radio>
+                        </RadioGroup>)}
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label="卡类别"
+                    >
+                        {getFieldDecorator('type', {
+                            rules: [{required: true, message: '请选择卡类别!'}],
+                        })(
+                            <RadioGroup>
+                                {
+                                    typeRadioData.map(item =>
+                                        <Radio value={item.key} key={item.key}>{item.value}</Radio>)
+                                }
+                            </RadioGroup>
+                        )}
+                    </FormItem>
+                    <FormItem {...tailFormItemLayout}>
+                        <Button type="primary" loading={loading} htmlType="submit">{type}</Button>
+                    </FormItem>
+                </Form>
+            </Spin>
         );
     }
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import {InputNumber, Tag, Form, Button} from 'antd'
+import {InputNumber, Tag, Form, Button, Input, Icon} from 'antd'
 import './style.less'
 
 const FormItem = Form.Item;
@@ -21,7 +21,7 @@ class ResetPassword extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                this.props.recharge(values.rechargeAmount);
+                this.props.recharge(values.rechargeAmount, values.password);
                 this.props.form.resetFields();
             }
         });
@@ -59,25 +59,49 @@ class ResetPassword extends React.Component {
                         <Tag color="gold" className='balance-num'>当前余额：￥{data.balance.toFixed(2)}</Tag>
                         <br/>
                         <br/>
-                        <Tag color="orange" className='balance-num'>
+                        <Tag color="orange" className='balance-num after-balance-num'>
                             充值后余额：￥{afterBalance ? afterBalance.toFixed(2) : data.balance.toFixed(2)}</Tag>
                         <Form onSubmit={this.handleSubmit} className="balance-form">
                             <FormItem
                                 {...formItemLayout}
                                 label={(<span>充值金额</span>)}>
                                 {getFieldDecorator('rechargeAmount', {
-                                    rules: [{required: true, message: '你到底充不充钱!'}],
+                                    rules: [{required: true, message: '你到底充不充钱!'}, {
+                                        validator(rule, values, callback) {
+                                            if (values) {
+                                                if (values > 500 || values < 50) {
+                                                    callback(`充值金额为￥50.00到￥500.00之间`);
+                                                } else {
+                                                    callback();
+                                                }
+                                            } else {
+                                                callback();
+                                            }
+                                        }
+                                    }],
                                 })(
-                                    <InputNumber
-                                        style={{width: '120px'}} size='large' min={50.00} max={500.00}
-                                        step={0.01} onChange={this.handleChang.bind(this)}/>
+                                    <InputNumber formatter={value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                                 parser={value => value.replace(/￥\s?|(,*)/g, '')}
+                                                 style={{width: '154px'}} size='large'
+                                                 step={10} precision={2} onChange={this.handleChang.bind(this)}/>
+                                )}
+                            </FormItem>
+                            <FormItem
+                                {...formItemLayout}
+                                label={(<span>密码</span>)}>
+                                {getFieldDecorator('password', {
+                                    rules: [{required: true, message: '请输入密码!'}],
+                                })(
+                                    <Input
+                                        prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                                        type="password" size='large'/>
                                 )}
                             </FormItem>
                             <h4>注：充值金额为￥50.00到￥500.00之间</h4>
                             <FormItem>
-                                    <Button type="primary" htmlType="submit" size='large'>
-                                        确定充值
-                                    </Button>
+                                <Button type="primary" htmlType="submit" size='large'>
+                                    确定充值
+                                </Button>
                             </FormItem>
                         </Form>
                     </div> : ''}

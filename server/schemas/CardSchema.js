@@ -44,10 +44,27 @@ const CardSchema = new Schema({
         type: Boolean,
         default: false
     },
-    bill: {
-        type: ObjectId,
-        ref: 'bill'
-    },
+    bills: [{
+        time: {
+            type: Date,
+            default: Date.now(),
+            required: true
+        },
+        place: {
+            type: String,
+            required: true
+        },
+        amount: {
+            type: Number,
+            default: 0.00,
+            required: true
+        },
+        type: {
+            type: String,
+            enum: ['充值', '消费'],
+            required: true
+        }
+    }],
     meta: {
         createAt: {
             type: Date,

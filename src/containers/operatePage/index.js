@@ -1,6 +1,7 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {Tabs, Icon, Spin, Button, message} from 'antd'
+import {connect} from 'react-redux'
 import SearchByCodeInput from '../../components/SearchByCodeInput/SearchByCodeInput'
 import BaseCardInfo from '../../components/CardBaseInfo/BaseCardInfo'
 import FrozenState from '../../components/FrozenState/FrozenState'
@@ -9,6 +10,7 @@ import {get} from "../../fetch/get";
 import {post} from "../../fetch/post";
 
 const TabPane = Tabs.TabPane;
+@connect(mapStateToProps, mapDispatchToProps)
 export default class OperatePage extends React.Component {
     // 构造
     constructor(props, context) {
@@ -23,7 +25,15 @@ export default class OperatePage extends React.Component {
     }
 
     componentDidMount() {
-        this.init('000001')
+        let {userInfo} = this.props;
+        if (userInfo.isLogin && !userInfo.isAdmin && userInfo.code) {
+            this.init(userInfo.code)
+        } else {
+            let code = this.props.location.state ? this.props.location.state.code : null;
+            if (code) {
+                this.init(code)
+            }
+        }
     }
 
     //初始化（获取出卡人信息）
@@ -69,10 +79,10 @@ export default class OperatePage extends React.Component {
         });
     }
 
-    recharge(rechargeAmount) {
+    recharge(rechargeAmount,password) {
         this.setState({loading: true});
         let code = this.state.data.code;
-        post('/card/recharge', {code, rechargeAmount},
+        post('/card/recharge', {code, rechargeAmount,password},
             (data) => {
                 this.setState({loading: false});
                 if (data.success) {
@@ -111,21 +121,33 @@ export default class OperatePage extends React.Component {
         });
     }
 
+    handleCLick() {
+        let {userInfo} = this.props;
+        if (userInfo.isAdmin) {
+            this.resetPassword()
+        }else {
+            
+        }
+    }
+
     render() {
         let {loading, data} = this.state;
+        let {userInfo} = this.props;
         return (
             <Spin spinning={loading}>
-                <SearchByCodeInput init={this.init.bind(this)}/>
+                {userInfo.isAdmin ? <SearchByCodeInput init={this.init.bind(this)}/> : ''}
                 <Tabs defaultActiveKey="3">
                     <TabPane tab={<span><Icon type="frown-o"/>挂失卡</span>} key="1">
                         <BaseCardInfo data={data}/>
                         <FrozenState data={data} frozenOperate={this.frozenOperate.bind(this)} loading={loading}/>
                     </TabPane>
-                    <TabPane tab={<span><Icon type="reload"/>重置密码</span>} key="2">
+                    <TabPane tab={<span><Icon type="reload"/>{userInfo.isAdmin ? `重置密码` : `修改密码`}</span>} key="2">
                         <BaseCardInfo data={data}/>
                         <Button style={{margin: '40px auto', display: 'block'}} type="primary" size='large'
-                                disabled={!data.code} onClick={this.resetPassword.bind(this)}>重置密码</Button>
+                                disabled={!data.code}
+                                onClick={this.handleCLick.bind(this)}>{userInfo.isAdmin ? `重置密码` : `修改密码`}</Button>
                     </TabPane>
+
                     <TabPane tab={<span><Icon type="bank"/>充值缴费</span>} key="3">
                         <BaseCardInfo data={data}/>
                         <BalanceState data={data} recharge={this.recharge.bind(this)}/>
@@ -134,5 +156,15 @@ export default class OperatePage extends React.Component {
             </Spin>
         )
     }
+}
+
+function mapStateToProps(state) {
+    return {
+        userInfo: state.userInfo,
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {}
 }
 

@@ -31,6 +31,12 @@ export default class CardListTable extends React.Component {
                         <Icon type="delete"/> 删除
                     </Popconfirm>
                 </Menu.Item>
+                <Menu.Item key='operate'>
+                    <Icon type="safety" /> 操作卡
+                </Menu.Item>
+                <Menu.Item key='billList'>
+                    <Icon type="eye-o" /> 查看账单
+                </Menu.Item>
 
             </Menu>}>
                 <span style={{color: '#1890FF', cursor: 'pointer'}}>
@@ -48,8 +54,13 @@ export default class CardListTable extends React.Component {
     handleOperate(text, record, index, e) {
         switch (e.key) {
             case'update':
-
-                this.routeTo(record);
+                this.routeTo(record, `admin/cardholderDetail`);
+                break;
+            case'billList':
+                this.routeTo(record, `admin/billList`);
+                break;
+            case'operate':
+                this.routeTo(record, `admin/operate`);
                 break;
             default:
                 break;
@@ -74,9 +85,9 @@ export default class CardListTable extends React.Component {
     }
 
     //跳转到详情页面
-    routeTo(record) {
+    routeTo(record,url) {
         let {menuKey, menuKeyActions} = this.props;
-        selectedKeyUntil.update(menuKey, menuKeyActions, `admin/cardholderDetail`, true, {code: record.code})
+        selectedKeyUntil.update(menuKey, menuKeyActions,url, true, {code: record.code})
     }
 
     render() {

@@ -23,9 +23,14 @@ export default class cardholderDetailPage extends React.Component {
     }
 
     componentDidMount() {
-        let code = this.props.location.state ? this.props.location.state.code : null;
-        if (code) {
-            this.init(code)
+        let {userInfo} = this.props;
+        if (userInfo.isLogin && !userInfo.isAdmin && userInfo.code) {
+            this.init(userInfo.code)
+        } else {
+            let code = this.props.location.state ? this.props.location.state.code : null;
+            if (code) {
+                this.init(code)
+            }
         }
     }
 
@@ -52,11 +57,12 @@ export default class cardholderDetailPage extends React.Component {
 
     render() {
         let {loading, data} = this.state;
+        let {userInfo} = this.props;
         return (
             <Spin spinning={loading}>
-                <SearchByCodeInput init={this.init.bind(this)}/>
+                {userInfo.isAdmin ? <SearchByCodeInput init={this.init.bind(this)}/> : ''}
                 <CardDetailInfoForm type='更新' menuKey={this.props.menuKey} menuKeyActions={this.props.menuKeyActions}
-                                    codeDisabled={true} data={data}/>
+                                    codeDisabled={true} data={data} userInfo={userInfo}/>
             </Spin>
         )
     }
@@ -64,6 +70,7 @@ export default class cardholderDetailPage extends React.Component {
 
 function mapStateToProps(state) {
     return {
+        userInfo: state.userInfo,
         menuKey: state.menuKey,
     }
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {hashHistory} from 'react-router'
 import {Layout, Menu, Icon} from 'antd'
-import localStore from '../../until/localStore'
+import SessionStorage from '../../until/sessionStorage'
 import selectedKeyUntil from '../../until/selectedKeyUntil'
 import menuData from '../../viewDatas/menu'
 import logo from '../../static/imgs/logo.svg'
@@ -24,7 +24,7 @@ export default class LeftAside extends React.Component {
 
     componentWillMount() {
         //从缓存中取selectedKey并设置
-        let selectedKey = localStore.getItem('selectedKey');
+        let selectedKey = SessionStorage.getItem('selectedKey');
         let {menuKey, menuKeyActions} = this.props;
         if (selectedKey) {
             selectedKeyUntil.update(menuKey, menuKeyActions, selectedKey, false);
@@ -32,6 +32,7 @@ export default class LeftAside extends React.Component {
             selectedKeyUntil.update(menuKey, menuKeyActions, '/');
         }
     }
+
     //左侧菜单折叠
     onCollapse = (collapsed) => {
         this.setState({collapsed});

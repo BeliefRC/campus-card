@@ -30,7 +30,7 @@ export default class App extends Component {
         this.state = {};
     }
 
-    componentDidMount() {
+    componentWillMount() {
         let sessionUserInfo = JSON.parse(sessionStorage.getItem('userInfo'));
         //更新userInfo
         if (sessionUserInfo) {

@@ -1,4 +1,4 @@
-import LocalStore from "./localStore";
+import SessionStorage from "./sessionStorage";
 import {hashHistory} from "react-router";
 
 export default {
@@ -17,6 +17,6 @@ export default {
         //跳转
         isRoute && hashHistory.push({pathname: newMenuKey, state: {...state}});
         //存储
-        LocalStore.setItem('selectedKey', newMenuKey);
+        SessionStorage.setItem('selectedKey', newMenuKey);
     }
 }

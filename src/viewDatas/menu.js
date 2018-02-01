@@ -13,6 +13,9 @@ const menuData = [
                 title: '通知公告列表',
                 key: 'admin/noticeList',
             }, {
+                title: '持卡人流水账单',
+                key: 'admin/billList',
+            }, {
                 title: '持卡人详情信息',
                 key: 'admin/cardholderDetail',
             }, {
@@ -40,11 +43,14 @@ const menuData = [
                 title: '流水查询',
                 key: 'userCenter/billList',
             }, {
-                title: ' 自助充值',
-                key: 'userCenter/MyRecharge',
+                title: ' 个人信息修改',
+                key: 'userCenter/cardholderDetail',
             }, {
-                title: '我要挂失',
-                key: 'userCenter/MyReportLoss',
+                title: '我的一卡通',
+                key: 'userCenter/operate',
+            }, {
+                title: '自助超市',
+                key: 'userCenter/shopping',
             }
         ]
     },
