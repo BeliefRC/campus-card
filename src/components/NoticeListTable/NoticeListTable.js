@@ -21,23 +21,16 @@ export default class NoticeListTable extends React.Component {
     renderOperate(text, record, index) {
         return <Dropdown
             overlay={<Menu onClick={this.handleOperate.bind(this, text, record, index)}>
-                <Menu.Item key='update'>
-                    <Icon type="edit"/> 编辑
-                </Menu.Item>
                 <Menu.Item key='delete'>
-                    <Popconfirm title={`确定删除${record.cardholder}吗?`}
+                    <Popconfirm title={`确定删除《${record.title}》吗?`}
                                 onConfirm={this.confirm.bind(this, text, record, index)}
                                 onCancel={this.cancel} okText="Yes" cancelText="No">
                         <Icon type="delete"/> 删除
                     </Popconfirm>
                 </Menu.Item>
-                <Menu.Item key='operate'>
-                    <Icon type="safety"/> 操作卡
+                <Menu.Item key='update'>
+                    <Icon type="edit"/> 编辑
                 </Menu.Item>
-                <Menu.Item key='billList'>
-                    <Icon type="eye-o"/> 查看账单
-                </Menu.Item>
-
             </Menu>}>
                 <span style={{color: '#1890FF', cursor: 'pointer'}}>
                     操作 <Icon type="down"/>
@@ -54,13 +47,7 @@ export default class NoticeListTable extends React.Component {
     handleOperate(text, record, index, e) {
         switch (e.key) {
             case'update':
-                this.routeTo(record, `admin/cardholderDetail`);
-                break;
-            case'billList':
-                this.routeTo(record, `admin/billList`);
-                break;
-            case'operate':
-                this.routeTo(record, `admin/operate`);
+                this.routeTo(record, `admin/newNotice`);
                 break;
             default:
                 break;
@@ -69,14 +56,7 @@ export default class NoticeListTable extends React.Component {
 
     //确定删除
     confirm(text, record, index, e) {
-        post(`/notice/delete`, {_id: record._id}, (data) => {
-            if (data.success) {
-                message.success(data.msg);
-                this.props.getDataSource();
-            } else {
-                message.error(data.msg)
-            }
-        })
+        this.props.delNotice(record._id);
     }
 
     //取消删除电影
@@ -95,7 +75,7 @@ export default class NoticeListTable extends React.Component {
             {
                 title: '标题',
                 dataIndex: 'title',
-                width: 300
+                width: 500
             }, {
                 title: '发布人',
                 dataIndex: 'createPerson',

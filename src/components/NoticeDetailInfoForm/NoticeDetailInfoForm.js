@@ -33,7 +33,6 @@ class NoticeDetailInfoForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log(values);
                 this.props.newNotice(values)
             }
         });
@@ -103,7 +102,7 @@ class NoticeDetailInfoForm extends React.Component {
                 </FormItem>
 
                 <FormItem {...tailFormItemLayout}>
-                    <Button type="primary" htmlType="submit">发布</Button>
+                    <Button type="primary" htmlType="submit">发布/修改</Button>
                 </FormItem>
             </Form>
         );

@@ -16,6 +16,11 @@ const NoticeSchema = new Schema({
         required: true
     },
     createPerson: String,
+    pv: {
+        type: Number,
+        default: 0,
+        required: true
+    },
     meta: {
         createAt: {
             type: Date,

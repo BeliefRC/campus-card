@@ -15,6 +15,10 @@ export default class NoticeListPage extends React.Component {
     }
 
     componentWillMount() {
+        this.getNoticeList();
+    }
+
+    getNoticeList() {
         this.setState({loading: true});
         post('/notice/list', {}, (data) => {
             this.setState({loading: false});
@@ -26,14 +30,24 @@ export default class NoticeListPage extends React.Component {
         }, () => {
             this.setState({loading: false});
         })
+    }
 
+    delNotice(_id) {
+        post(`/notice/delete`, {_id}, (data) => {
+            if (data.success) {
+                message.success(data.msg);
+                this.getNoticeList();
+            } else {
+                message.error(data.msg)
+            }
+        })
     }
 
     render() {
         let {data, loading} = this.state;
         return (
             <Spin spinning={loading}>
-                <NoticeListTable data={data}/>
+                <NoticeListTable data={data} delNotice={this.delNotice.bind(this)}/>
             </Spin>
         )
     }
