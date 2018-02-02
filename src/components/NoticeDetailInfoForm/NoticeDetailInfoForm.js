@@ -1,7 +1,5 @@
 import React from 'react'
-import {Form, Input, Button, Spin, message,Switch} from 'antd';
-import {post} from "../../fetch/post";
-import selectedKeyUntil from "../../until/selectedKeyUntil";
+import {Form, Input, Button, Switch} from 'antd';
 
 const FormItem = Form.Item;
 const {TextArea} = Input;
@@ -11,19 +9,9 @@ class NoticeDetailInfoForm extends React.Component {
     constructor(props) {
         super(props);
         // 初始状态
-        this.state = {
-            confirmDirty: false,
-            codeDisabled: false,
-            loading: false
-        };
+        this.state = {};
     }
 
-    static  defaultProps = {
-        codeDisabled: false,
-        isFrozenDisabled: false,
-        isLostDisabled: false,
-
-    };
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.data.code !== this.props.data.code) {
@@ -45,65 +33,14 @@ class NoticeDetailInfoForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                this.setState({loading: true});
-                //发送请求
-                let url;
-                let {type} = this.props;
-                if (type === '更新') {
-                    url = `/card/update`
-                } else if (type === '录入') {
-                    url = `/card/register`
-                }
-                post(url, values,
-                    (data) => {
-                        this.setState({loading: false});
-                        if (data.success) {
-                            let {menuKey, menuKeyActions, userInfo} = this.props;
-                            if (userInfo.isAdmin) {
-                                selectedKeyUntil.update(menuKey, menuKeyActions, '/admin/cardholderList');
-                            }
-                            message.success(data.msg)
-                        } else {
-                            message.error(data.msg);
-                            this.setState({loading: false});
-                        }
-                    },
-                    () => {
-                        this.setState({loading: false});
-                    });
+                console.log(values);
+                this.props.newNotice(values)
             }
         });
     };
 
-    handleConfirmBlur = (e) => {
-        const value = e.target.value;
-        this.setState({confirmDirty: this.state.confirmDirty || !!value});
-    };
-
-    checkPassword = (rule, value, callback) => {
-        const form = this.props.form;
-        if (value && value !== form.getFieldValue('password')) {
-            callback('两次输入的密码不一致!');
-        } else {
-            callback();
-        }
-    };
-
-    checkConfirm = (rule, value, callback) => {
-        const form = this.props.form;
-        if (value && this.state.confirmDirty) {
-            form.validateFields(['confirm'], {force: true});
-        }
-        if (value.length < 6) {
-            callback(`密码不能少于6个字符`);
-        } else {
-            callback();
-        }
-    };
-
     render() {
         const {getFieldDecorator} = this.props.form;
-        let {loading} = this.state;
         const formItemLayout = {
             labelCol: {
                 xs: {span: 24},
@@ -128,47 +65,47 @@ class NoticeDetailInfoForm extends React.Component {
         };
 
         return (
-            <Spin spinning={loading}>
-
-                <Form onSubmit={this.handleSubmit}>
-                    <FormItem
-                        {...formItemLayout}
-                        label={(
-                            <span>
+            <Form onSubmit={this.handleSubmit}>
+                <FormItem
+                    {...formItemLayout}
+                    label={(
+                        <span>
               文章标题&nbsp;
             </span>
-                        )}
-                    >
-                        {getFieldDecorator('title', {
-                            rules: [{
-                                required: true, message: '文章标题不能为空!',
-                            }],
-                        })(
-                            <Input/>
-                        )}
-                    </FormItem>
-                    <FormItem {...formItemLayout} label={(<span>公告正文&nbsp;</span>)}>
-                        {getFieldDecorator('content', {
-                            rules: [{required: true, message: '公告正文不能为空!', whitespace: true}],
-                        })(
-                            <TextArea placeholder="请输入公告的具体信息" autosize={{minRows: 4, maxRows: 20}}/>
-                        )}
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label={(<span>是否显示&nbsp;</span>)}>
-                        {getFieldDecorator('content', {
-                            rules: [],
-                        })(
-                            <TextArea placeholder="请输入公告的具体信息" autosize={{minRows: 4, maxRows: 20}}/>
-                        )}
-                    </FormItem>
+                    )}
+                >
+                    {getFieldDecorator('title', {
+                        rules: [{
+                            required: true, message: '文章标题不能为空!',
+                        }],
+                    })(
+                        <Input/>
+                    )}
+                </FormItem>
+                <FormItem {...formItemLayout} label={(<span>公告正文&nbsp;</span>)}>
+                    {getFieldDecorator('content', {
+                        rules: [{required: true, message: '公告正文不能为空!', whitespace: true}],
+                    })(
+                        <TextArea placeholder="请输入公告的具体信息" autosize={{minRows: 4, maxRows: 20}}/>
+                    )}
+                </FormItem>
+                <FormItem
+                    {...formItemLayout}
+                    label={(<span>是否显示&nbsp;</span>)}>
+                    {getFieldDecorator('isShow', {
+                        rules: [{
+                            required: true, message: '该项为必填!',
+                        }],
+                        initialValue: true
+                    })(
+                        <Switch checkedChildren="是" unCheckedChildren="否" defaultChecked/>
+                    )}
+                </FormItem>
 
-                    <FormItem {...tailFormItemLayout}>
-                        <Button type="primary" loading={loading} htmlType="submit">发布</Button>
-                    </FormItem>
-                </Form>
-            </Spin>
+                <FormItem {...tailFormItemLayout}>
+                    <Button type="primary" htmlType="submit">发布</Button>
+                </FormItem>
+            </Form>
         );
     }
 }

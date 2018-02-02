@@ -5,8 +5,10 @@ import {bindActionCreators} from 'redux'
 import {Spin, message} from 'antd'
 import * as menuKeyActionsFromOtherFile from '../../actions/menuKey'
 import NoticeDetailInfoForm from '../../components/NoticeDetailInfoForm/NoticeDetailInfoForm'
-import SearchNoticeInput from '../../components/SearchNoticeInput/SearchNoticeInput'
+// import SearchNoticeInput from '../../components/SearchNoticeInput/SearchNoticeInput'
 import {get} from "../../fetch/get";
+import {post} from "../../fetch/post";
+import selectedKeyUntil from "../../until/selectedKeyUntil";
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class cardholderDetailPage extends React.Component {
@@ -36,7 +38,7 @@ export default class cardholderDetailPage extends React.Component {
 
     init(code) {
         this.setState({loading: true});
-        get('/card/detail', {code}, (data) => {
+        get('/notice/detail', {code}, (data) => {
             this.setState({loading: false});
             if (data.success) {
                 delete data.backData._id;
@@ -54,14 +56,31 @@ export default class cardholderDetailPage extends React.Component {
         });
     }
 
+    newNotice(values) {
+        post('/notice/new', values, (data) => {
+                this.setState({loading: false});
+                if (data.success) {
+                    let {menuKey, menuKeyActions} = this.props;
+                        selectedKeyUntil.update(menuKey, menuKeyActions, '/admin/noticeList');
+                    message.success(data.msg)
+                } else {
+                    message.error(data.msg);
+                    this.setState({loading: false});
+                }
+            },
+            () => {
+                this.setState({loading: false});
+            });
+    }
+
 
     render() {
         let {loading, data} = this.state;
         let {userInfo} = this.props;
         return (
             <Spin spinning={loading}>
-                <NoticeDetailInfoForm type='更新' menuKey={this.props.menuKey} menuKeyActions={this.props.menuKeyActions}
-                                    codeDisabled={true} data={data} userInfo={userInfo}/>
+                <NoticeDetailInfoForm menuKey={this.props.menuKey} menuKeyActions={this.props.menuKeyActions}
+                                      data={data} userInfo={userInfo} newNotice={this.newNotice.bind(this)}/>
             </Spin>
         )
     }

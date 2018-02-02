@@ -11,8 +11,8 @@ const NoticeSchema = new Schema({
         maxlength: 1000
     },
     isShow: {
-        type: String,
-        enum: ['是', '否'],
+        type: Boolean,
+        default: true,
         required: true
     },
     createPerson: String,

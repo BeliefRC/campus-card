@@ -1,5 +1,8 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
+import NoticeListTable from '../../components/NoticeListTable/NoticeListTable'
+import {Spin, message} from 'antd'
+import {post} from '../../fetch/post'
 
 export default class NoticeListPage extends React.Component {
     // 构造
@@ -8,12 +11,30 @@ export default class NoticeListPage extends React.Component {
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
 
         // 初始状态
-        this.state = {};
+        this.state = {data: [], loading: false};
+    }
+
+    componentWillMount() {
+        this.setState({loading: true});
+        post('/notice/list', {}, (data) => {
+            this.setState({loading: false});
+            if (data.success) {
+                this.setState({data: data.backData});
+            } else {
+                message.error(data.msg)
+            }
+        }, () => {
+            this.setState({loading: false});
+        })
+
     }
 
     render() {
+        let {data, loading} = this.state;
         return (
-           <h1>通知公告列表</h1>
+            <Spin spinning={loading}>
+                <NoticeListTable data={data}/>
+            </Spin>
         )
     }
 }
