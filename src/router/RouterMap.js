@@ -20,7 +20,7 @@ export default class RouterMap extends React.Component {
     render() {
         return (<Router history={this.props.history}>
             <Route path='/' component={App}>
-                <IndexRoute component={Notice}/>Page
+                <IndexRoute  component={InstructionPage}/>Page
                 <Route path='admin'>
                     <Route path='cardholderList' component={CardholderListPage}/>
                     <Route path='noticeList' component={NoticeListPage}/>
@@ -35,7 +35,7 @@ export default class RouterMap extends React.Component {
                     <Route path='operate' component={OperatePage}/>
                     <Route path='cardholderDetail' component={cardholderDetailPage}/>
                 </Route>
-                <Route path='instruction' component={InstructionPage}/>
+                <Route path='notice(/:id)' component={Notice}/>
                 <Route path='process' component={ProcessPage}/>
                 <Route path='lostAndFound' component={LostAndFoundPage}/>
                 <Route path='excel' component={ExcelPage}/>

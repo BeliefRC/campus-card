@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdfd8516-75ed-48c9-8c2b-b4f897263564" name="Default" comment="简要完成公告新增功能，完善公告列表后台代码">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/components/NoticeDetailDisplay/NoticeDetailDisplay.js" />
+    <list default="true" id="cdfd8516-75ed-48c9-8c2b-b4f897263564" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/containers/noticePage/style.less" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/server/config/Router.js" afterPath="$PROJECT_DIR$/server/config/Router.js" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/Notice.js" afterPath="$PROJECT_DIR$/server/controllers/Notice.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/CardListTable/CardListTable.js" afterPath="$PROJECT_DIR$/src/components/CardListTable/CardListTable.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/NoticeDetailInfoForm/NoticeDetailInfoForm.js" afterPath="$PROJECT_DIR$/src/components/NoticeDetailInfoForm/NoticeDetailInfoForm.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/NoticeList/NoticeList.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/components/NoticeList/style.less" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/components/NoticeListTable/NoticeListTable.js" afterPath="$PROJECT_DIR$/src/components/NoticeListTable/NoticeListTable.js" />
-      <change beforePath="$PROJECT_DIR$/src/containers/cardholderDetailPage/index.js" afterPath="$PROJECT_DIR$/src/containers/cardholderDetailPage/index.js" />
-      <change beforePath="$PROJECT_DIR$/src/containers/newNoticePage/index.js" afterPath="$PROJECT_DIR$/src/containers/newNoticePage/index.js" />
-      <change beforePath="$PROJECT_DIR$/src/containers/noticeListPage/index.js" afterPath="$PROJECT_DIR$/src/containers/noticeListPage/index.js" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
+      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change beforePath="$PROJECT_DIR$/src/components/NoticeDetailDisplay/NoticeDetailDisplay.js" afterPath="$PROJECT_DIR$/src/components/NoticeDetailDisplay/NoticeDetailDisplay.js" />
+      <change beforePath="$PROJECT_DIR$/src/components/NoticeDetailDisplay/style.less" afterPath="$PROJECT_DIR$/src/components/NoticeDetailDisplay/style.less" />
+      <change beforePath="$PROJECT_DIR$/src/containers/instructionPage/index.js" afterPath="$PROJECT_DIR$/src/containers/instructionPage/index.js" />
       <change beforePath="$PROJECT_DIR$/src/containers/noticePage/index.js" afterPath="$PROJECT_DIR$/src/containers/noticePage/index.js" />
+      <change beforePath="$PROJECT_DIR$/src/router/RouterMap.js" afterPath="$PROJECT_DIR$/src/router/RouterMap.js" />
       <change beforePath="$PROJECT_DIR$/src/viewDatas/menu.js" afterPath="$PROJECT_DIR$/src/viewDatas/menu.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -38,8 +34,24 @@
       <file leaf-file-name="NoticeDetailDisplay.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/NoticeDetailDisplay/NoticeDetailDisplay.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+            <state relative-caret-position="470">
+              <caret line="30" column="30" lean-forward="true" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+                <marker date="1517817578479" expanded="true" signature="665:1293" ph="..." />
+                <marker date="1517817578479" expanded="true" signature="756:1267" ph="..." />
+                <marker date="1517817578479" expanded="true" signature="851:933" ph="..." />
+                <marker date="1517817578479" expanded="true" signature="971:1146" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/containers/processPage/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="308">
+              <caret line="14" column="16" lean-forward="true" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -47,43 +59,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SearchNoticeInput.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/SearchNoticeInput/SearchNoticeInput.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="22" column="36" lean-forward="true" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CardDetailInfoForm.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/CardDetailInfoForm/CardDetailInfoForm.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="52" column="27" lean-forward="false" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="style.less" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/NoticeDetailDisplay/style.less">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="26" column="20" lean-forward="true" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/containers/noticePage/index.js">
+        <entry file="file://$PROJECT_DIR$/src/containers/instructionPage/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="38" column="36" lean-forward="false" selection-start-line="38" selection-start-column="36" selection-end-line="38" selection-end-column="36" />
+            <state relative-caret-position="66">
+              <caret line="3" column="21" lean-forward="true" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="32" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="menu.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/viewDatas/menu.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="34" column="6" lean-forward="true" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
+              <folding>
+                <element signature="e#904#1425#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -103,7 +97,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>admin/</find>
       <find>On Your Network:</find>
       <find>ResetPassword</find>
       <find>Form.create()</find>
@@ -130,9 +123,10 @@
       <find>code</find>
       <find>update</find>
       <find>title</find>
-      <find>isF</find>
       <find>console</find>
       <find>console.</find>
+      <find>isF</find>
+      <find>.ant</find>
     </findStrings>
     <replaceStrings>
       <replace>AAAAA</replace>
@@ -149,9 +143,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/containers/cardholderDetailPage/indez.js" />
-        <option value="$PROJECT_DIR$/src/containers/cardholderListPage/index.js" />
-        <option value="$PROJECT_DIR$/src/components/HomeHeader/HomeHeader.js" />
         <option value="$PROJECT_DIR$/src/containers/reportLossPage/index.js" />
         <option value="$PROJECT_DIR$/src/containers/newCardPage/index.js" />
         <option value="$PROJECT_DIR$/src/components/CardBaseInfo/style.less" />
@@ -170,7 +161,6 @@
         <option value="$PROJECT_DIR$/server/schemas/CardSchema.js" />
         <option value="$PROJECT_DIR$/src/components/BillListTable/BillListTable.js" />
         <option value="$PROJECT_DIR$/src/components/BillCalendar/BillCalendar.js" />
-        <option value="$PROJECT_DIR$/src/containers/App.js" />
         <option value="$PROJECT_DIR$/src/containers/billListPage/index.js" />
         <option value="$PROJECT_DIR$/src/components/BalanceState/BalanceState.js" />
         <option value="$PROJECT_DIR$/server/controllers/Admin.js" />
@@ -178,7 +168,6 @@
         <option value="$PROJECT_DIR$/src/reducers/modalVisible.js" />
         <option value="$PROJECT_DIR$/src/components/AboutUsModal/AboutUsModal.js" />
         <option value="$PROJECT_DIR$/src/components/ChangePasswordModal/ChangePasswordModal.js" />
-        <option value="$PROJECT_DIR$/src/router/RouterMap.js" />
         <option value="$PROJECT_DIR$/src/components/SearchByCodeInput/SearchByCodeInput.js" />
         <option value="$PROJECT_DIR$/src/components/SearchNoticeInput/SearchNoticeInput.js" />
         <option value="$PROJECT_DIR$/src/components/NoticeList/item.js" />
@@ -193,13 +182,18 @@
         <option value="$PROJECT_DIR$/server/config/Router.js" />
         <option value="$PROJECT_DIR$/src/containers/noticeListPage/index.js" />
         <option value="$PROJECT_DIR$/src/components/NoticeListTable/NoticeListTable.js" />
-        <option value="$PROJECT_DIR$/src/viewDatas/menu.js" />
         <option value="$PROJECT_DIR$/src/components/NoticeDetailDisplay/home-notice-detail.less" />
         <option value="$PROJECT_DIR$/src/components/NoticeList/NoticeList.js" />
-        <option value="$PROJECT_DIR$/src/components/NoticeDetailDisplay/style.less" />
-        <option value="$PROJECT_DIR$/src/components/NoticeDetailDisplay/NoticeDetailDisplay.js" />
-        <option value="$PROJECT_DIR$/src/containers/noticePage/index.js" />
         <option value="$PROJECT_DIR$/src/components/CardDetailInfoForm/CardDetailInfoForm.js" />
+        <option value="$PROJECT_DIR$/src/components/NoticeDetailDisplay/style.less" />
+        <option value="$PROJECT_DIR$/src/router/RouterMap.js" />
+        <option value="$PROJECT_DIR$/src/containers/App.js" />
+        <option value="$PROJECT_DIR$/src/containers/noticePage/index.js" />
+        <option value="$PROJECT_DIR$/src/containers/noticePage/style.less" />
+        <option value="$PROJECT_DIR$/src/components/NoticeDetailDisplay/NoticeDetailDisplay.js" />
+        <option value="$PROJECT_DIR$/src/containers/processPage/index.js" />
+        <option value="$PROJECT_DIR$/src/containers/instructionPage/index.js" />
+        <option value="$PROJECT_DIR$/src/viewDatas/menu.js" />
       </list>
     </option>
   </component>
@@ -290,59 +284,6 @@
               <item name="campus-card" type="b2602c69:ProjectViewProjectNode" />
               <item name="campus-card" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="campus-card" type="b2602c69:ProjectViewProjectNode" />
-              <item name="campus-card" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="campus-card" type="b2602c69:ProjectViewProjectNode" />
-              <item name="campus-card" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="HomeFooter" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="campus-card" type="b2602c69:ProjectViewProjectNode" />
-              <item name="campus-card" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="containers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="campus-card" type="b2602c69:ProjectViewProjectNode" />
-              <item name="campus-card" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="containers" type="462c0819:PsiDirectoryNode" />
-              <item name="cardholderDetailPage" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="campus-card" type="b2602c69:ProjectViewProjectNode" />
-              <item name="campus-card" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="containers" type="462c0819:PsiDirectoryNode" />
-              <item name="newNoticePage" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="campus-card" type="b2602c69:ProjectViewProjectNode" />
-              <item name="campus-card" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="containers" type="462c0819:PsiDirectoryNode" />
-              <item name="noticeListPage" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="campus-card" type="b2602c69:ProjectViewProjectNode" />
-              <item name="campus-card" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="containers" type="462c0819:PsiDirectoryNode" />
-              <item name="noticePage" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="campus-card" type="b2602c69:ProjectViewProjectNode" />
-              <item name="campus-card" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="viewDatas" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -650,11 +591,18 @@
       <option name="project" value="LOCAL" />
       <updated>1517554648252</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="完成公告编辑显示灯=等相关功能">
+      <created>1517816365050</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1517816365050</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="269916000" />
+    <option name="totallyTimeSpent" value="276560000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -671,11 +619,11 @@
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32819384" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34196332" sideWeight="0.50214595" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16409692" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6046255" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21190988" sideWeight="0.17748918" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.333691" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25770926" sideWeight="0.4828326" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22026432" sideWeight="0.4828326" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22371244" sideWeight="0.82251084" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4325782" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -770,7 +718,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="增加返回顶部组件" />
     <MESSAGE value="概要完成数据库表设计" />
     <MESSAGE value="后端服务自启，完成model" />
     <MESSAGE value="前端菜单完成配置化" />
@@ -795,7 +742,8 @@
     <MESSAGE value="完成用户修改密码功能" />
     <MESSAGE value="简要完成新增公告页面" />
     <MESSAGE value="简要完成公告新增功能，完善公告列表后台代码" />
-    <option name="LAST_COMMIT_MESSAGE" value="简要完成公告新增功能，完善公告列表后台代码" />
+    <MESSAGE value="完成公告编辑显示灯=等相关功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成公告编辑显示灯=等相关功能" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -804,27 +752,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/until/sessionStorage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" column="34" lean-forward="false" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/until/localStore.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" column="8" lean-forward="true" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/BalanceState/style.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" column="20" lean-forward="false" selection-start-line="10" selection-start-column="20" selection-end-line="10" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/schemas/AdminSchema.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
@@ -860,13 +787,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="616">
           <caret line="35" column="9" lean-forward="false" selection-start-line="27" selection-start-column="8" selection-end-line="35" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="75" column="0" lean-forward="true" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -963,14 +883,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/router/RouterMap.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="10" column="44" lean-forward="false" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/FrozenState/style.less">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
@@ -990,14 +902,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="257">
           <caret line="42" column="17" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="64" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="497">
-          <caret line="112" column="23" lean-forward="true" selection-start-line="112" selection-start-column="23" selection-end-line="112" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -1041,7 +945,7 @@
         <state relative-caret-position="759">
           <caret line="58" column="14" lean-forward="true" selection-start-line="58" selection-start-column="14" selection-end-line="58" selection-end-column="14" />
           <folding>
-            <element signature="e#0#25#0" expanded="true" />
+            <element signature="e#0#25#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1069,7 +973,7 @@
         <state relative-caret-position="-111">
           <caret line="73" column="43" lean-forward="false" selection-start-line="73" selection-start-column="43" selection-end-line="73" selection-end-column="43" />
           <folding>
-            <element signature="e#0#25#0" expanded="true" />
+            <element signature="e#0#25#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1094,14 +998,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
           <caret line="96" column="12" lean-forward="false" selection-start-line="96" selection-start-column="8" selection-end-line="96" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/viewDatas/menu.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="34" column="17" lean-forward="true" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
           <folding />
         </state>
       </provider>
@@ -1150,45 +1046,115 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/NoticeDetailDisplay/style.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="26" column="20" lean-forward="true" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/noticePage/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="38" column="36" lean-forward="false" selection-start-line="38" selection-start-column="36" selection-end-line="38" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/NoticeDetailDisplay/NoticeDetailDisplay.js">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
-          <caret line="16" column="5" lean-forward="true" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/SearchNoticeInput/SearchNoticeInput.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="22" column="36" lean-forward="true" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="36" />
+          <caret line="16" column="26" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="16" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/CardDetailInfoForm/CardDetailInfoForm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="52" column="27" lean-forward="false" selection-start-line="52" selection-start-column="27" selection-end-line="52" selection-end-column="27" />
+        <state relative-caret-position="74">
+          <caret line="48" column="16" lean-forward="false" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/SearchNoticeInput/SearchNoticeInput.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-221">
+          <caret line="22" column="36" lean-forward="false" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1029">
+          <caret line="48" column="38" lean-forward="false" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="61" column="26" lean-forward="true" selection-start-line="61" selection-start-column="26" selection-end-line="61" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#39#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/router/RouterMap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="37" column="38" lean-forward="false" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#25#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/noticePage/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="46" column="56" lean-forward="false" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="56" />
+          <folding>
+            <element signature="e#0#25#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/noticePage/style.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="26" lean-forward="false" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/NoticeDetailDisplay/NoticeDetailDisplay.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="30" column="30" lean-forward="true" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+            <marker date="1517817578479" expanded="true" signature="665:1293" ph="..." />
+            <marker date="1517817578479" expanded="true" signature="756:1267" ph="..." />
+            <marker date="1517817578479" expanded="true" signature="851:933" ph="..." />
+            <marker date="1517817578479" expanded="true" signature="971:1146" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/instructionPage/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="3" column="21" lean-forward="true" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/processPage/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="14" column="16" lean-forward="true" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/viewDatas/menu.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="34" column="6" lean-forward="true" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
+          <folding>
+            <element signature="e#904#1425#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

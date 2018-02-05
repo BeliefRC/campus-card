@@ -27,14 +27,11 @@ const menuData = [
             }, {
                 title: '新增/修改公告',
                 key: 'admin/newNotice',
+            }, {
+                title: '编辑使用说明',
+                key: 'admin/editInstruction',
             }
         ]
-    },
-    {
-        title: '通知公告',
-        key: '/',
-        icon: 'notification',
-        admin: false,
     },
     {
         title: '个人中心',
@@ -57,14 +54,18 @@ const menuData = [
             }
         ]
     },
-
     {
         title: '使用说明',
-        key: 'instruction',
+        key: '/',
         icon: 'exception',
         admin: false,
-    }
-    ,
+    },
+    {
+        title: '通知公告',
+        key: 'notice',
+        icon: 'notification',
+        admin: false,
+    },
     {
         title: '办卡流程',
         key: 'process',

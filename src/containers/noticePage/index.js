@@ -1,8 +1,10 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import NoticeDetailDisplay from "../../components/NoticeDetailDisplay/NoticeDetailDisplay";
-import {Spin, message} from "antd/lib/index";
+import {Spin, Anchor, message, Row, Col} from "antd";
 import {post} from "../../fetch/post";
+import './style.less'
+const {Link} = Anchor;
 
 export default class NoticePage extends React.Component {
     // 构造
@@ -36,7 +38,18 @@ export default class NoticePage extends React.Component {
         let {loading, data} = this.state;
         return (
             <Spin spinning={loading}>
-                <NoticeDetailDisplay data={data}/>
+                <Row>
+                    <Col span={20}>
+                        <NoticeDetailDisplay data={data}/>
+                    </Col>
+                    <Col span={1}/>
+                    <Col span={3}>
+                        <Anchor className='notice-anchor'>
+                            {data.map(item => <Link key={item._id} href={`/#notice/#${item._id}`} title={item.title}/>)}
+                        </Anchor>
+                    </Col>
+                </Row>
+
             </Spin>
         )
     }
