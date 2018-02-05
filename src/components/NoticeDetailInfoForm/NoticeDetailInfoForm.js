@@ -9,12 +9,14 @@ class NoticeDetailInfoForm extends React.Component {
     constructor(props) {
         super(props);
         // 初始状态
-        this.state = {};
+        this.state = {
+            type: '新增'
+        };
     }
 
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.data.code !== this.props.data.code) {
+        if (nextProps.data.title !== this.props.data.title) {
             if (nextProps.data && JSON.stringify(nextProps.data) !== '{}') {
                 let value = this.props.form.getFieldsValue();
                 for (let key in value) {
@@ -22,6 +24,7 @@ class NoticeDetailInfoForm extends React.Component {
                         value[key] = nextProps.data[key]
                     }
                 }
+                this.setState({type: '更新'});
                 this.props.form.setFieldsValue(value)
             } else {
                 this.props.form.resetFields()
@@ -33,13 +36,19 @@ class NoticeDetailInfoForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                this.props.newNotice(values)
+                if (this.props.data._id) {
+                    values._id = this.props.data._id;
+                    this.props.updateNotice(values)
+                } else {
+                    this.props.newNotice(values)
+                }
             }
         });
     };
 
     render() {
         const {getFieldDecorator} = this.props.form;
+        const {type} = this.state;
         const formItemLayout = {
             labelCol: {
                 xs: {span: 24},
@@ -102,7 +111,7 @@ class NoticeDetailInfoForm extends React.Component {
                 </FormItem>
 
                 <FormItem {...tailFormItemLayout}>
-                    <Button type="primary" htmlType="submit">发布/修改</Button>
+                    <Button type="primary" htmlType="submit">{type}</Button>
                 </FormItem>
             </Form>
         );

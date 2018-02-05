@@ -24,6 +24,7 @@ export default class cardholderDetailPage extends React.Component {
 
     componentDidMount() {
         let {userInfo} = this.props;
+        //用户访问此页面时，直接从session中取出code查询；管理员进入时，根据传入的code进行查询
         if (userInfo.isLogin && !userInfo.isAdmin && userInfo.code) {
             this.init(userInfo.code)
         } else {

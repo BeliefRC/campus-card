@@ -97,7 +97,7 @@ export default class CardListTable extends React.Component {
                 dataIndex: 'cardholder',
                 fixed: 'left',
                 width: 130,
-                render: (text, record, index) => <a onClick={this.routeTo.bind(this, record)}>{text}</a>,
+                render: (text, record, index) => <a onClick={this.routeTo.bind(this, record,'admin/cardholderDetail')}>{text}</a>,
             }, {
                 title: '卡号',
                 dataIndex: 'code',

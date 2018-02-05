@@ -27,8 +27,10 @@ module.exports = app => {
 
     //公告
     app.post('/notice/new', Admin.adminRequired, Notice.new);
-    app.post('/notice/detail', Notice.detail);
+    app.post('/notice/update', Admin.adminRequired, Notice.update);
+    app.get('/notice/detail', Notice.detail);
     app.post('/notice/list', Notice.list);
-    app.post('/notice/delete', Notice.delete);
+    app.post('/notice/delete', Admin.adminRequired, Notice.delete);
+    app.post('/notice/show', Admin.adminRequired, Notice.show);
 
 };

@@ -1,6 +1,6 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import NoticeList from '../../components/NoticeList/NoticeList'
+import NoticeDetailDisplay from "../../components/NoticeDetailDisplay/NoticeDetailDisplay";
 import {Spin, message} from "antd/lib/index";
 import {post} from "../../fetch/post";
 
@@ -36,7 +36,7 @@ export default class NoticePage extends React.Component {
         let {loading, data} = this.state;
         return (
             <Spin spinning={loading}>
-                <NoticeList data={data}/>
+                <NoticeDetailDisplay data={data}/>
             </Spin>
         )
     }

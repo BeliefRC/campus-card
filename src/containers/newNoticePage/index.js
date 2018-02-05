@@ -25,23 +25,17 @@ export default class cardholderDetailPage extends React.Component {
     }
 
     componentDidMount() {
-        let {userInfo} = this.props;
-        if (userInfo.isLogin && !userInfo.isAdmin && userInfo.code) {
-            this.init(userInfo.code)
-        } else {
-            let code = this.props.location.state ? this.props.location.state.code : null;
-            if (code) {
-                this.init(code)
-            }
+        let _id = this.props.location.state ? this.props.location.state._id : null;
+        if (_id) {
+            this.init(_id)
         }
     }
 
-    init(code) {
+    init(_id) {
         this.setState({loading: true});
-        get('/notice/detail', {code}, (data) => {
+        get('/notice/detail', {_id}, (data) => {
             this.setState({loading: false});
             if (data.success) {
-                delete data.backData._id;
                 this.setState({
                     data: data.backData
                 });
@@ -61,7 +55,24 @@ export default class cardholderDetailPage extends React.Component {
                 this.setState({loading: false});
                 if (data.success) {
                     let {menuKey, menuKeyActions} = this.props;
-                        selectedKeyUntil.update(menuKey, menuKeyActions, '/admin/noticeList');
+                    selectedKeyUntil.update(menuKey, menuKeyActions, '/admin/noticeList');
+                    message.success(data.msg)
+                } else {
+                    message.error(data.msg);
+                    this.setState({loading: false});
+                }
+            },
+            () => {
+                this.setState({loading: false});
+            });
+    };
+
+    updateNotice(values) {
+        post('/notice/update', values, (data) => {
+                this.setState({loading: false});
+                if (data.success) {
+                    let {menuKey, menuKeyActions} = this.props;
+                    selectedKeyUntil.update(menuKey, menuKeyActions, '/admin/noticeList');
                     message.success(data.msg)
                 } else {
                     message.error(data.msg);
@@ -80,7 +91,8 @@ export default class cardholderDetailPage extends React.Component {
         return (
             <Spin spinning={loading}>
                 <NoticeDetailInfoForm menuKey={this.props.menuKey} menuKeyActions={this.props.menuKeyActions}
-                                      data={data} userInfo={userInfo} newNotice={this.newNotice.bind(this)}/>
+                                      userInfo={userInfo} newNotice={this.newNotice.bind(this)}
+                                      updateNotice={this.updateNotice.bind(this)} data={data}/>
             </Spin>
         )
     }

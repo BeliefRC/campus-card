@@ -46,7 +46,12 @@ exports.detail = async (req, res) => {
 //通知列表
 exports.list = async (req, res) => {
     try {
-        let notices = await Notice.find().sort({'meta.updateAt': -1});
+        let user = req.session.user, notices;
+        if (user.isAdmin && req.body.listTable) {
+            notices = await Notice.find().sort({'meta.updateAt': -1});
+        } else {
+            notices = await Notice.find({isShow: true}).sort({'meta.updateAt': -1});
+        }
         res.json(setJson(true, '获取公告列表', notices))
     }
     catch (e) {
@@ -54,6 +59,7 @@ exports.list = async (req, res) => {
         res.json(setJson(false, e.message, null))
     }
 };
+
 //删除通知
 exports.delete = async (req, res) => {
     try {
@@ -62,6 +68,41 @@ exports.delete = async (req, res) => {
         res.json(setJson(true, '删除公告成功', notice))
     }
     catch (e) {
+        console.log(e.stack);
+        res.json(setJson(false, e.message, null))
+    }
+};
+//更新通知
+exports.update = async (req, res) => {
+    try {
+        let _notice = req.body;
+        let _id = _notice._id;
+        if (_notice.isShow === 'true') {
+            _notice.isShow = true
+        } else if (_notice.isShow === 'false') {
+            _notice.isShow = false;
+        }
+        let notice = await Notice.findOne({_id});
+        Object.assign(notice, _notice);
+        notice = await notice.save();
+        res.json(setJson(true, '更新公告成功', notice))
+    }
+    catch (e) {
+        console.log(e.stack);
+        res.json(setJson(false, e.message, null))
+    }
+};
+
+//显示操作
+exports.show = async (req, res) => {
+    let _id = req.body._id;
+    try {
+        let notice = await Notice.findOne({_id});
+        notice.isShow = !notice.isShow;
+        notice = await notice.save();
+        let str = notice.isShow ? '显示' : '取消显示';
+        res.json(setJson(true, `${str}成功`, notice))
+    } catch (e) {
         console.log(e.stack);
         res.json(setJson(false, e.message, null))
     }

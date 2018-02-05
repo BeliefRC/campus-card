@@ -1,8 +1,7 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import moment from 'moment'
-import {Table, Menu, Dropdown, Icon, Popconfirm, message} from 'antd';
-import {post} from "../../fetch/post";
+import {Table, Menu, Dropdown, Icon, Popconfirm} from 'antd';
 import selectedKeyUntil from "../../until/selectedKeyUntil";
 // import {hashHistory} from 'react-router'
 
@@ -31,6 +30,9 @@ export default class NoticeListTable extends React.Component {
                 <Menu.Item key='update'>
                     <Icon type="edit"/> 编辑
                 </Menu.Item>
+                <Menu.Item key='show'>
+                    <Icon type="eye"/> {record.isShow ? '取消显示' : '显示'}
+                </Menu.Item>
             </Menu>}>
                 <span style={{color: '#1890FF', cursor: 'pointer'}}>
                     操作 <Icon type="down"/>
@@ -48,6 +50,9 @@ export default class NoticeListTable extends React.Component {
         switch (e.key) {
             case'update':
                 this.routeTo(record, `admin/newNotice`);
+                break;
+            case 'show':
+                this.props.isShowHandler(record._id);
                 break;
             default:
                 break;
@@ -67,7 +72,7 @@ export default class NoticeListTable extends React.Component {
     //跳转到详情页面
     routeTo(record, url) {
         let {menuKey, menuKeyActions} = this.props;
-        selectedKeyUntil.update(menuKey, menuKeyActions, url, true, {code: record.code})
+        selectedKeyUntil.update(menuKey, menuKeyActions, url, true, {_id: record._id})
     }
 
     render() {
@@ -75,11 +80,12 @@ export default class NoticeListTable extends React.Component {
             {
                 title: '标题',
                 dataIndex: 'title',
-                width: 500
+                width: 500,
+                render: (text, record, index) => <a
+                    onClick={this.routeTo.bind(this, record, `admin/newNotice`)}>{text}</a>,
             }, {
                 title: '发布人',
                 dataIndex: 'createPerson',
-                sorter: (a, b) => a.code - b.code,
             }, {
                 title: '是否显示',
                 dataIndex: 'isShow',
