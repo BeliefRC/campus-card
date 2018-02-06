@@ -15,13 +15,14 @@ import InstructionPage from '../containers/instructionPage'
 import ProcessPage from '../containers/processPage'
 import LostAndFoundPage from '../containers/lostAndFoundPage'
 import ExcelPage from '../containers/excelPage'
+import ShopPage from '../containers/shopPage'
 
 
 export default class RouterMap extends React.Component {
     render() {
         return (<Router history={this.props.history}>
             <Route path='/' component={App}>
-                <IndexRoute  component={InstructionPage}/>Page
+                <IndexRoute component={InstructionPage}/>Page
                 <Route path='admin'>
                     <Route path='cardholderList' component={CardholderListPage}/>
                     <Route path='noticeList' component={NoticeListPage}/>
@@ -36,6 +37,7 @@ export default class RouterMap extends React.Component {
                     <Route path='billList' component={BillListPage}/>
                     <Route path='operate' component={OperatePage}/>
                     <Route path='cardholderDetail' component={cardholderDetailPage}/>
+                    <Route path='shopping' component={ShopPage}/>
                 </Route>
                 <Route path='notice(/:id)' component={Notice}/>
                 <Route path='process' component={ProcessPage}/>

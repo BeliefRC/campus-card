@@ -29,8 +29,8 @@ export default class BillListTable extends React.Component {
                 dataIndex: 'amount',
                 sorter: (a, b) => a.code - b.code,
                 render: (text, record, index) => record.type==='充值'?
-                    <span style={{color:'green',fontWeight:'bold'}}>{text.toFixed(2)}</span>:
-                    <span style={{color:'red',fontWeight:'bold'}}>{text.toFixed(2)}</span>
+                    <span style={{color:'green',fontWeight:'bold'}}>+{text.toFixed(2)}</span>:
+                    <span style={{color:'red',fontWeight:'bold'}}>-{text.toFixed(2)}</span>
 
             }, {
                 title: '时间',

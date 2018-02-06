@@ -239,6 +239,29 @@ exports.recharge = async (req, res) => {
         res.json(setJson(false, e.message, null))
     }
 };
+
+//购物
+exports.shop = async (req, res) => {
+    try {
+        let price = parseFloat(req.body.price);
+        let place = req.body.name;
+        let code = req.session.user.code;
+        let card = await Card.findOne({code});
+        if (card.balance >= price) {
+            card = await Card.findOneAndUpdate({code}, {
+                $inc: {balance: -price},
+                $addToSet: {bills: {time: Date.now(), place: place, amount: price, type: '消费'}}
+            }, {new: true});
+            res.json(setJson(true, `消费成功`, card))
+        } else {
+            res.json(setJson(false, `余额不足，请充值`, null))
+        }
+    } catch (e) {
+        console.log(e.stack);
+        res.json(setJson(false, e.message, null))
+    }
+};
+
 //流水列表
 exports.billList = async (req, res) => {
     let code = req.body.code;
