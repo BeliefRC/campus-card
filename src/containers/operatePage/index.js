@@ -1,6 +1,6 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import {Tabs, Icon, Spin, Button, message} from 'antd'
+import {Tabs, Icon, Spin, Button, message, Modal} from 'antd'
 import {connect} from 'react-redux'
 import {bindActionCreators} from "redux";
 import * as modalVisibleActionsFromOtherFile from '../../actions/modalVisible'
@@ -89,12 +89,12 @@ export default class OperatePage extends React.Component {
             (data) => {
                 this.setState({loading: false});
                 if (data.success) {
-                    message.success(data.msg);
+                    success(data.msg);
                     this.setState({
                         data: data.backData
                     });
                 } else {
-                    message.error(data.msg);
+                    error(data.msg);
                     this.setState({loading: false});
                 }
             },
@@ -180,5 +180,19 @@ function mapDispatchToProps(dispatch) {
     return {
         modalVisibleActions: bindActionCreators(modalVisibleActionsFromOtherFile, dispatch)
     }
+}
+
+function error(msg) {
+    Modal.error({
+        title: '失败',
+        content: msg,
+    });
+}
+
+function success(msg) {
+    Modal.success({
+        title: '成功',
+        content: msg,
+    });
 }
 

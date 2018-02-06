@@ -148,7 +148,7 @@ exports.frozen = async (req, res) => {
 
         let card = await Card.findOne({code});
         card.isFrozen = !card.isFrozen;
-        card = await card.save();
+        card = await Card.findOneAndUpdate({code}, card);
         let str = card.isFrozen ? '挂失' : '解挂';
         res.json(setJson(true, `${str}成功`, card))
     } catch (e) {
@@ -216,6 +216,9 @@ exports.recharge = async (req, res) => {
         if (!card) {
             res.json(setJson(false, `登录信息错误，请重新登录`, card))
         } else {
+            if (card.isFrozen) {
+                res.json(setJson(false, `校园卡已挂失，请先解除挂失`, null))
+            }
             //验证管理员密码或者是用户密码
             if (isAdmin) {
                 isMatch = await comparePasswordPromise(admin, password);
@@ -247,7 +250,12 @@ exports.shop = async (req, res) => {
         let place = req.body.name;
         let code = req.session.user.code;
         let card = await Card.findOne({code});
-        if (card.balance >= price) {
+        //首先判断是否挂失
+        if (card.isFrozen) {
+            res.json(setJson(false, `校园卡已挂失，请先解除挂失`, null))
+        }
+        //判断余额是否充足
+        else if (card.balance >= price) {
             card = await Card.findOneAndUpdate({code}, {
                 $inc: {balance: -price},
                 $addToSet: {bills: {time: Date.now(), place: place, amount: price, type: '消费'}}
@@ -266,7 +274,7 @@ exports.shop = async (req, res) => {
 exports.billList = async (req, res) => {
     let code = req.body.code;
     try {
-        let card = await Card.findOne({code}, 'cardholder bills');
+        let card = await Card.findOne({code}, 'cardholder bills balance');
         if (card) {
             res.json(setJson(true, '', card))
         } else {

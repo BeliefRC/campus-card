@@ -71,7 +71,7 @@ export default class LeftAside extends React.Component {
                                 return true
                             }
                         case 'userCenter':
-                            if (!userInfo.isAdmin) {
+                            if (!userInfo.isAdmin && userInfo.isLogin) {
                                 return (
                                     <SubMenu
                                         key={item.key}

@@ -44,7 +44,7 @@ export default class BillListTable extends React.Component {
                     {text: '充值', value: '充值'},
                     {text: '消费', value: '消费'},
                 ],
-                onFilter: (value, record) => record.sex.includes(value),
+                onFilter: (value, record) => record.type.includes(value),
             }
         ];
         return <Table columns={columns}

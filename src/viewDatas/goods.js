@@ -8,7 +8,7 @@ const goodsData = [
     {name: '麦道夫', price: 4.20, img: require('../static/imgs/goods/汉堡-1.svg')},
     {name: '九品香粥', price: 5.50, img: require('../static/imgs/goods/西餐-1.svg')},
     {name: '金牌小炒盖浇饭', price: 16.00, img: require('../static/imgs/goods/糖果-1.svg')},
-    {name: '点点超时', price: 23.30, img: require('../static/imgs/goods/罐头-1.svg')},
+    {name: '点点超市', price: 23.30, img: require('../static/imgs/goods/罐头-1.svg')},
     {name: '川香木桶饭', price: 14.00, img: require('../static/imgs/goods/胡萝卜-1.svg')},
     {name: '狗不理包子', price: 1.00, img: require('../static/imgs/goods/花菜-1.svg')},
     {name: '爱情麻辣烫', price: 18.80, img: require('../static/imgs/goods/蛋糕-2.svg')},

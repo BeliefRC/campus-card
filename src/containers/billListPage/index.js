@@ -1,6 +1,6 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import {Tabs, Icon, Spin, message, DatePicker, Col, Row} from 'antd'
+import {Tabs, Icon, Spin, message, DatePicker, Col, Row, Tag} from 'antd'
 import {connect} from 'react-redux'
 import SearchByCodeInput from '../../components/SearchByCodeInput/SearchByCodeInput'
 import {post} from "../../fetch/post";
@@ -44,7 +44,7 @@ export default class BillListPage extends React.Component {
             if (data.success) {
                 delete data.backData._id;
                 this.setState({
-                    data: data.backData.bills
+                    data: data.backData
                 });
             } else {
                 this.setState({
@@ -69,7 +69,12 @@ export default class BillListPage extends React.Component {
                 </Row>
                 <Tabs defaultActiveKey="1">
                     <TabPane tab={<span><Icon type="table"/>表格</span>} key="1">
-                        <BillListTable data={data}/>
+                        <Tag color="gold"
+                             style={{
+                                 transform: 'scale(2)',
+                                 margin: '10px 0 20px 60px'
+                             }}>当前余额：￥{data.balance ? data.balance.toFixed(2) : 0.00}</Tag>
+                        <BillListTable data={data.bills}/>
                     </TabPane>
                     <TabPane tab={<span><Icon type="calendar"/>日历</span>} key="2">
                         <BillCalendar/>

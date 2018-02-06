@@ -47,7 +47,7 @@ exports.detail = async (req, res) => {
 exports.list = async (req, res) => {
     try {
         let user = req.session.user, notices;
-        if (user.isAdmin && req.body.listTable) {
+        if (user && user.isAdmin && req.body.listTable) {
             notices = await Notice.find().sort({'meta.updateAt': -1});
         } else {
             notices = await Notice.find({isShow: true}).sort({'meta.updateAt': -1});

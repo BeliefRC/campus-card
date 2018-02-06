@@ -4,6 +4,7 @@ import {Spin, message} from 'antd'
 import GoodList from '../../components/GoodList/GoodList'
 import goodsData from '../../viewDatas/goods'
 import {post} from '../../fetch/post'
+import {Modal} from "antd/lib/index";
 
 export default class ShopPage extends React.Component {
     // 构造
@@ -19,9 +20,10 @@ export default class ShopPage extends React.Component {
         post('/card/shop', good, (data) => {
             this.setState({loading: false});
             if (data.success) {
-                message.success(data.msg)
+                success(data.msg);
+
             } else {
-                message.error(data.msg)
+                error(data.msg);
             }
         }, () => {
             this.setState({loading: false});
@@ -36,5 +38,19 @@ export default class ShopPage extends React.Component {
             </Spin>
         )
     }
+}
+
+function error(msg) {
+    Modal.error({
+        title: '失败',
+        content: msg,
+    });
+}
+
+function success(msg) {
+    Modal.success({
+        title: '成功',
+        content: msg,
+    });
 }
 
