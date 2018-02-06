@@ -18,10 +18,11 @@ class EditInstruction extends React.Component {
     }
 
     componentWillMount() {
-        get('/admin/instruction/detail', {}, (data) => {
+        this.setState({loading: true});
+        get('/instruction/detail', {}, (data) => {
             this.setState({loading: false});
             if (data.success) {
-
+                this.props.form.setFieldsValue({instruction: data.backData.instruction})
             } else {
                 message.error(data.msg)
             }
@@ -35,10 +36,10 @@ class EditInstruction extends React.Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 this.setState({loading: true});
-                post('/admin/instruction/save', values, (data) => {
+                post('/instruction/save', values, (data) => {
                     this.setState({loading: false});
                     if (data.success) {
-
+                        message.success(data.msg)
                     } else {
                         message.error(data.msg)
                     }

@@ -1,6 +1,7 @@
 const Card = require('../controllers/Card');
 const Admin = require('../controllers/Admin');
 const Notice = require('../controllers/Notice');
+const Instruction = require('../controllers/Instruction');
 
 module.exports = app => {
     //退出登录
@@ -32,5 +33,9 @@ module.exports = app => {
     app.post('/notice/list', Notice.list);
     app.post('/notice/delete', Admin.adminRequired, Notice.delete);
     app.post('/notice/show', Admin.adminRequired, Notice.show);
+
+    //使用说明
+    app.post('/instruction/save', Admin.adminRequired, Instruction.save);
+    app.get('/instruction/detail',  Instruction.detail);
 
 };

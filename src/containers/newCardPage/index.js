@@ -52,7 +52,7 @@ export default class NewCardPage extends React.Component {
         return (
             <Spin spinning={loading}>
                 <CardDetailInfoForm type='录入' menuKey={this.props.menuKey} menuKeyActions={this.props.menuKeyActions}
-                                    codeDisabled={true} showPassword={true} data={data}/>
+                                    userInfo={this.props.userInfo} codeDisabled={true} showPassword={true} data={data}/>
             </Spin>
         )
     }
@@ -61,6 +61,7 @@ export default class NewCardPage extends React.Component {
 function mapStateToProps(state) {
     return {
         menuKey: state.menuKey,
+        userInfo: state.userInfo,
     }
 }
 
