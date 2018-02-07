@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdfd8516-75ed-48c9-8c2b-b4f897263564" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/Card.js" afterPath="$PROJECT_DIR$/server/controllers/Card.js" />
-      <change beforePath="$PROJECT_DIR$/src/containers/App.js" afterPath="$PROJECT_DIR$/src/containers/App.js" />
-      <change beforePath="$PROJECT_DIR$/src/containers/billListPage/index.js" afterPath="$PROJECT_DIR$/src/containers/billListPage/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,14 +23,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/containers/billListPage/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="74" column="0" lean-forward="true" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+            <state relative-caret-position="308">
+              <caret line="71" column="44" lean-forward="true" selection-start-line="71" selection-start-column="44" selection-end-line="71" selection-end-column="44" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="110">
+              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -137,7 +145,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/reducers/modalVisible.js" />
         <option value="$PROJECT_DIR$/src/components/AboutUsModal/AboutUsModal.js" />
         <option value="$PROJECT_DIR$/src/components/ChangePasswordModal/ChangePasswordModal.js" />
         <option value="$PROJECT_DIR$/src/components/SearchByCodeInput/SearchByCodeInput.js" />
@@ -188,6 +195,7 @@
         <option value="$PROJECT_DIR$/server/controllers/Card.js" />
         <option value="$PROJECT_DIR$/src/containers/App.js" />
         <option value="$PROJECT_DIR$/src/containers/billListPage/index.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -456,7 +464,7 @@
       <workItem from="1517540259069" duration="12891000" />
       <workItem from="1517879362299" duration="25557000" />
       <workItem from="1517965812106" duration="9798000" />
-      <workItem from="1517981560540" duration="11665000" />
+      <workItem from="1517981560540" duration="11748000" />
     </task>
     <task id="LOCAL-00001" summary="搭建环境 初始化目录结构">
       <created>1515554911798</created>
@@ -717,11 +725,18 @@
       <option name="project" value="LOCAL" />
       <updated>1517992515771</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="修改返回顶部图标">
+      <created>1517994986052</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1517994986052</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="325102000" />
+    <option name="totallyTimeSpent" value="325185000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -825,7 +840,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="基本完成用户登录功能，新增卡前端页面" />
     <MESSAGE value="完成用户登录，注销功能" />
     <MESSAGE value="优化退出登录，404页面路由跳转功能" />
     <MESSAGE value="完成编码自增功能" />
@@ -850,7 +864,8 @@
     <MESSAGE value="简要完成头像上传功能" />
     <MESSAGE value="完成用户头像上传，更新，显示" />
     <MESSAGE value="调整部分页面样式" />
-    <option name="LAST_COMMIT_MESSAGE" value="调整部分页面样式" />
+    <MESSAGE value="修改返回顶部图标" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改返回顶部图标" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -859,13 +874,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/components/NoticeDetailDisplay/NoticeDetailDisplay.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="470">
-          <caret line="30" column="30" lean-forward="true" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/excelPage/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
@@ -1258,11 +1266,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/containers/billListPage/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="74" column="0" lean-forward="true" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+        <state relative-caret-position="308">
+          <caret line="71" column="44" lean-forward="true" selection-start-line="71" selection-start-column="44" selection-end-line="71" selection-end-column="44" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
