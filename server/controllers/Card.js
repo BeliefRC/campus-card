@@ -1,10 +1,36 @@
 const Card = require('../models/Card');
 const Admin = require('../models/Admin');
 const setJson = require('../until/SetJson');
+const fs = require('fs');
+const path = require('path');
 
 const comparePasswordPromise = (card, password) => {
     return new Promise((resolve, reject) => {
         card.comparePassword(password, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(data)
+            }
+        })
+    })
+};
+
+const readFilePromise = (path) => {
+    return new Promise((resolve, reject) => {
+        fs.readFile(path, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(data)
+            }
+        })
+    })
+};
+
+const writeFilePromise = (file, data) => {
+    return new Promise((resolve, reject) => {
+        fs.writeFile(file, data, (err, data) => {
             if (err) {
                 reject(err)
             } else {
@@ -73,6 +99,47 @@ exports.register = async (req, res) => {
     }
 };
 
+//上传图片
+exports.upload = async (req, res, next) => {
+    try {
+        let photoData = req.body.photo.file.response.backData;
+        let filePath = photoData ? photoData.path : '';
+        let originalFilename = photoData ? photoData.originalFilename : '';
+        //存在上传的文件则保存到服务器
+        if (originalFilename) {
+            let data = await readFilePromise(filePath);
+            let timestamp = Date.now();
+            let type = photoData.type.split('/')[1];
+            let photo = `${timestamp}.${type}`;
+            let newPath = path.join(__dirname, '../../', '/src/static/upload/' + photo);
+            await  writeFilePromise(newPath, data);
+            req.body.photo = photo;
+        }
+        next()
+    }
+    catch (e) {
+        console.log(e.stack);
+        res.json(setJson(false, e.message, null));
+    }
+};
+
+//上传图片预处理
+exports.beforeUpload = async (req, res) => {
+    try {
+        let photoData = req.files.photo;
+        let originalFilename = photoData ? photoData.originalFilename : '';
+        if (originalFilename) {
+            res.json(setJson(true, '服务端已准备好接收图片', photoData));
+        } else {
+            res.json(setJson(false, '请选择需要上传的图片', null));
+        }
+    }
+    catch (e) {
+        console.log(e.stack);
+        res.json(setJson(false, e.message, null));
+    }
+};
+
 //更新卡
 exports.update = async (req, res) => {
     const _card = req.body;
@@ -129,7 +196,7 @@ exports.deleteCard = async (req, res) => {
 exports.detail = async (req, res) => {
     let code = req.query.code;
     try {
-        let card = await Card.findOne({code}, 'code cardholder sex type isFrozen balance');
+        let card = await Card.findOne({code}, 'code cardholder sex type isFrozen balance photo');
         if (card) {
             res.json(setJson(true, '查看详情成功', card))
         } else {

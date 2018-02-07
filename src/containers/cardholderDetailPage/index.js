@@ -7,6 +7,8 @@ import * as menuKeyActionsFromOtherFile from '../../actions/menuKey'
 import CardDetailInfoForm from '../../components/CardDetailInfoForm/CardDetailInfoForm'
 import SearchByCodeInput from '../../components/SearchByCodeInput/SearchByCodeInput'
 import {get} from "../../fetch/get";
+import selectedKeyUntil from "../../until/selectedKeyUntil";
+import {post} from "../../fetch/post";
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class cardholderDetailPage extends React.Component {
@@ -55,6 +57,28 @@ export default class cardholderDetailPage extends React.Component {
         });
     }
 
+    //修改信息
+    handleSubmit = (values) => {
+        this.setState({loading: true});
+        post('/card/update', values,
+            (data) => {
+                this.setState({loading: false});
+                if (data.success) {
+                    let {menuKey, menuKeyActions, userInfo} = this.props;
+                    if (userInfo.isAdmin) {
+                        selectedKeyUntil.update(menuKey, menuKeyActions, '/admin/cardholderList');
+                    }
+                    message.success(data.msg)
+                } else {
+                    message.error(data.msg);
+                    this.setState({loading: false});
+                }
+            },
+            () => {
+                this.setState({loading: false});
+            });
+    };
+
 
     render() {
         let {loading, data} = this.state;
@@ -62,8 +86,8 @@ export default class cardholderDetailPage extends React.Component {
         return (
             <Spin spinning={loading}>
                 {userInfo.isAdmin ? <SearchByCodeInput init={this.init.bind(this)}/> : ''}
-                <CardDetailInfoForm type='更新' menuKey={this.props.menuKey} menuKeyActions={this.props.menuKeyActions}
-                                    codeDisabled={true} data={data} userInfo={userInfo}/>
+                <CardDetailInfoForm type='更新' codeDisabled={true} data={data} userInfo={userInfo}
+                                    handleSubmit={this.handleSubmit.bind(this)}/>
             </Spin>
         )
     }

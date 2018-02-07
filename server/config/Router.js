@@ -9,7 +9,7 @@ module.exports = app => {
 
     //管理员
     app.post('/admin/login', Admin.login);
-    app.post('/card/register', Admin.adminRequired, Card.register);
+    app.post('/card/register', Admin.adminRequired, Card.upload, Card.register);
     app.get('/card/getCode', Admin.adminRequired, Card.getCode);
     app.get('/card/list', Admin.adminRequired, Card.cardList);
     app.post('/card/delete', Admin.adminRequired, Card.deleteCard);
@@ -17,15 +17,16 @@ module.exports = app => {
 
     //用户
     app.post('/card/login', Card.login);
-    app.post('/card/changePassword',  Admin.loginRequired,Card.changePassword);
+    app.post('/card/changePassword', Admin.loginRequired, Card.changePassword);
     app.post('/card/shop', Admin.loginRequired, Card.shop);
 
     //公共
     app.get('/card/detail', Admin.loginRequired, Card.detail);
-    app.post('/card/update', Admin.loginRequired, Card.update);
+    app.post('/card/update', Admin.loginRequired, Card.upload, Card.update);
     app.post('/card/frozen', Admin.loginRequired, Card.frozen);
     app.post('/card/recharge', Admin.loginRequired, Card.recharge);
     app.post('/card/billList', Admin.loginRequired, Card.billList);
+    app.post('/card/beforeUpload', Admin.loginRequired, Card.beforeUpload);
 
     //公告
     app.post('/notice/new', Admin.adminRequired, Notice.new);
@@ -37,6 +38,6 @@ module.exports = app => {
 
     //使用说明
     app.post('/instruction/save', Admin.adminRequired, Instruction.save);
-    app.get('/instruction/detail',  Instruction.detail);
+    app.get('/instruction/detail', Instruction.detail);
 
 };

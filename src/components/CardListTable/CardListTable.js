@@ -32,10 +32,10 @@ export default class CardListTable extends React.Component {
                     </Popconfirm>
                 </Menu.Item>
                 <Menu.Item key='operate'>
-                    <Icon type="safety" /> 操作卡
+                    <Icon type="safety"/> 操作卡
                 </Menu.Item>
                 <Menu.Item key='billList'>
-                    <Icon type="eye-o" /> 查看账单
+                    <Icon type="eye-o"/> 查看账单
                 </Menu.Item>
 
             </Menu>}>
@@ -85,9 +85,9 @@ export default class CardListTable extends React.Component {
     }
 
     //跳转到详情页面
-    routeTo(record,url) {
+    routeTo(record, url) {
         let {menuKey, menuKeyActions} = this.props;
-        selectedKeyUntil.update(menuKey, menuKeyActions,url, true, {code: record.code})
+        selectedKeyUntil.update(menuKey, menuKeyActions, url, true, {code: record.code})
     }
 
     render() {
@@ -97,7 +97,8 @@ export default class CardListTable extends React.Component {
                 dataIndex: 'cardholder',
                 fixed: 'left',
                 width: 130,
-                render: (text, record, index) => <a onClick={this.routeTo.bind(this, record,'admin/cardholderDetail')}>{text}</a>,
+                render: (text, record, index) => <a
+                    onClick={this.routeTo.bind(this, record, 'admin/cardholderDetail')}>{text}</a>,
             }, {
                 title: '卡号',
                 dataIndex: 'code',
@@ -108,7 +109,7 @@ export default class CardListTable extends React.Component {
                 title: '头像',
                 dataIndex: 'photo',
                 width: 100,
-                render: (text, record, index) => text ? <Avatar src={text}/> :
+                render: (text, record, index) => text ? <Avatar src={require(`../../static/upload/${text}`)}/> :
                     <Avatar icon="user" style={{backgroundColor: '#1890FF'}}/>,
             }, {
                 title: '性别',

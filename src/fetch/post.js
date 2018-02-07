@@ -2,13 +2,17 @@ import {message} from 'antd';
 import * as domainConstants from './domainConstants'
 
 export function post(url, params, cb, errCb) {
-    let paramsArray = [];
-    //拼接参数
-    Object.keys(params).forEach(key => paramsArray.push(`${key}=${params[key]}`));
-    params = paramsArray.join('&');
+    /* let paramsArray = [];
+     // 拼接参数
+     Object.keys(params).forEach(key => paramsArray.push(`${key}=${params[key]}`));
+     paramsArray.map(param =>
+         param = JSON.stringify(param)
+     );
+     params = paramsArray.join('&');*/
+    params = JSON.stringify(params);
     fetch(`${domainConstants.DOMAIN}${url}`, {
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json'
         },
         method: 'POST',
         credentials: 'include',

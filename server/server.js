@@ -4,6 +4,7 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const mongoStore = require('connect-mongo')(session);
 const logger = require('morgan');
+const multipart = require('connect-multiparty');//处理混合表单
 
 const bodyParser = require('body-parser');
 const app = express();
@@ -34,7 +35,7 @@ mongoose.connection.on('disconnected', function () {
 //设置跨域访问
 app.all('*', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", allowDomain);
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Headers", "Content-Type,x-requested-with");
     res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
     res.header("X-Powered-By", ' 3.2.1');
     res.header("Content-Type", "application/json;charset=utf-8");
@@ -48,6 +49,9 @@ app.use(bodyParser.json());
 
 //session依赖于cookie
 app.use(cookieParser());
+
+app.use(multipart());
+
 app.use(session({
     secret: 'campusCard',
     store: new mongoStore({

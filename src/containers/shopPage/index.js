@@ -1,6 +1,6 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import {Spin, message} from 'antd'
+import {Spin} from 'antd'
 import GoodList from '../../components/GoodList/GoodList'
 import goodsData from '../../viewDatas/goods'
 import {post} from '../../fetch/post'

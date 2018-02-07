@@ -1,8 +1,7 @@
 import React from 'react'
-import {Form, Input, Tooltip, Icon, Button, Radio, Spin, message} from 'antd';
+import {Form, Input, Tooltip, Icon, Button, Radio, Upload, message} from 'antd';
 import typeRadioData from '../../viewDatas/typeRadio'
-import {post} from "../../fetch/post";
-import selectedKeyUntil from "../../until/selectedKeyUntil";
+import * as domainConstants from '../../fetch/domainConstants'
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -15,7 +14,8 @@ class CardDetailInfoForm extends React.Component {
         this.state = {
             confirmDirty: false,
             codeDisabled: false,
-            loading: false
+            loading: false,
+            imageUrl: '',
         };
     }
 
@@ -29,12 +29,18 @@ class CardDetailInfoForm extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.data.code !== this.props.data.code) {
             if (nextProps.data && JSON.stringify(nextProps.data) !== '{}') {
+                console.log(nextProps.data);
                 let value = this.props.form.getFieldsValue();
                 for (let key in value) {
                     if (value.hasOwnProperty(key)) {
                         value[key] = nextProps.data[key]
                     }
                 }
+                if (nextProps.data.photo) {
+                    this.setState({loading: true});
+                    this.setState({imageUrl: require(`../../static/upload/${nextProps.data.photo}`), loading: true});
+                }
+
                 this.props.form.setFieldsValue(value)
             } else {
                 this.props.form.resetFields()
@@ -46,32 +52,7 @@ class CardDetailInfoForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                this.setState({loading: true});
-                //发送请求
-                let url;
-                let {type} = this.props;
-                if (type === '更新') {
-                    url = `/card/update`
-                } else if (type === '录入') {
-                    url = `/card/register`
-                }
-                post(url, values,
-                    (data) => {
-                        this.setState({loading: false});
-                        if (data.success) {
-                            let {menuKey, menuKeyActions, userInfo} = this.props;
-                            if (userInfo.isAdmin) {
-                                selectedKeyUntil.update(menuKey, menuKeyActions, '/admin/cardholderList');
-                            }
-                            message.success(data.msg)
-                        } else {
-                            message.error(data.msg);
-                            this.setState({loading: false});
-                        }
-                    },
-                    () => {
-                        this.setState({loading: false});
-                    });
+                this.props.handleSubmit(values);
             }
         });
     };
@@ -102,10 +83,32 @@ class CardDetailInfoForm extends React.Component {
         }
     };
 
+    handleChange = (info) => {
+        if (info.file.status === 'uploading') {
+            this.setState({loading: true});
+            return;
+        }
+        if (info.file.status === 'done') {
+            // Get this url from response in real world.
+            getBase64(info.file.originFileObj, imageUrl => this.setState({
+                imageUrl,
+                loading: false,
+            }));
+        }
+    };
+
     render() {
         const {getFieldDecorator} = this.props.form;
         let {codeDisabled, type, showPassword} = this.props;
-        let {loading} = this.state;
+
+        const uploadButton = (
+            <div>
+                <Icon type={this.state.loading ? 'loading' : 'plus'}/>
+                <div className="ant-upload-text">上传</div>
+            </div>
+        );
+        const {imageUrl} = this.state;
+
         const formItemLayout = {
             labelCol: {
                 xs: {span: 24},
@@ -130,102 +133,140 @@ class CardDetailInfoForm extends React.Component {
         };
 
         return (
-            <Spin spinning={loading}>
-
-                <Form onSubmit={this.handleSubmit}>
-                    <FormItem
-                        {...formItemLayout}
-                        label={(
-                            <span>
+            <Form onSubmit={this.handleSubmit}>
+                <FormItem
+                    {...formItemLayout}
+                    label={(
+                        <span>
               一卡通账号&nbsp;
-                                <Tooltip title="一卡通账号为系统自动计算">
+                            <Tooltip title="一卡通账号为系统自动计算">
                 <Icon type="question-circle-o"/>
               </Tooltip>
             </span>
-                        )}
-                    >
-                        {getFieldDecorator('code', {
-                            rules: [{
-                                required: true, message: '一卡通账号不能为空!',
-                            }],
-                        })(
-                            <Input disabled={codeDisabled}/>
-                        )}
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label={(
-                            <span>
+                    )}
+                >
+                    {getFieldDecorator('code', {
+                        rules: [{
+                            required: true, message: '一卡通账号不能为空!',
+                        }],
+                    })(
+                        <Input disabled={codeDisabled}/>
+                    )}
+                </FormItem>
+                <FormItem
+                    {...formItemLayout}
+                    label={(
+                        <span>
               持卡人姓名&nbsp;
-                                <Tooltip title="请输入持卡人的真实姓名">
+                            <Tooltip title="请输入持卡人的真实姓名">
                 <Icon type="question-circle-o"/>
               </Tooltip>
             </span>
-                        )}
-                    >
-                        {getFieldDecorator('cardholder', {
-                            rules: [{required: true, message: '持卡人姓名不能为空!', whitespace: true}],
-                        })(
-                            <Input/>
-                        )}
-                    </FormItem>
-                    {showPassword ? [<FormItem key='password'{...formItemLayout} label={(
-                        <span>密码&nbsp;<Tooltip title="系统默认密码为666666">
+                    )}
+                >
+                    {getFieldDecorator('cardholder', {
+                        rules: [{required: true, message: '持卡人姓名不能为空!', whitespace: true}],
+                    })(
+                        <Input/>
+                    )}
+                </FormItem>
+                {showPassword ? [<FormItem key='password'{...formItemLayout} label={(
+                    <span>密码&nbsp;<Tooltip title="系统默认密码为666666">
                             <Icon type="question-circle-o"/>
                         </Tooltip></span>)}>
-                        {getFieldDecorator('password', {
+                    {getFieldDecorator('password', {
+                        rules: [{
+                            required: true, message: '密码不能为空!',
+                        }, {
+                            validator: this.checkConfirm,
+                        }],
+                    })(
+                        <Input type="password"/>
+                    )}
+                </FormItem>,
+                    <FormItem key='confirm'{...formItemLayout} label="确认密码">
+                        {getFieldDecorator('confirm', {
                             rules: [{
-                                required: true, message: '密码不能为空!',
+                                required: true, message: '确认密码为必填!',
                             }, {
-                                validator: this.checkConfirm,
+                                validator: this.checkPassword,
                             }],
                         })(
-                            <Input type="password"/>
+                            <Input type="password" onBlur={this.handleConfirmBlur}/>
                         )}
-                    </FormItem>,
-                        <FormItem key='confirm'{...formItemLayout} label="确认密码">
-                            {getFieldDecorator('confirm', {
-                                rules: [{
-                                    required: true, message: '确认密码为必填!',
-                                }, {
-                                    validator: this.checkPassword,
-                                }],
-                            })(
-                                <Input type="password" onBlur={this.handleConfirmBlur}/>
-                            )}
-                        </FormItem>] : ''}
-                    <FormItem
-                        {...formItemLayout}
-                        label="性别">
-                        {getFieldDecorator('sex', {
-                            rules: [{required: true, message: '请选择性别!'}],
-                        })(<RadioGroup>
-                            <Radio value='男'>男</Radio>
-                            <Radio value='女'>女</Radio>
-                        </RadioGroup>)}
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label="卡类别"
-                    >
-                        {getFieldDecorator('type', {
-                            rules: [{required: true, message: '请选择卡类别!'}],
-                        })(
-                            <RadioGroup>
-                                {
-                                    typeRadioData.map(item =>
-                                        <Radio value={item.key} key={item.key}>{item.value}</Radio>)
-                                }
-                            </RadioGroup>
+                    </FormItem>] : ''}
+
+                <FormItem
+                    {...formItemLayout}
+                    label="头像"
+                >
+                    <div className="dropbox">
+                        {getFieldDecorator('photo')(
+                            <Upload
+                                name="photo"
+                                withCredentials
+                                listType="picture-card"
+                                className="avatar-uploader"
+                                showUploadList={false}
+                                action={`${domainConstants.DOMAIN}/card/beforeUpload`}
+                                beforeUpload={beforeUpload}
+                                onChange={this.handleChange}
+                            >
+                                {imageUrl ? <img style={{width: '100%'}} src={imageUrl} alt=""/> : uploadButton}
+                            </Upload>
                         )}
-                    </FormItem>
-                    <FormItem {...tailFormItemLayout}>
-                        <Button type="primary" loading={loading} htmlType="submit">{type}</Button>
-                    </FormItem>
-                </Form>
-            </Spin>
+                    </div>
+                </FormItem>
+                <FormItem
+                    {...formItemLayout}
+                    label="性别">
+                    {getFieldDecorator('sex', {
+                        rules: [{required: true, message: '请选择性别!'}],
+                    })(<RadioGroup>
+                        <Radio value='男'>男</Radio>
+                        <Radio value='女'>女</Radio>
+                    </RadioGroup>)}
+                </FormItem>
+                <FormItem
+                    {...formItemLayout}
+                    label="卡类别"
+                >
+                    {getFieldDecorator('type', {
+                        rules: [{required: true, message: '请选择卡类别!'}],
+                    })(
+                        <RadioGroup>
+                            {
+                                typeRadioData.map(item =>
+                                    <Radio value={item.key} key={item.key}>{item.value}</Radio>)
+                            }
+                        </RadioGroup>
+                    )}
+                </FormItem>
+                <FormItem {...tailFormItemLayout}>
+                    <Button type="primary" htmlType="submit">{type}</Button>
+                </FormItem>
+            </Form>
         );
     }
 }
 
 export default CardDetailInfoForm = Form.create({})(CardDetailInfoForm);
+
+
+function getBase64(img, callback) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => callback(reader.result));
+    reader.readAsDataURL(img);
+}
+
+function beforeUpload(file) {
+    const isJPG = file.type === 'image/jpeg';
+    if (!isJPG) {
+        message.error('只能上传 JPG 文件!');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+        message.error('图片大小必选小于2MB!');
+    }
+    return isJPG && isLt2M;
+}
