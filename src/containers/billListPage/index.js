@@ -1,7 +1,8 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import {Tabs, Icon, Spin, message, DatePicker, Col, Row, Tag} from 'antd'
+import {Tabs, Icon, Spin, message, DatePicker, Row, Alert} from 'antd'
 import {connect} from 'react-redux'
+import moment from 'moment'
 import SearchByCodeInput from '../../components/SearchByCodeInput/SearchByCodeInput'
 import {post} from "../../fetch/post";
 import BillListTable from '../../components/BillListTable/BillListTable'
@@ -20,8 +21,15 @@ export default class BillListPage extends React.Component {
         // 初始状态
         this.state = {
             loading: false,
-            data: []
+            data: [],
+            value: []
         };
+    }
+
+    componentWillMount() {
+        this.setState({
+            value: [moment(Date.now()), moment(Date.now())]
+        })
     }
 
     componentDidMount() {
@@ -34,6 +42,11 @@ export default class BillListPage extends React.Component {
                 this.init(code)
             }
         }
+    }
+
+    onChange(date, dateString) {
+        console.log(date, dateString);
+        this.setState({value: date})
     }
 
     //初始化（获取出卡人信息）
@@ -59,21 +72,18 @@ export default class BillListPage extends React.Component {
 
     render() {
         let {userInfo} = this.props;
-        let {loading, data} = this.state;
+        let {loading, data, value} = this.state;
         return (
             <Spin spinning={loading}>
                 {userInfo.isAdmin ? <SearchByCodeInput init={this.init.bind(this)}/> : ''}
                 <Row>
-                    <Col span={3}/>
-                    <RangePicker onChange={onChange}/>
+                    <RangePicker value={value} onChange={this.onChange.bind(this)}/>
                 </Row>
                 <Tabs defaultActiveKey="1">
                     <TabPane tab={<span><Icon type="table"/>表格</span>} key="1">
-                        <Tag color="gold"
-                             style={{
-                                 transform: 'scale(2)',
-                                 margin: '10px 0 20px 60px'
-                             }}>当前余额：￥{data.balance ? data.balance.toFixed(2) : 0.00}</Tag>
+                        <Alert style={{marginBottom: '10px'}}
+                               message={`当前余额：￥${data.balance ? data.balance.toFixed(2) : 0.00}`} type="warning"
+                               showIcon/>
                         <BillListTable data={data.bills}/>
                     </TabPane>
                     <TabPane tab={<span><Icon type="calendar"/>日历</span>} key="2">
@@ -95,9 +105,5 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {}
-}
-
-function onChange(date, dateString) {
-    console.log(date, dateString);
 }
 

@@ -14,7 +14,7 @@ const goodsData = [
     {name: '爱情麻辣烫', price: 18.80, img: require('../static/imgs/goods/蛋糕-2.svg')},
     {name: '水电费', price: 100.00, img: require('../static/imgs/goods/西瓜-1.svg')},
     {name: '四海一家', price: 66.60, img: require('../static/imgs/goods/面-1.svg')},
-    {name: '海底捞', price: 0.50, img: require('../static/imgs/goods/饮料-1.svg')},
+    {name: '海底捞', price: 233.33, img: require('../static/imgs/goods/饮料-1.svg')},
     {name: '詹姆斯芝士排骨', price: 20.00, img: require('../static/imgs/goods/鸡腿-1.svg')},
     {name: '锅之恋', price: 16.90, img: require('../static/imgs/goods/鸡蛋-1.svg')},
     {name: '袁老四', price: 14.30, img: require('../static/imgs/goods/雪糕-1.svg')},

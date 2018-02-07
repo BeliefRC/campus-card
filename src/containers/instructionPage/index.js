@@ -38,9 +38,11 @@ export default class InstructionPage extends React.Component {
         return (
             <Spin spinning={loading}>
                 <h1 className='instruction-title'>校园卡使用说明</h1>
-                <article className='instruction-content'>
-                    {instruction}
-                </article>
+                <div className='bg-img clear-fix'>
+                    <article className='instruction-content'>
+                        {instruction}
+                    </article>
+                </div>
             </Spin>
 
         )

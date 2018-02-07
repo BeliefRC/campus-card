@@ -5,7 +5,6 @@ import {bindActionCreators} from 'redux'
 import {Spin, message} from 'antd'
 import * as menuKeyActionsFromOtherFile from '../../actions/menuKey'
 import NoticeDetailInfoForm from '../../components/NoticeDetailInfoForm/NoticeDetailInfoForm'
-// import SearchNoticeInput from '../../components/SearchNoticeInput/SearchNoticeInput'
 import {get} from "../../fetch/get";
 import {post} from "../../fetch/post";
 import selectedKeyUntil from "../../until/selectedKeyUntil";

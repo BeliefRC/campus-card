@@ -4,7 +4,6 @@ import moment from 'moment'
 import {Table, Menu, Dropdown, Icon, Popconfirm, message, Avatar} from 'antd';
 import {post} from "../../fetch/post";
 import selectedKeyUntil from "../../until/selectedKeyUntil";
-// import {hashHistory} from 'react-router'
 
 export default class CardListTable extends React.Component {
     // 构造
