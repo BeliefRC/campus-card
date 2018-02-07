@@ -64,7 +64,7 @@ export default class NoticeListTable extends React.Component {
         this.props.delNotice(record._id);
     }
 
-    //取消删除电影
+    //取消删除卡片
     cancel() {
 
     }

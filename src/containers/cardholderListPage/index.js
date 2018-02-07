@@ -17,11 +17,12 @@ export default class CardholderListPage extends React.Component {
 
         // 初始状态
         this.state = {
-            loading: false
+            loading: false,
+            data: []
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.getDataSource()
     }
 
@@ -43,7 +44,7 @@ export default class CardholderListPage extends React.Component {
                 loading: false
             });
         }, () => {
-            message.error('获取电影列表失败');
+            message.error('获取持卡人列表失败');
             _this.setState({
                 loading: false
             });

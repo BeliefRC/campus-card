@@ -2,6 +2,7 @@ const Card = require('../controllers/Card');
 const Admin = require('../controllers/Admin');
 const Notice = require('../controllers/Notice');
 const Instruction = require('../controllers/Instruction');
+const Img = require('../controllers/Img');
 
 module.exports = app => {
     //退出登录
@@ -39,5 +40,9 @@ module.exports = app => {
     //使用说明
     app.post('/instruction/save', Admin.adminRequired, Instruction.save);
     app.get('/instruction/detail', Instruction.detail);
+
+
+    app.get('/imgs/*', Img.photo);
+
 
 };

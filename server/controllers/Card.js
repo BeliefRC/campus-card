@@ -39,6 +39,17 @@ const writeFilePromise = (file, data) => {
         })
     })
 };
+const unlinkPromise = (path) => {
+    return new Promise((resolve, reject) => {
+        fs.unlink(path, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(data)
+            }
+        })
+    })
+};
 
 //用户登录
 exports.login = async (req, res) => {
@@ -102,18 +113,28 @@ exports.register = async (req, res) => {
 //上传图片
 exports.upload = async (req, res, next) => {
     try {
-        let photoData = req.body.photo.file.response.backData;
-        let filePath = photoData ? photoData.path : '';
-        let originalFilename = photoData ? photoData.originalFilename : '';
-        //存在上传的文件则保存到服务器
-        if (originalFilename) {
-            let data = await readFilePromise(filePath);
-            let timestamp = Date.now();
-            let type = photoData.type.split('/')[1];
-            let photo = `${timestamp}.${type}`;
-            let newPath = path.join(__dirname, '../../', '/src/static/upload/' + photo);
-            await  writeFilePromise(newPath, data);
-            req.body.photo = photo;
+        let isOldPhoto = ((typeof req.body.photo) === 'string');
+        //第一次上传头像且头像存在
+        if (!isOldPhoto && req.body.photo) {
+            let photoData = req.body.photo.file.response.backData;
+            let filePath = photoData ? photoData.path : '';
+            let originalFilename = photoData ? photoData.originalFilename : '';
+            //存在上传的文件则保存到服务器
+            if (originalFilename) {
+                let data = await readFilePromise(filePath);
+                let timestamp = Date.now();
+                let type = photoData.type.split('/')[1];
+                let photo = `${timestamp}.${type}`;
+                let newPath = path.join(__dirname, '../../', '/server/public/upload/' + photo);
+                await  writeFilePromise(newPath, data);
+                req.body.photo = photo;
+                //删除原头像
+                let card = await Card.findOne({code: req.body.code});
+                if (card && card.photo) {
+                    let oldPath = path.join(__dirname, '../../', `/server/public/upload/${card.photo}`);
+                    await unlinkPromise(oldPath)
+                }
+            }
         }
         next()
     }
@@ -185,6 +206,8 @@ exports.deleteCard = async (req, res) => {
     let _id = req.body._id;
     try {
         let card = await Card.findOneAndRemove({_id});
+        let oldPath = path.join(__dirname, '../../', `/server/public/upload/${card.photo}`);
+        unlinkPromise(oldPath);
         res.json(setJson(true, `删除持卡人${card.cardholder}成功`, null))
     } catch (e) {
         console.log(e.stack);

@@ -21,15 +21,15 @@ export default class CardListTable extends React.Component {
     renderOperate(text, record, index) {
         return <Dropdown
             overlay={<Menu onClick={this.handleOperate.bind(this, text, record, index)}>
-                <Menu.Item key='update'>
-                    <Icon type="edit"/> 编辑
-                </Menu.Item>
                 <Menu.Item key='delete'>
                     <Popconfirm title={`确定删除${record.cardholder}吗?`}
                                 onConfirm={this.confirm.bind(this, text, record, index)}
                                 onCancel={this.cancel} okText="Yes" cancelText="No">
                         <Icon type="delete"/> 删除
                     </Popconfirm>
+                </Menu.Item>
+                <Menu.Item key='update'>
+                    <Icon type="edit"/> 编辑
                 </Menu.Item>
                 <Menu.Item key='operate'>
                     <Icon type="safety"/> 操作卡
@@ -43,6 +43,12 @@ export default class CardListTable extends React.Component {
                     操作 <Icon type="down"/>
                 </span>
         </Dropdown>
+    }
+
+    //渲染头像
+    renderPhoto(text, record, index) {
+        return text ? <Avatar src={`http://localhost:3001/imgs/${text}`}/> :
+            <Avatar icon="user" style={{backgroundColor: '#1890FF'}}/>
     }
 
     //表格分页
@@ -79,7 +85,7 @@ export default class CardListTable extends React.Component {
         })
     }
 
-    //取消删除电影
+    //取消删除卡片
     cancel() {
 
     }
@@ -109,8 +115,7 @@ export default class CardListTable extends React.Component {
                 title: '头像',
                 dataIndex: 'photo',
                 width: 100,
-                render: (text, record, index) => text ? <Avatar src={require(`../../static/upload/${text}`)}/> :
-                    <Avatar icon="user" style={{backgroundColor: '#1890FF'}}/>,
+                render: this.renderPhoto.bind(this),
             }, {
                 title: '性别',
                 dataIndex: 'sex',

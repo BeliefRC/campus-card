@@ -29,16 +29,16 @@ class CardDetailInfoForm extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.data.code !== this.props.data.code) {
             if (nextProps.data && JSON.stringify(nextProps.data) !== '{}') {
-                console.log(nextProps.data);
                 let value = this.props.form.getFieldsValue();
                 for (let key in value) {
                     if (value.hasOwnProperty(key)) {
                         value[key] = nextProps.data[key]
                     }
                 }
+
                 if (nextProps.data.photo) {
                     this.setState({loading: true});
-                    this.setState({imageUrl: require(`../../static/upload/${nextProps.data.photo}`), loading: true});
+                    this.setState({imageUrl: `http://localhost:3001/imgs/${nextProps.data.photo}`, loading: true});
                 }
 
                 this.props.form.setFieldsValue(value)
@@ -260,9 +260,9 @@ function getBase64(img, callback) {
 }
 
 function beforeUpload(file) {
-    const isJPG = file.type === 'image/jpeg';
+    const isJPG = file.type === 'image/jpeg' || 'image/png';
     if (!isJPG) {
-        message.error('只能上传 JPG 文件!');
+        message.error('只能上传JPG或PNG文件!');
     }
     const isLt2M = file.size / 1024 / 1024 < 2;
     if (!isLt2M) {
