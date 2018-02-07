@@ -49,6 +49,9 @@ export default class BillListPage extends React.Component {
         this.setState({value: date})
     }
 
+    onOk() {
+    }
+
     //初始化（获取出卡人信息）
     init(code) {
         this.setState({loading: true});
@@ -77,7 +80,11 @@ export default class BillListPage extends React.Component {
             <Spin spinning={loading}>
                 {userInfo.isAdmin ? <SearchByCodeInput init={this.init.bind(this)}/> : ''}
                 <Row>
-                    <RangePicker value={value} onChange={this.onChange.bind(this)}/>
+                    <RangePicker showTime={{format: 'HH:mm'}}
+                                 format="YYYY-MM-DD"
+                                 value={value}
+                                 onChange={this.onChange.bind(this)}
+                                 onOk={this.onOk.bind(this)}/>
                 </Row>
                 <Tabs defaultActiveKey="1">
                     <TabPane tab={<span><Icon type="table"/>表格</span>} key="1">

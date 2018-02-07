@@ -13,6 +13,7 @@ import LeftAside from "../components/LeftAside/LeftAside";
 import HomeHeader from '../components/HomeHeader/HomeHeader'
 import HomeFooter from "../components/HomeFooter/HomeFooter";
 import HomeBreadcrumb from "../components/HomeBreadcrumb/HomeBreadcrumb";
+import rocket from '../static/imgs/火箭.svg'
 
 moment.locale('zh-cn');
 const {Content} = Layout;
@@ -59,7 +60,9 @@ export default class App extends Component {
                     </Content>
                     <HomeFooter content='Campus Card System &copy;2018 Created by Belief_RC'/>
                 </Layout>
-                <BackTop/>
+                <BackTop>
+                    <img src={rocket} alt="BackTop"/>
+                </BackTop>
             </Layout>
         );
     }

@@ -366,6 +366,8 @@ exports.billList = async (req, res) => {
     try {
         let card = await Card.findOne({code}, 'cardholder bills balance');
         if (card) {
+            //消费时间倒序排序
+            card.bills.sort((a, b) => b.time - a.time);
             res.json(setJson(true, '', card))
         } else {
             res.json(setJson(false, 'not found，请确认一卡通账号是否正确', null))
