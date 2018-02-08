@@ -21,6 +21,7 @@ export default class BillListPage extends React.Component {
         // 初始状态
         this.state = {
             loading: false,
+            code: '',
             data: [],
             value: []
         };
@@ -28,34 +29,51 @@ export default class BillListPage extends React.Component {
 
     componentWillMount() {
         this.setState({
-            value: [moment(Date.now()), moment(Date.now())]
-        })
-    }
-
-    componentDidMount() {
+            value: [moment().subtract(3, 'days'), moment()]
+        });
         let {userInfo} = this.props;
         if (userInfo.isLogin && !userInfo.isAdmin && userInfo.code) {
-            this.init(userInfo.code)
+            this.setState({code: userInfo.code});
         } else {
             let code = this.props.location.state ? this.props.location.state.code : null;
             if (code) {
-                this.init(code)
+                this.setState({code});
             }
         }
     }
 
-    onChange(date, dateString) {
-        console.log(date, dateString);
-        this.setState({value: date})
+    componentDidMount() {
+        let {code, value} = this.state;
+        //时间不存在则不查询
+        if (value.length === 0) {
+            return
+        }
+        this.init(code, value)
     }
 
-    onOk() {
+    onChange(date, dateString) {
+        console.log(moment().subtract(3, 'years'));
+        this.setState({value: date}, () => {
+            let {code, value} = this.state;
+            //时间不存在则不查询
+            if (value.length === 0) {
+                return
+            }
+            console.log(value);
+            this.init(code, value)
+        });
+
     }
+
+    disabledDate(current) {
+        return current && current > moment().endOf('day');
+    }
+
 
     //初始化（获取出卡人信息）
-    init(code) {
+    init(code, value) {
         this.setState({loading: true});
-        post('/card/billList', {code}, (data) => {
+        post('/card/billList', {code, date: value}, (data) => {
             this.setState({loading: false});
             if (data.success) {
                 delete data.backData._id;
@@ -79,22 +97,26 @@ export default class BillListPage extends React.Component {
         return (
             <Spin spinning={loading}>
                 {userInfo.isAdmin ? <SearchByCodeInput init={this.init.bind(this)}/> : ''}
-                <Row>
-                    <RangePicker showTime={{format: 'HH:mm'}}
-                                 format="YYYY-MM-DD"
-                                 value={value}
-                                 onChange={this.onChange.bind(this)}
-                                 onOk={this.onOk.bind(this)}/>
-                </Row>
-                <Tabs defaultActiveKey="1">
+                <Tabs defaultActiveKey="2">
                     <TabPane tab={<span><Icon type="table"/>表格</span>} key="1">
-                        <Alert style={{marginBottom: '10px'}}
+                        <Row>
+                            <RangePicker value={value}
+                                         format="YYYY-MM-DD"
+                                         onChange={this.onChange.bind(this)}
+                                         disabledDate={this.disabledDate.bind(this)}
+                                         ranges={{
+                                             'Today': [moment(), moment()],
+                                             'This Week': [moment().startOf('week'), moment()],
+                                             'This Month': [moment().startOf('month'), moment()]
+                                         }}/>
+                        </Row>
+                        <Alert style={{margin: '10px 0 10px 0'}}
                                message={`当前余额：￥${data.balance ? data.balance.toFixed(2) : 0.00}`} type="warning"
                                showIcon/>
                         <BillListTable data={data.bills}/>
                     </TabPane>
                     <TabPane tab={<span><Icon type="calendar"/>日历</span>} key="2">
-                        <BillCalendar/>
+                        <BillCalendar userInfo={userInfo}/>
                     </TabPane>
                     <TabPane tab={<span><Icon type="line-chart"/>数据分析</span>} key="3">
                     </TabPane>

@@ -74,7 +74,7 @@ if ('development' === env) {
     try {
         let hasAdmin = await Admin.findOne({code: 'admin'});
         if (hasAdmin) {
-            console.log(`存在超级管理员${hasAdmin}`);
+            console.log(`存在超级管理员${hasAdmin.code}`);
         } else {
             let admin = new Admin({
                 code: 'admin',

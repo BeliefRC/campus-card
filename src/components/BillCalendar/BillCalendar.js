@@ -1,6 +1,10 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
-import { Calendar, Badge } from 'antd'
+import {Calendar, Badge} from 'antd'
+import moment from 'moment'
+import {post} from "../../fetch/post";
+import {message} from "antd";
+
 export default class CardListTable extends React.Component {
     // 构造
     constructor(props) {
@@ -12,10 +16,40 @@ export default class CardListTable extends React.Component {
         };
     }
 
-    render() {
+    componentWillMount() {
+        let {userInfo} = this.props;
 
+    }
+
+    onPanelChange(date) {
+        console.log(date.startOf(), date.endOf());
+    }
+
+    //初始化（获取出卡人信息）
+    init(code, value) {
+        this.setState({loading: true});
+        post('/card/billList', {code, date: value}, (data) => {
+            this.setState({loading: false});
+            if (data.success) {
+                delete data.backData._id;
+                this.setState({
+                    data: data.backData
+                });
+            } else {
+                this.setState({
+                    data: {}
+                });
+                message.error(data.msg)
+            }
+        }, () => {
+            this.setState({loading: false});
+        });
+    }
+
+    render() {
         return (
-            <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender} />
+            <Calendar dateCellRender={dateCellRender} monthCellRender={monthCellRender}
+                      onPanelChange={this.onPanelChange.bind(this)}/>
         )
     }
 }
@@ -25,25 +59,25 @@ function getListData(value) {
     switch (value.date()) {
         case 8:
             listData = [
-                { type: 'warning', content: 'This is warning event.' },
-                { type: 'success', content: 'This is usual event.' },
-            ]; break;
+                {type: 'error', content: `消费：20.00`},
+                {type: 'success', content: `充值：16.60`},
+            ];
+            break;
         case 10:
             listData = [
-                { type: 'warning', content: 'This is warning event.' },
-                { type: 'success', content: 'This is usual event.' },
-                { type: 'error', content: 'This is error event.' },
-            ]; break;
+                {type: 'success', content: `充值：200.0`},
+            ];
+            break;
         case 15:
             listData = [
-                { type: 'warning', content: 'This is warning event' },
-                { type: 'success', content: 'This is very long usual event。。....' },
-                { type: 'error', content: 'This is error event 1.' },
-                { type: 'error', content: 'This is error event 2.' },
-                { type: 'error', content: 'This is error event 3.' },
-                { type: 'error', content: 'This is error event 4.' },
-            ]; break;
+                {type: 'error', content: `消费：233.33`},
+
+            ];
+            break;
         default:
+            listData = [
+                {type: 'error', content: `消费：10.00`},
+            ];
     }
     return listData || [];
 }
@@ -54,8 +88,8 @@ function dateCellRender(value) {
         <ul className="events">
             {
                 listData.map(item => (
-                    <li key={item.content}>
-                        <Badge status={item.type} text={item.content} />
+                    <li style={{listStyle: 'none'}} key={item.content}>
+                        <Badge status={item.type} text={item.content}/>
                     </li>
                 ))
             }

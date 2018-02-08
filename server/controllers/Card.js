@@ -3,6 +3,7 @@ const Admin = require('../models/Admin');
 const setJson = require('../until/SetJson');
 const fs = require('fs');
 const path = require('path');
+const moment = require('moment');
 
 const comparePasswordPromise = (card, password) => {
     return new Promise((resolve, reject) => {
@@ -66,7 +67,7 @@ exports.login = async (req, res) => {
             let isMatch = await comparePasswordPromise(card, password);
             //密码是否正确
             if (isMatch) {
-                console.log(`${code}(${Card.cardholder}):登陆成功`);
+                console.log(`${code}(${card.cardholder}):登陆成功`);
                 req.session.user = card;
                 res.json(setJson(true, '登陆成功', card));
             } else {
@@ -362,11 +363,20 @@ exports.shop = async (req, res) => {
 
 //流水列表
 exports.billList = async (req, res) => {
-    let code = req.body.code;
+    let code = req.body.code,
+        date = req.body.date;
     try {
         let card = await Card.findOne({code}, 'cardholder bills balance');
         if (card) {
             //消费时间倒序排序
+            console.log(date[1].substr(0, 10));
+            console.log(moment(card.bills[0].time).format('YYYY-MM-DD'));
+            card.bills = card.bills.filter(bill => {
+                let startTime = moment(date[0].substr(0, 10)),
+                    endTime = moment(date[1].substr(0, 10)),
+                    currentTime = moment(moment(bill.time).format('YYYY-MM-DD'));
+                return !startTime.isAfter(currentTime) && !endTime.isBefore(currentTime)
+            });
             card.bills.sort((a, b) => b.time - a.time);
             res.json(setJson(true, '', card))
         } else {
