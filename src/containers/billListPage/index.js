@@ -20,6 +20,7 @@ export default class BillListPage extends React.Component {
 
         // 初始状态
         this.state = {
+            activeKey: '1',
             loading: false,
             code: '',
             data: [],
@@ -43,20 +44,24 @@ export default class BillListPage extends React.Component {
     }
 
     componentDidMount() {
-        let {code, value} = this.state;
+        let {code, value, activeKey} = this.state;
         //时间不存在则不查询
-        if (value.length === 0) {
+        if (!code || value.length === 0 || activeKey !== '1') {
             return
         }
         this.init(code, value)
     }
 
+    tabOnChange(key) {
+        this.setState({activeKey: key})
+    }
+
     onChange(date, dateString) {
         console.log(moment().subtract(3, 'years'));
         this.setState({value: date}, () => {
-            let {code, value} = this.state;
+            let {code, value, activeKey} = this.state;
             //时间不存在则不查询
-            if (value.length === 0) {
+            if (value.length === 0 || !activeKey !== '1') {
                 return
             }
             console.log(value);
@@ -71,7 +76,7 @@ export default class BillListPage extends React.Component {
 
 
     //初始化（获取出卡人信息）
-    init(code, value) {
+    init(code, value = this.state.value) {
         this.setState({loading: true});
         post('/card/billList', {code, date: value}, (data) => {
             this.setState({loading: false});
@@ -93,11 +98,11 @@ export default class BillListPage extends React.Component {
 
     render() {
         let {userInfo} = this.props;
-        let {loading, data, value} = this.state;
+        let {loading, data, value, activeKey} = this.state;
         return (
             <Spin spinning={loading}>
                 {userInfo.isAdmin ? <SearchByCodeInput init={this.init.bind(this)}/> : ''}
-                <Tabs defaultActiveKey="2">
+                <Tabs activeKey={activeKey} onChange={this.tabOnChange.bind(this)}>
                     <TabPane tab={<span><Icon type="table"/>表格</span>} key="1">
                         <Row>
                             <RangePicker value={value}

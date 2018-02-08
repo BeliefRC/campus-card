@@ -38,7 +38,7 @@ class CardDetailInfoForm extends React.Component {
 
                 if (nextProps.data.photo) {
                     this.setState({loading: true});
-                    this.setState({imageUrl: `http://localhost:3001/imgs/${nextProps.data.photo}`, loading: true});
+                    this.setState({imageUrl: `${domainConstants.DOMAIN}/imgs/${nextProps.data.photo}`, loading: true});
                 }
 
                 this.props.form.setFieldsValue(value)

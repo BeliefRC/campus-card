@@ -68,6 +68,7 @@ class LoginModal extends React.Component {
         userInfo.isAdmin = data.backData.isAdmin;
         userInfo.user = data.backData.cardholder || 'admin';
         userInfo.isLogin = true;
+        userInfo.photo = data.backData.photo;
         userInfoActions.update(userInfo);
         //将用户信息存储到sessionStorage
         sessionStorage.setItem('userInfo', JSON.stringify(userInfo));

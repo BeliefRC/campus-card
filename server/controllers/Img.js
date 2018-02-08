@@ -20,12 +20,13 @@ exports.photo = async (req, res) => {
         let imgPath = path.join(__dirname, '../../', `/server/public/upload/${img}`);
         let content = await readFilePromise(imgPath, "binary");
         res.setHeader('Content-Type', 'image/png');
-        res.write(content, "binary");
+        res.end(new Buffer(content, 'binary'));
+
     } catch (e) {
         let imgPath = path.join(__dirname, '../../', '/server/public/upload/404/404.png');
         let content = await readFilePromise(imgPath, "binary");
         res.setHeader('Content-Type', 'image/png');
-        res.write(content, "binary");
+        res.end(new Buffer(content, 'binary'));
     }
 };
 

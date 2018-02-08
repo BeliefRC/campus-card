@@ -4,7 +4,8 @@ export default function userInfo(state = {
     user: '',
     isLogin: false,
     isAdmin: false,
-    code: ''
+    code: '',
+    photo:''
 }, action) {
     switch (action.type) {
         case actionTypes.USER_INFO_UPDATE:

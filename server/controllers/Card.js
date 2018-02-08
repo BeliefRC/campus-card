@@ -166,8 +166,9 @@ exports.beforeUpload = async (req, res) => {
 exports.update = async (req, res) => {
     const _card = req.body;
     try {
+        // let card = await Card.findOne({code: _card.code});
         let card = await Card.findOneAndUpdate({code: _card.code}, _card, {new: true});
-        card = await card.save();
+        // card = await card.save();
         res.json(setJson(true, '更新成功', card));
     }
     catch (e) {
@@ -369,8 +370,7 @@ exports.billList = async (req, res) => {
         let card = await Card.findOne({code}, 'cardholder bills balance');
         if (card) {
             //消费时间倒序排序
-            console.log(date[1].substr(0, 10));
-            console.log(moment(card.bills[0].time).format('YYYY-MM-DD'));
+            console.log(date);
             card.bills = card.bills.filter(bill => {
                 let startTime = moment(date[0].substr(0, 10)),
                     endTime = moment(date[1].substr(0, 10)),

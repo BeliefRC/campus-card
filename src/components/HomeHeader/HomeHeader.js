@@ -5,6 +5,7 @@ import {post} from '../../fetch/post'
 import sessionStorage from '../../until/sessionStorage'
 import LoginModal from '../LoginModal/LoginModal'
 import AboutUsModal from '../AboutUsModal/AboutUsModal'
+import * as domainConstants from '../../fetch/domainConstants'
 import title from '../../static/imgs/campusCardTitle.png'
 import './style.less'
 import {hashHistory} from "react-router";
@@ -20,6 +21,7 @@ export default class HomeHeader extends React.Component {
         // 初始状态
         this.state = {};
     }
+
 
     //点击用户相关按钮
     static handleClick(e) {
@@ -85,8 +87,12 @@ export default class HomeHeader extends React.Component {
             <Header className='header'>
                 <img className='header_title' src={title} alt="校园一卡通平台"/>
                 <Dropdown overlay={menu}>
-                    <Avatar className='avatar float-right' size="large" icon="user"
-                            style={userInfo.isLogin ? {backgroundColor: '#1890FF'} : {}}/>
+                    {!userInfo.isLogin ? <Avatar className='avatar float-right' size="large" icon="user"/> :
+                        userInfo.photo ? <Avatar className='avatar float-right' src={`${domainConstants.DOMAIN}/imgs/${userInfo.photo}`}/> :
+                            <Avatar className='avatar float-right' size="large" icon="user"
+                                    style={{backgroundColor: '#1890FF'}}/>
+                    }
+
                 </Dropdown>
                 <LoginModal modalVisible={modalVisible} modalVisibleActions={modalVisibleActions}
                             userInfo={userInfo} userInfoActions={userInfoActions}

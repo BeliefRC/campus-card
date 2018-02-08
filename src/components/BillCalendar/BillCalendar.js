@@ -16,13 +16,13 @@ export default class CardListTable extends React.Component {
         };
     }
 
-    componentWillMount() {
-        let {userInfo} = this.props;
-
-    }
-
     onPanelChange(date) {
-        console.log(date.startOf(), date.endOf());
+        let {userInfo} = this.props;
+        let code = userInfo.code;
+        let startTime = date.startOf('month'),
+            endTime = date.endOf('month');
+        this.init(code, [startTime, endTime])
+
     }
 
     //初始化（获取出卡人信息）

@@ -4,6 +4,7 @@ import moment from 'moment'
 import {Table, Menu, Dropdown, Icon, Popconfirm, message, Avatar} from 'antd';
 import {post} from "../../fetch/post";
 import selectedKeyUntil from "../../until/selectedKeyUntil";
+import * as domainConstants from "../../fetch/domainConstants";
 
 export default class CardListTable extends React.Component {
     // 构造
@@ -46,7 +47,7 @@ export default class CardListTable extends React.Component {
 
     //渲染头像
     renderPhoto(text, record, index) {
-        return text ? <Avatar src={`http://localhost:3001/imgs/${text}`}/> :
+        return text ? <Avatar src={`${domainConstants.DOMAIN}/imgs/${text}`}/> :
             <Avatar icon="user" style={{backgroundColor: '#1890FF'}}/>
     }
 
