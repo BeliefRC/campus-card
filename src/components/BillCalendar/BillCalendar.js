@@ -21,7 +21,7 @@ export default class CardListTable extends React.Component {
         let code = userInfo.code;
         let startTime = date.startOf('month'),
             endTime = date.endOf('month');
-        this.init(code, [startTime, endTime])
+        code && code !== 'admin' && this.init(code, [startTime, endTime])
 
     }
 

@@ -106,7 +106,7 @@ export default class LeftAside extends React.Component {
                 <div className="logo">
                     <img src={logo} alt="logo"/>
                 </div>
-                <Menu theme="dark" defaultOpenKeys={['admin', 'userCenter']}
+                <Menu className='left-aside' theme="dark" defaultOpenKeys={['admin', 'userCenter']}
                       selectedKeys={[menuKey.selectedKey]}
                       mode="inline" onSelect={this.onSelectHandler}>
                     {nav}
