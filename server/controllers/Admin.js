@@ -48,7 +48,7 @@ exports.login = async (req, res) => {
 // 验证管理员权限，中间件
 exports.adminRequired = (req, res, next) => {
     let user = req.session.user;
-    if (user.isAdmin) {
+    if (user&&user.isAdmin) {
         next();
     } else {
         res.json(setJson(false, '权限不足', null));

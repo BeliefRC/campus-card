@@ -1,7 +1,7 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {Calendar, Badge} from 'antd'
-import moment from 'moment'
+// import moment from 'moment'
 import {post} from "../../fetch/post";
 import {message} from "antd";
 

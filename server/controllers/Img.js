@@ -13,17 +13,17 @@ const readFilePromise = (path) => {
         })
     })
 };
-//新增(保存)通知
+//显示图片
 exports.photo = async (req, res) => {
     try {
         let img = req.params[0];
-        let imgPath = path.join(__dirname, '../../', `/server/public/upload/${img}`);
+        let imgPath = path.join(__dirname, '../../', `/server/public/upload/imgs/${img}`);
         let content = await readFilePromise(imgPath, "binary");
         res.setHeader('Content-Type', 'image/png');
         res.end(new Buffer(content, 'binary'));
 
     } catch (e) {
-        let imgPath = path.join(__dirname, '../../', '/server/public/upload/404/404.png');
+        let imgPath = path.join(__dirname, '../../', '/server/public/upload/imgs/404/404.png');
         let content = await readFilePromise(imgPath, "binary");
         res.setHeader('Content-Type', 'image/png');
         res.end(new Buffer(content, 'binary'));

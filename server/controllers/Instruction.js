@@ -1,7 +1,7 @@
 const Instruction = require('../models/Instruction');
 const setJson = require('../until/SetJson');
 
-//新增(保存)通知
+//新增(保存)使用说明
 exports.save = async (req, res) => {
     try {
         let _instruction = req.body, instruction;
@@ -21,7 +21,7 @@ exports.save = async (req, res) => {
     }
 };
 
-//公告详情
+//使用说明详情
 exports.detail = async (req, res) => {
     try {
         let instruction = await Instruction.findOne();

@@ -69,7 +69,7 @@ if ('development' === env) {
     mongoose.set('debug', true)
 }
 
-//自动创建超级管理员
+//*******************自动创建超级管理员**********************
 (async function () {
     try {
         let hasAdmin = await Admin.findOne({code: 'admin'});
@@ -88,6 +88,7 @@ if ('development' === env) {
         console.log(e.stack);
     }
 })();
+//********************************************************
 Router(app);
 app.listen(port);
 

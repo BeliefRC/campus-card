@@ -61,7 +61,7 @@ export default class BillListPage extends React.Component {
         this.setState({value: date}, () => {
             let {code, value, activeKey} = this.state;
             //时间不存在则不查询
-            if (value.length === 0 || !activeKey !== '1') {
+            if (value.length === 0 || activeKey !== '1') {
                 return
             }
             console.log(value);

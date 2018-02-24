@@ -126,13 +126,13 @@ exports.upload = async (req, res, next) => {
                 let timestamp = Date.now();
                 let type = photoData.type.split('/')[1];
                 let photo = `${timestamp}.${type}`;
-                let newPath = path.join(__dirname, '../../', '/server/public/upload/' + photo);
+                let newPath = path.join(__dirname, '../../', '/server/public/upload/imgs/' + photo);
                 await  writeFilePromise(newPath, data);
                 req.body.photo = photo;
                 //删除原头像
                 let card = await Card.findOne({code: req.body.code});
                 if (card && card.photo) {
-                    let oldPath = path.join(__dirname, '../../', `/server/public/upload/${card.photo}`);
+                    let oldPath = path.join(__dirname, '../../', `/server/public/upload/imgs/${card.photo}`);
                     await unlinkPromise(oldPath)
                 }
             }
@@ -196,7 +196,7 @@ exports.cardList = async (req, res) => {
     try {
         let cards = await Card.find({})
             .sort({'meta.updateAt': -1});
-        res.json(setJson(true, '查询电列表情成功', cards))
+        res.json(setJson(true, '查询列表情成功', cards))
     } catch (e) {
         console.log(e.stack);
         res.json(setJson(false, e.message, null))
@@ -208,7 +208,7 @@ exports.deleteCard = async (req, res) => {
     let _id = req.body._id;
     try {
         let card = await Card.findOneAndRemove({_id});
-        let oldPath = path.join(__dirname, '../../', `/server/public/upload/${card.photo}`);
+        let oldPath = path.join(__dirname, '../../', `/server/public/upload/imgs/${card.photo}`);
         unlinkPromise(oldPath);
         res.json(setJson(true, `删除持卡人${card.cardholder}成功`, null))
     } catch (e) {

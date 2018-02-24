@@ -3,14 +3,15 @@ import {Router, Route, IndexRoute} from 'react-router'
 import App from '../containers/App'
 import NotFound from '../containers/NotFound'
 import CardholderListPage from '../containers/cardholderListPage'
+import NoticeListPage from '../containers/noticeListPage'
+import BillListPage from '../containers/billListPage'
 import cardholderDetailPage from '../containers/cardholderDetailPage'
 import OperatePage from '../containers/operatePage'
 import NewCardPage from '../containers/newCardPage'
 import newNoticePage from '../containers/newNoticePage'
 import EditInstruction from '../containers/editInstruction'
-import BillListPage from '../containers/billListPage'
+import ExcelManagementPage from '../containers/excelManagementPage'
 import Notice from '../containers/noticePage'
-import NoticeListPage from '../containers/noticeListPage'
 import InstructionPage from '../containers/instructionPage'
 import ProcessPage from '../containers/processPage'
 import LostAndFoundPage from '../containers/lostAndFoundPage'
@@ -26,12 +27,13 @@ export default class RouterMap extends React.Component {
                 <Route path='admin'>
                     <Route path='cardholderList' component={CardholderListPage}/>
                     <Route path='noticeList' component={NoticeListPage}/>
+                    <Route path='billList' component={BillListPage}/>
                     <Route path='cardholderDetail' component={cardholderDetailPage}/>
                     <Route path='operate' component={OperatePage}/>
                     <Route path='newCard' component={NewCardPage}/>
                     <Route path='newNotice' component={newNoticePage}/>
-                    <Route path='billList' component={BillListPage}/>
                     <Route path='editInstruction' component={EditInstruction}/>
+                    <Route path='excelManagement' component={ExcelManagementPage}/>
                 </Route>
                 <Route path='userCenter'>
                     <Route path='billList' component={BillListPage}/>
