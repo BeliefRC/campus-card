@@ -31,7 +31,7 @@ const menuData = [
                 title: '编辑使用说明',
                 key: 'admin/editInstruction',
             }, {
-                title: '表格附件管理',
+                title: '下载文件管理',
                 key: 'admin/excelManagement',
             }
         ]

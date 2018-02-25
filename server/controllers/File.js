@@ -96,12 +96,22 @@ exports.delete = async (req, res) => {
     }
 };
 
-//显示图片
-exports.photo = async (req, res) => {
+//下载文件
+exports.download = async (req, res) => {
     try {
-
+        let file = req.body.filename;
+        let filePath = path.join(__dirname, '../../', `/server/public/upload/files/${file}`);
+        let content = await readFilePromise(filePath, "binary");
+        res.setHeader(
+            "Content-type", "application/octet-stream"
+        );
+        await File.findOneAndUpdate({filename:file}, {$inc: {downloadNum: 1}});
+        let findFile=await File.findOne({filename:file});
+        console.log(findFile);
+        res.end(new Buffer(content, 'binary'));
 
     } catch (e) {
+        res.end(`系统异常：${e.message}`)
 
     }
 };

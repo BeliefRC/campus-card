@@ -50,6 +50,7 @@ module.exports = app => {
     //文件
     app.get('/file/fileList', File.fileFist);
     app.post('/file/upload', Admin.adminRequired, File.upload);
+    app.post('/file/download', File.download);
     app.post('/file/delete', Admin.adminRequired, File.delete);
 
 

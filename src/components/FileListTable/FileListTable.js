@@ -39,6 +39,9 @@ export default class FileListTable extends React.Component {
                 title: '时间戳名',
                 dataIndex: 'filename',
             }, {
+                title: '下载次数',
+                dataIndex: 'downloadNum',
+            }, {
                 title: '创建时间',
                 dataIndex: 'meta.createAt',
                 sorter: (a, b) => a['meta.createAt'] - b['meta.createAt'],

@@ -41,7 +41,7 @@ export default class ExcelPage extends React.Component {
 
         return (
             <Spin spinning={loading}>
-                <FileList data={data}/>
+                <FileList data={data} />
             </Spin>
         )
     }
