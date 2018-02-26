@@ -3,7 +3,6 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {message, Spin} from "antd";
 import FileList from '../../components/FileList/FileList'
 import {get} from "../../fetch/get";
-
 export default class ExcelPage extends React.Component {
     // 构造
     constructor(props, context) {
@@ -41,7 +40,7 @@ export default class ExcelPage extends React.Component {
 
         return (
             <Spin spinning={loading}>
-                <FileList data={data} />
+                    <FileList data={data} />
             </Spin>
         )
     }

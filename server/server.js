@@ -70,7 +70,7 @@ if ('development' === env) {
 }
 
 //*******************自动创建超级管理员**********************
-(async function () {
+(async () => {
     try {
         let hasAdmin = await Admin.findOne({code: 'admin'});
         if (hasAdmin) {
