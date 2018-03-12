@@ -96,12 +96,18 @@ export default class BillListPage extends React.Component {
         });
     }
 
+    changeCode(code) {
+        this.setState({code})
+    }
+
+
     render() {
         let {userInfo} = this.props;
-        let {loading, data, value, activeKey} = this.state;
+        let {loading, data, value, activeKey, code} = this.state;
         return (
             <Spin spinning={loading}>
-                {userInfo.isAdmin ? <SearchByCodeInput init={this.init.bind(this)}/> : ''}
+                {userInfo.isAdmin ? <SearchByCodeInput init={this.init.bind(this)} code={code}
+                                                       changeCode={this.changeCode.bind(this)}/> : ''}
                 <Tabs activeKey={activeKey} onChange={this.tabOnChange.bind(this)}>
                     <TabPane tab={<span><Icon type="table"/>表格</span>} key="1">
                         <Row>

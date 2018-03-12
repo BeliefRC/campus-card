@@ -19,7 +19,7 @@ class SearchByCodeInput extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-               this.props.init(values.searchCode)
+                this.props.init(values.searchCode)
             }
         });
     };
@@ -29,6 +29,12 @@ class SearchByCodeInput extends React.Component {
         if (e.keyCode === 13) {
             this.handleSubmit(e)
         }
+    }
+
+    keyPress() {
+        let searchCode = this.props.form.getFieldValue('searchCode');
+        this.props.changeCode && this.props.changeCode(searchCode);
+
     }
 
     render() {
@@ -50,7 +56,7 @@ class SearchByCodeInput extends React.Component {
                     {getFieldDecorator('searchCode', {
                         rules: [{
                             required: true, message: '请输入一卡通账号!',
-                        },{
+                        }, {
                             validator(rule, values, callback) {
                                 if (values && values.length > 0) {
                                     let reg = /^[0-9]*$/g;
@@ -65,7 +71,8 @@ class SearchByCodeInput extends React.Component {
                             }
                         }],
                     })(
-                        <Input prefix={<Icon type="link" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                        <Input onKeyUp={this.keyPress.bind(this)}
+                               prefix={<Icon type="link" style={{color: 'rgba(0,0,0,.25)'}}/>}
                                placeholder="输入一卡通账号后按下回车键即查询" onKeyDown={this.search.bind(this)}/>
                     )}
                 </FormItem>
