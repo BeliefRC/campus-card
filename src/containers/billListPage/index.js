@@ -7,6 +7,7 @@ import SearchByCodeInput from '../../components/SearchByCodeInput/SearchByCodeIn
 import {post} from "../../fetch/post";
 import BillListTable from '../../components/BillListTable/BillListTable'
 import BillCalendar from '../../components/BillCalendar/BillCalendar'
+import DataAnalysis from '../../components/DataAnalysis/DataAnalysis'
 
 const TabPane = Tabs.TabPane;
 const {RangePicker} = DatePicker;
@@ -130,7 +131,7 @@ export default class BillListPage extends React.Component {
                         <BillCalendar userInfo={userInfo}/>
                     </TabPane>
                     <TabPane tab={<span><Icon type="line-chart"/>数据分析</span>} key="3">
-                        数据分析，敬请期待！
+                        <DataAnalysis userInfo={userInfo}/>
                     </TabPane>
                 </Tabs>
             </Spin>

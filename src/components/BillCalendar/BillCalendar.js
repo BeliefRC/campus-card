@@ -79,8 +79,8 @@ function getListData(value) {
     }
     if (outlay || income) {
         listData = [
-            {type: 'error', content: `消费：${outlay}`},
-            {type: 'success', content: `充值：${income}`},
+            {type: 'error', content: `消费：${outlay.toFixed(2)}`},
+            {type: 'success', content: `充值：${income.toFixed(2)}`},
         ];
     }
 
@@ -122,8 +122,8 @@ function getMonthData(value) {
     }
     if (outlay || income) {
         listData = [
-            {type: 'error', content: `消费：${outlay}`},
-            {type: 'success', content: `充值：${income}`},
+            {type: 'error', content: `消费：${outlay.toFixed(2)}`},
+            {type: 'success', content: `充值：${income.toFixed(2)}`},
         ];
     }
     console.log(listData);
