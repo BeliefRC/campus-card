@@ -15,7 +15,7 @@ const Admin = require('./models/Admin');
 console.log(process.env.NODE_ENV);
 let port = process.env.PORT || 3001,
     env = process.env.NODE_ENV || 'development',
-    allowDomain = "http://localhost:3000";
+    allowDomain = `http://localhost:3000`;
 
 //数据库连接
 let dbUrl = 'mongodb://localhost/campusCard';

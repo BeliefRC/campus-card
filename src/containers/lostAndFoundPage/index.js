@@ -13,7 +13,7 @@ export default class LostAndFoundPage extends React.Component {
 
     render() {
         return (
-           <h1>丢卡查询</h1>
+           <h1>丢卡查询，敬请期待！</h1>
         )
     }
 }

@@ -3,7 +3,7 @@ import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {Switch} from 'antd'
 import './style.less'
 
-export default class ResetPassword extends React.Component {
+export default class FrozenState extends React.Component {
     // 构造
     constructor(props, context) {
         super(props, context);

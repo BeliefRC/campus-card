@@ -130,6 +130,7 @@ export default class BillListPage extends React.Component {
                         <BillCalendar userInfo={userInfo}/>
                     </TabPane>
                     <TabPane tab={<span><Icon type="line-chart"/>数据分析</span>} key="3">
+                        数据分析，敬请期待！
                     </TabPane>
                 </Tabs>
             </Spin>

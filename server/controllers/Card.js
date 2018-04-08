@@ -370,14 +370,15 @@ exports.billList = async (req, res) => {
     try {
         let card = await Card.findOne({code}, 'cardholder bills balance');
         if (card) {
+            if (date) {
+                card.bills = card.bills.filter(bill => {
+                    let startTime = moment(date[0].substr(0, 10)),
+                        endTime = moment(date[1].substr(0, 10)),
+                        currentTime = moment(moment(bill.time).format('YYYY-MM-DD'));
+                    return !startTime.isAfter(currentTime) && !endTime.isBefore(currentTime)
+                });
+            }
             //消费时间倒序排序
-            console.log(date);
-            card.bills = card.bills.filter(bill => {
-                let startTime = moment(date[0].substr(0, 10)),
-                    endTime = moment(date[1].substr(0, 10)),
-                    currentTime = moment(moment(bill.time).format('YYYY-MM-DD'));
-                return !startTime.isAfter(currentTime) && !endTime.isBefore(currentTime)
-            });
             card.bills.sort((a, b) => b.time - a.time);
             res.json(setJson(true, '', card))
         } else {

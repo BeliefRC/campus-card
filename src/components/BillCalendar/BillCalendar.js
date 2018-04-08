@@ -1,11 +1,11 @@
 import React from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import {Calendar, Badge} from 'antd'
-// import moment from 'moment'
+import Moment from 'moment'
 import {post} from "../../fetch/post";
 import {message} from "antd";
-
-export default class CardListTable extends React.Component {
+let _this = null;
+export default class BillCalendar extends React.Component {
     // 构造
     constructor(props) {
         super(props);
@@ -16,12 +16,19 @@ export default class CardListTable extends React.Component {
         };
     }
 
-    onPanelChange(date) {
+    componentWillMount() {
+        _this = this;
         let {userInfo} = this.props;
         let code = userInfo.code;
-        let startTime = date.startOf('month'),
-            endTime = date.endOf('month');
-        code && code !== 'admin' && this.init(code, [startTime, endTime])
+        code && code !== 'admin' && this.init(code)
+    }
+
+    componentDidMount() {
+
+    }
+
+    onPanelChange(date) {
+
 
     }
 
@@ -55,31 +62,29 @@ export default class CardListTable extends React.Component {
 }
 
 function getListData(value) {
-    let listData;
-    switch (value.date()) {
-        case 8:
-            listData = [
-                {type: 'error', content: `消费：20.00`},
-                {type: 'success', content: `充值：16.60`},
-            ];
-            break;
-        case 10:
-            listData = [
-                {type: 'success', content: `充值：200.0`},
-            ];
-            break;
-        case 15:
-            listData = [
-                {type: 'error', content: `消费：233.33`},
-
-            ];
-            break;
-        default:
-            listData = [
-                {type: 'error', content: `消费：10.00`},
-            ];
+    let bills = _this.state.data ? _this.state.data.bills : null;
+    let listData, income = 0.00, outlay = 0.00;
+    if (Array.isArray(bills)) {
+        bills.map(bill => {
+            bill.time = new Moment(bill.time);
+            if (bill.time.year() === value.year() && bill.time.month() === value.month() && bill.time.date() === value.date()) {
+                if (bill.type === '充值') {
+                    income += bill.amount;
+                } else {
+                    outlay += bill.amount;
+                }
+            }
+            return true
+        });
     }
-    return listData || [];
+    if (outlay || income) {
+        listData = [
+            {type: 'error', content: `消费：${outlay}`},
+            {type: 'success', content: `充值：${income}`},
+        ];
+    }
+
+    return listData
 }
 
 function dateCellRender(value) {
@@ -87,28 +92,57 @@ function dateCellRender(value) {
     return (
         <ul className="events">
             {
-                listData.map(item => (
+                listData ? listData.map(item => (
                     <li style={{listStyle: 'none'}} key={item.content}>
                         <Badge status={item.type} text={item.content}/>
                     </li>
-                ))
+                )) : null
             }
         </ul>
     );
 }
 
 function getMonthData(value) {
-    if (value.month() === 8) {
-        return 1394;
+    let bills = _this.state.data ? _this.state.data.bills : null;
+
+    let listData = [], income = 0.00, outlay = 0.00;
+    if (Array.isArray(bills)) {
+        bills.map(bill => {
+            bill.time = new Moment(bill.time);
+            console.log(bill.time.month());
+            if (bill.time.year() === value.year() && bill.time.month() === value.month()) {
+                if (bill.type === '充值') {
+                    income += bill.amount;
+                } else {
+                    outlay += bill.amount;
+                }
+            }
+            return true
+        });
     }
+    if (outlay || income) {
+        listData = [
+            {type: 'error', content: `消费：${outlay}`},
+            {type: 'success', content: `充值：${income}`},
+        ];
+    }
+    console.log(listData);
+    return listData
 }
 
 function monthCellRender(value) {
-    const num = getMonthData(value);
-    return num ? (
+    const listData = getMonthData(value);
+    return listData ? (
         <div className="notes-month">
-            <section>{num}</section>
-            <span>Backlog number</span>
+            <ul className="events">
+                {
+                    listData ? listData.map(item => (
+                        <li style={{listStyle: 'none'}} key={item.content}>
+                            <Badge status={item.type} text={item.content}/>
+                        </li>
+                    )) : null
+                }
+            </ul>
         </div>
     ) : null;
 }

@@ -40,7 +40,7 @@ export default class LeftAside extends React.Component {
 
     //点击左侧菜单
     onSelectHandler = (arg) => {
-        // { item, key, selectedKeys }
+        // { item, key, selectedKeys }z
         let {menuKey, menuKeyActions} = this.props;
         if (hashHistory.getCurrentLocation().pathname !== arg.key) {
             selectedKeyUntil.update(menuKey, menuKeyActions, arg.key);
