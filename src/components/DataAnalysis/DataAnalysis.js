@@ -57,7 +57,7 @@ export default class DataAnalysis extends React.Component {
                             outlay
                         });
                         // 基于准备好的dom，初始化echarts实例
-                        const myChart = echarts.init(this.refs.DataAnalysis);
+                        const myChart = echarts.init(this.node);
 
                         // 绘制图表
                         myChart.setOption({
@@ -100,7 +100,7 @@ export default class DataAnalysis extends React.Component {
 
     render() {
         return (
-            <div ref='DataAnalysis' style={{width: 800, height: 400}}/>
+            <div ref={node=>this.node=node} style={{width: 800, height: 400}}/>
         );
     }
 }
