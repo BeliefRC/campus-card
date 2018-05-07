@@ -117,9 +117,9 @@ export default class BillListPage extends React.Component {
                                          onChange={this.onChange.bind(this)}
                                          disabledDate={this.disabledDate.bind(this)}
                                          ranges={{
-                                             'Today': [moment(), moment()],
-                                             'This Week': [moment().startOf('week'), moment()],
-                                             'This Month': [moment().startOf('month'), moment()]
+                                             '今天': [moment(), moment()],
+                                             '本星期': [moment().startOf('week'), moment()],
+                                             '本月': [moment().startOf('month'), moment()]
                                          }}/>
                         </Row>
                         <Alert style={{margin: '10px 0 10px 0'}}

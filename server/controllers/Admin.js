@@ -24,7 +24,7 @@ exports.login = async (req, res) => {
         //首先检查用户是否存在
         if (!user) {
             console.log('用户名不存在');
-            res.json(setJson(false, '用户名不存在，请注册', null));
+            res.json(setJson(false, '管理员不存在', null));
         } else {
             let isMatch = await comparePasswordPromise(user, password);
             //密码是否正确

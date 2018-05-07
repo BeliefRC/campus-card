@@ -85,7 +85,7 @@ exports.login = async (req, res) => {
 exports.logout = (req, res) => {
     try {
         delete req.session.user;
-        res.json(setJson(true, '登陆成功', null));
+        res.json(setJson(true, '退出登陆成功', null));
     } catch (e) {
         res.json(setJson(false, e.message, null));
     }
@@ -104,6 +104,23 @@ exports.register = async (req, res) => {
         card = new Card(_card);
         await card.save();
         res.json(setJson(true, '新增卡成功', null));
+    }
+    catch (e) {
+        console.log(e.stack);
+        res.json(setJson(false, e.message, null));
+    }
+};
+
+//上传图片预处理
+exports.beforeUpload = async (req, res) => {
+    try {
+        let photoData = req.files.photo;
+        let originalFilename = photoData ? photoData.originalFilename : '';
+        if (originalFilename) {
+            res.json(setJson(true, '服务端已准备好接收图片', photoData));
+        } else {
+            res.json(setJson(false, '请选择需要上传的图片', null));
+        }
     }
     catch (e) {
         console.log(e.stack);
@@ -145,22 +162,6 @@ exports.upload = async (req, res, next) => {
     }
 };
 
-//上传图片预处理
-exports.beforeUpload = async (req, res) => {
-    try {
-        let photoData = req.files.photo;
-        let originalFilename = photoData ? photoData.originalFilename : '';
-        if (originalFilename) {
-            res.json(setJson(true, '服务端已准备好接收图片', photoData));
-        } else {
-            res.json(setJson(false, '请选择需要上传的图片', null));
-        }
-    }
-    catch (e) {
-        console.log(e.stack);
-        res.json(setJson(false, e.message, null));
-    }
-};
 
 //更新卡
 exports.update = async (req, res) => {
@@ -208,8 +209,10 @@ exports.deleteCard = async (req, res) => {
     let _id = req.body._id;
     try {
         let card = await Card.findOneAndRemove({_id});
-        let oldPath = path.join(__dirname, '../../', `/server/public/upload/imgs/${card.photo}`);
-        unlinkPromise(oldPath);
+        if (card.photo) {
+            let oldPath = path.join(__dirname, '../../', `/server/public/upload/imgs/${card.photo}`);
+            unlinkPromise(oldPath);
+        }
         res.json(setJson(true, `删除持卡人${card.cardholder}成功`, null))
     } catch (e) {
         console.log(e.stack);
@@ -263,7 +266,8 @@ exports.resetPassword = async (req, res) => {
         res.json(setJson(false, e.message, null))
     }
 };
-//重置密码操作
+
+//修改密码操作
 exports.changePassword = async (req, res) => {
     let code = req.session.user.code;
     let oldPassword = req.body.oldPassword;
@@ -307,7 +311,7 @@ exports.recharge = async (req, res) => {
         card = await Card.findOne({code});
 
         if (!card) {
-            res.json(setJson(false, `登录信息错误，请重新登录`, card))
+            res.json(setJson(false, `登录信息错误，请重新登录`, card));
         } else {
             if (card.isFrozen) {
                 res.json(setJson(false, `校园卡已挂失，请先解除挂失`, null))

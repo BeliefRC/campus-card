@@ -23,8 +23,6 @@ module.exports = app => {
     app.post('/card/shop', Admin.loginRequired, Card.shop);
 
     //公共
-
-
     app.get('/card/detail', Admin.loginRequired, Card.detail);
     app.post('/card/update', Admin.loginRequired, Card.upload, Card.update);
     app.post('/card/frozen', Admin.loginRequired, Card.frozen);
@@ -52,6 +50,5 @@ module.exports = app => {
     app.post('/file/upload', Admin.adminRequired, File.upload);
     app.post('/file/download', File.download);
     app.post('/file/delete', Admin.adminRequired, File.delete);
-
 
 };

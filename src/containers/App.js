@@ -46,7 +46,9 @@ export default class App extends Component {
         return (
             <Layout style={layoutStyle}>
                 <LeftAside userInfo={userInfo} menuKey={menuKey}
-                           menuKeyActions={menuKeyActions}/>
+                           menuKeyActions={menuKeyActions}
+                           style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }}
+                />
                 <Layout>
                     <HomeHeader userInfo={userInfo} userInfoActions={userInfoActions}
                                 modalVisible={modalVisible}

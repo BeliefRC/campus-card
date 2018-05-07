@@ -99,8 +99,7 @@ class CardDetailInfoForm extends React.Component {
 
     render() {
         const {getFieldDecorator} = this.props.form;
-        let {codeDisabled, type, showPassword} = this.props;
-
+        let {codeDisabled, type, showPassword, userInfo} = this.props;
         const uploadButton = (
             <div>
                 <Icon type={this.state.loading ? 'loading' : 'plus'}/>
@@ -234,7 +233,7 @@ class CardDetailInfoForm extends React.Component {
                     {getFieldDecorator('type', {
                         rules: [{required: true, message: '请选择卡类别!'}],
                     })(
-                        <RadioGroup>
+                        <RadioGroup disabled={!userInfo.isAdmin}>
                             {
                                 typeRadioData.map(item =>
                                     <Radio value={item.key} key={item.key}>{item.value}</Radio>)
