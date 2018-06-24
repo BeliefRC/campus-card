@@ -113,7 +113,7 @@ class ChangePasswordModal extends React.Component {
                             {getFieldDecorator('oldPassword', {
                                 rules: [{required: true, message: '请输入一卡通账号!'}],
                             })(
-                                <Input placeholder="原密码"/>
+                                <Input type='password' placeholder="原密码"/>
                             )}
                         </FormItem>
                         <FormItem>

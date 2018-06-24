@@ -9,6 +9,8 @@ import SearchByCodeInput from '../../components/SearchByCodeInput/SearchByCodeIn
 import {get} from "../../fetch/get";
 import selectedKeyUntil from "../../until/selectedKeyUntil";
 import {post} from "../../fetch/post";
+import sessionStorage from "../../until/sessionStorage";
+import * as userInfoActionsFromOtherFile from "../../actions/userInfo";
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class cardholderDetailPage extends React.Component {
@@ -64,9 +66,18 @@ export default class cardholderDetailPage extends React.Component {
             (data) => {
                 this.setState({loading: false});
                 if (data.success) {
-                    let {menuKey, menuKeyActions, userInfo} = this.props;
+                    let {menuKey, menuKeyActions, userInfo,userInfoActions} = this.props;
                     if (userInfo.isAdmin) {
                         selectedKeyUntil.update(menuKey, menuKeyActions, '/admin/cardholderList');
+                    } else {
+                    //    TODO:
+                        userInfo.code = data.backData.code;
+                        userInfo.isAdmin = data.backData.isAdmin;
+                        userInfo.user = data.backData.cardholder || 'admin';
+                        userInfo.isLogin = true;
+                        userInfo.photo = data.backData.photo;
+                        userInfoActions.update(userInfo);
+                        sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
                     }
                     message.success(data.msg)
                 } else {
@@ -102,6 +113,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        userInfoActions: bindActionCreators(userInfoActionsFromOtherFile, dispatch),
         menuKeyActions: bindActionCreators(menuKeyActionsFromOtherFile, dispatch),
     }
 }

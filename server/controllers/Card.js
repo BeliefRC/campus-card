@@ -240,10 +240,9 @@ exports.detail = async (req, res) => {
 exports.frozen = async (req, res) => {
     let code = req.body.code;
     try {
-
         let card = await Card.findOne({code});
         card.isFrozen = !card.isFrozen;
-        card = await Card.findOneAndUpdate({code}, card);
+        card = await Card.findOneAndUpdate({code}, card, {new: true});
         delete card.bills;
         let str = card.isFrozen ? '挂失' : '解挂';
         res.json(setJson(true, `${str}成功`, card))

@@ -151,14 +151,14 @@ export default class CardListTable extends React.Component {
                 title: '创建时间',
                 dataIndex: 'meta.createAt',
                 width: 150,
-                sorter: (a, b) => a['meta.createAt'] - b['meta.createAt'],
+                // sorter: (a, b) => a['meta.createAt'] - b['meta.createAt'],
                 render: (text, record, index) => moment(text).format('YYYY-MM-DD HH:mm')
 
             }, {
                 title: '更新时间',
                 dataIndex: 'meta.updateAt',
                 width: 150,
-                sorter: (a, b) => a['meta.updateAt'] - b['meta.updateAt'],
+                // sorter: (a, b) => a['meta.updateAt'] - b['meta.updateAt'],
                 render: (text, record, index) => moment(text).format('YYYY-MM-DD HH:mm')
             }, {
                 title: '操作',
