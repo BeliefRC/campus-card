@@ -53,7 +53,7 @@ npm start	//启动前端项目
 3. 数据分析与日历
 
 
-######4 .主要截图展示
+###### 4 .主要截图展示
 [![首页](http://wx3.sinaimg.cn/mw690/85eda507gy1fsn4yntz7bj21hc0u07ss.jpg "首页")](http://wx3.sinaimg.cn/mw690/85eda507gy1fsn4yntz7bj21hc0u07ss.jpg "首页")
 
 [![日历数据分析](http://wx2.sinaimg.cn/mw690/85eda507gy1fsn4yls0qjj21hc0u0gnx.jpg "日历数据分析")](http://wx2.sinaimg.cn/mw690/85eda507gy1fsn4yls0qjj21hc0u0gnx.jpg "日历数据分析")
